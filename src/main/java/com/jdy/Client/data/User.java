@@ -4,6 +4,7 @@ public class User {
     private final String uid;
     private String name;
     private String password;
+    private String sex;
 
     User(String name, String password) {
         this.uid = generateId();
