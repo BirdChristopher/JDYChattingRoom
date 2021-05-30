@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="eMessage" />
+        <module name="JDYChattingRoom" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="JDYChattingRoom" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
