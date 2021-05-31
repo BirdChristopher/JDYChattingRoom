@@ -1,35 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jdy.Client.home.HomeController">
-    <GridPane layoutX="-3.0" layoutY="-1.0" prefHeight="700.0" prefWidth="380.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="339.0" minHeight="10.0" percentHeight="0.0" prefHeight="140.0"
-                            vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="621.0" minHeight="10.0" prefHeight="559.0" vgrow="SOMETIMES"/>
-        </rowConstraints>
-        <ImageView fitHeight="140.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fitHeight="150.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true"/>
-        <JFXTabPane prefHeight="560.0" prefWidth="380.0" tabMaxHeight="200.0" tabMaxWidth="380.0"
-                    GridPane.rowIndex="1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane maxHeight="-Infinity" prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets left="30.0" />
+               </StackPane.margin>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </StackPane>
+      <JFXTabPane minWidth="410.0" prefWidth="410.0" tabMaxHeight="50.0" tabMaxWidth="200.0" tabMinHeight="50.0" tabMinWidth="200.0">
+         <tabs>
             <Tab text="消息">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="380.0"/>
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="200.0">
+                     <children>
+                        <StackPane prefHeight="292.0" prefWidth="400.0" AnchorPane.bottomAnchor="-112.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </StackPane>
+                     </children></AnchorPane>
+              </content>
             </Tab>
-            <Tab text="好友">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="380.0"/>
-            </Tab>
-        </JFXTabPane>
-    </GridPane>
-</AnchorPane>
+            <Tab text="好友" />
+         </tabs>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </JFXTabPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+   </children>
+</VBox>

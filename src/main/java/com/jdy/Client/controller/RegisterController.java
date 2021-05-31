@@ -1,4 +1,4 @@
-package com.jdy.Client.register;
+package com.jdy.Client.controller;
 
 public class RegisterController {
 

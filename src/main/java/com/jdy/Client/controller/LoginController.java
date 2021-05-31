@@ -1,4 +1,4 @@
-package com.jdy.Client.login;
+package com.jdy.Client.controller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
