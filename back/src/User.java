@@ -4,6 +4,7 @@ public class User {
     private String username;
     private String password;
     private Socket socket;
+    private int id;
     private boolean is_online;
     public String getUsername(){
         return this.username;
@@ -14,11 +15,12 @@ public class User {
     public Socket getSocket(){
         return this.socket;
     }
-    public User(String username,String password){
+    public User(String username,String password,int id){
         this.password=password;
         this.username=username;
         this.socket=null;
         this.is_online=false;
+        this.id=id;
     }
     public void setPassword(String password){
         this.password=password;
@@ -31,5 +33,8 @@ public class User {
     }
     public boolean getis_online(){
         return this.is_online;
+    }
+    public int getId(){
+        return this.id;
     }
 }

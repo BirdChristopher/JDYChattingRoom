@@ -48,10 +48,10 @@ public class Server {
                         String uid=msg.split("#")[2];
                         String message=msg.split("#")[3];
                         msg = gid+":"+"【" + ssocket.getUser().getUsername() + "】说：" + message;
-                        sendtogroup(g);
                         df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
                         date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
                         msg+=date;
+                        sendtogroup(g);
 //                        sendtoall();
                         HistoryMessage.getInstance().addMessage(msg);
                     }
@@ -70,10 +70,13 @@ public class Server {
                         if(g>GroupList.getInstance().getList().size()){
                             pw=new PrintWriter(ssocket.getSocket().getOutputStream(),true);
                             pw.println("群聊不存在");
+                            pw.println(0);
                             pw.flush();
                             return;
                         }
                         GroupList.getInstance().getList().get(g-1).add(ssocket.getUser());
+                        pw=new PrintWriter(ssocket.getSocket().getOutputStream(),true);
+                        pw.println(1);
                     }
                     else if(msg.startsWith("P#")){
                         String userfrom=msg.split("#")[1];
@@ -105,7 +108,7 @@ public class Server {
                         pw.println("请输入密码：");
                         pw.flush();
                         String password=getter.readLine();
-                        User user=new User(username,password);
+                        User user=new User(username,password,UserList.getInstance().getList().size()+1);
                         if(UserList.getInstance().addUser(user)){
                             pw.println("注册成功");
                             pw.println(1);
@@ -127,11 +130,13 @@ public class Server {
                         String username=getter.readLine();
                         pw.println("请输入密码：");
                         String password=getter.readLine();
-                        User user=new User(username,password);
+                        User user=new User(username,password,UserList.getInstance().getList().size()+1);
                         switch (UserList.getInstance().login(user)){
                             case 1:
                                 pw.println("登录成功");
                                 pw.println("欢迎："+user.getUsername());
+                                pw.println(1);
+                                pw.println(UserList.getInstance().getList().size());
                                 ssocket.setUser(user);
                                 user.setSocket(ssocket.getSocket());
                                 UserList.getInstance().refreshUser(user);
@@ -159,12 +164,15 @@ public class Server {
                                 break;
                             case 0:
                                 pw.println("密码错误");
+                                pw.println(0);
                                 break;
                             case -1:
                                 pw.println("用户不存在");
+                                pw.println(-1);
                                 break;
                             case -2:
                                 pw.println("用户已登录");
+                                pw.println(-2);
                                 break;
                             default:
                                 break;

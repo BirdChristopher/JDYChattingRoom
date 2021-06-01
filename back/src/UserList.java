@@ -71,4 +71,7 @@ public class UserList {
         }
         return null;
     }
+    public ArrayList<User> getList(){
+        return this.list;
+    }
 }
