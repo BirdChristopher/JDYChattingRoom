@@ -12,4 +12,12 @@ public class Chat {
     public void updateMessages(Message message) {
         messages.add(message);
     }
+
+    public Vector<User> getMembers() {
+        return members;
+    }
+
+    public Vector<Message> getMessages() {
+        return messages;
+    }
 }

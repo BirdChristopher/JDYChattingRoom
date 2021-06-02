@@ -3,19 +3,24 @@ package com.jdy.Client.component.base;
 import com.jdy.Client.data.message.Message;
 import com.jdy.Client.util.DataManager;
 import com.jfoenix.svg.SVGGlyph;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class MessageCell extends HBox {
     // View
-    private Label messageLabel;
+    private Label messageBackground;
+    private Label messageText;
+    private StackPane stackPane;
     private ImageView avatarView;
     private Label senderLabel;
     private VBox vBox;
+    private MessageType type;
     // 聊天气泡
     private static final SVGGlyph bubbleReceived = new SVGGlyph(0,
             "CHATBUBBLERECEIVED",
@@ -25,35 +30,64 @@ public class MessageCell extends HBox {
             "CHATBUBBLESENT",
             "M2048 0c106.040889 0 195.128889 72.533333 220.387556 170.666667H2417.777778l-142.222222 284.444444v341.333333a227.555556 227.555556 0 0 1-227.555556 227.555556H227.555556a227.555556 227.555556 0 0 1-227.555556-227.555556V227.555556a227.555556 227.555556 0 0 1 227.555556-227.555556h1820.444444z",
             Color.web("#3399CC"));
-    // Data
-    private Message message;
-    private MessageType type;
 
-    public MessageCell(Message message, MessageType type) {
-        this.message = message;
+    public enum MessageType{
+        SENT, RECEIVED
+    }
+
+    public MessageCell(MessageType type) {
         this.type = type;
+        messageBackground = new Label();
+        messageText = new Label();
+        stackPane = new StackPane();
+        avatarView = new ImageView();
+        senderLabel = new Label();
+        vBox = new VBox();
         initialize();
     }
 
     private void initialize() {
-        Image image = new Image(DataManager.getAvatarById(message.getUid()));
+        Image image = new Image("/image/Image 2.png");
         avatarView.setImage(image);
-        messageLabel.setGraphic(bubbleSent);
-        messageLabel.setText(message.getContent());
         if (type == MessageType.SENT) {
-            vBox.getChildren().add(0, messageLabel);
+            messageBackground.setGraphic(bubbleSent);
+            messageText.setText("这里是内容");
+            stackPane.getChildren().add(0, messageBackground);
+            stackPane.getChildren().add(1, messageText);
+            vBox.getChildren().add(0, stackPane);
+            super.getChildren().add(0, vBox);
+            super.getChildren().add(1, avatarView);
+            super.setAlignment(Pos.CENTER_RIGHT);
         }
         if (type == MessageType.RECEIVED) {
-            senderLabel.setText(message.getUid());
+            messageBackground.setGraphic(bubbleReceived);
+            messageText.setText("这里是内容");
+            senderLabel.setText("【发送人】");
+            stackPane.getChildren().add(0, messageBackground);
+            stackPane.getChildren().add(1, messageText);
             vBox.getChildren().add(0, senderLabel);
-            vBox.getChildren().add(1, messageLabel);
+            vBox.getChildren().add(1, stackPane);
+            super.getChildren().add(0, avatarView);
+            super.getChildren().add(1, vBox);
+            super.setAlignment(Pos.CENTER_LEFT);
         }
-        super.getChildren().add(0, vBox);
-        super.getChildren().add(1, avatarView);
     }
 
-}
+    public void setAvatar(Image image) {
+        avatarView.setImage(image);
+    }
 
-enum MessageType{
-    SENT, RECEIVED
+    public void setAvatar(Image image, double width, double height) {
+        avatarView.setImage(image);
+        avatarView.setFitWidth(width);
+        avatarView.setFitHeight(height);
+    }
+
+    public void setMessage(String text) {
+        messageText.setText(text);
+    }
+
+    public void setSender(String name) {
+        senderLabel.setText(name);
+    }
 }

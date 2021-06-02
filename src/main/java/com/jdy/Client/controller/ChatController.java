@@ -1,6 +1,6 @@
 package com.jdy.Client.controller;
 
-import com.jdy.Client.component.chat.ChatFrame;
+import com.jdy.Client.component.frame.ChatFrame;
 import com.jdy.Client.component.base.MessageCell;
 import com.jdy.Client.data.chat.Chat;
 import com.jdy.Client.data.message.Message;
