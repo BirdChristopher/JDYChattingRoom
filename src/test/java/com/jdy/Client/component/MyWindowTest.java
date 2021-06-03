@@ -1,5 +1,6 @@
 package com.jdy.Client.component;
 
+import com.jdy.Client.component.window.MyWindow;
 import javafx.application.Application;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;

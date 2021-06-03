@@ -47,7 +47,7 @@ public class MessageCell extends HBox {
     }
 
     private void initialize() {
-        Image image = new Image("/image/Image 2.png");
+        Image image = new Image("/image/avatar_default.png");
         avatarView.setImage(image);
         if (type == MessageType.SENT) {
             messageBackground.setGraphic(bubbleSent);
