@@ -1,63 +1,75 @@
 package com.jdy.Client.controller;
 
+import com.jdy.Client.component.window.LoginWindow;
+import com.jdy.Client.component.window.RegisterWindow;
+import com.jdy.Client.data.ControllerFactory;
+import com.jdy.Client.util.DataManager;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class LoginController{
-    private VBox root;
-    private Pane imagePane;
-    private ImageView backgroundImage;
-    private ImageView avatar;
-    private GridPane infoPane;
-    private Label accountLabel;
-    private Label passwordLabel;
-    private TextField accountText;
-    private PasswordField passwordText;
-    private GridPane buttonPane;
-    private JFXButton registerButton;
+    private SimpleIntegerProperty loginStatus;
+    private LoginWindow loginWindow;
     private JFXButton loginButton;
+    private Text registerText;
 
-    public void initialize() {
-        // TODO: 读取上次登录缓存的信息，并显示到界面上，不做可删除
+    public LoginController() {
+        this.loginWindow = new LoginWindow();
+        this.loginButton = loginWindow.getLoginButton();
+        this.loginStatus = loginWindow.getStatus();
+
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String account = loginWindow.getAccountField().getText();
+                String password = loginWindow.getPasswordField().getText();
+                DataManager.getInstance().sent("login#" + account + "#" + password);
+                // TODO: 挂起界面
+                int status;
+                while ((status = DataManager.getInstance().getLoginStatus()) == -3) { }
+                switch (status) {
+                    case 1:
+                        loginSuccess();
+                        break;
+                    case 0:
+                        loginFail("密码错误");
+                        break;
+                    case -1:
+                        loginFail("用户不存在");
+                        break;
+                    case -2:
+                        loginFail("用户已登录");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
-    private String getId() {
-        return accountText.getText();
-    }
-
-    private String getPassword() {
-        return passwordText.getText();
-    }
-
-    private boolean checkFormatOfId() {
-        return getId().matches("1[0-9]{5}");
-    }
-
-    private boolean checkId() {
-        // TODO: 从数据库获取id是否存在
-        return true;
-    }
-
-    private boolean checkPassword() {
-        // TODO: 从数据库获取密码是否正确
-        return true;
-    }
-
-    public void onClickLoginButton(ActionEvent event) {
-        // TODO: 点击登录，暂时用Dialog，后面再画
+    private void loginFail(String error) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("登录成功");
-        alert.show();
+        alert.setContentText(error);
+        alert.showAndWait();
     }
-    public void onClickRegisterButton(ActionEvent event) {
-        // TODO: 点击注册
+
+    private void loginSuccess() {
+        loginWindow.close();
+        RegisterController controller = ControllerFactory.getRegisterController();
+        controller.showWindow();
+    }
+
+    public void showWindow() { loginWindow.show(); }
+
+    public void closeWindow() { loginWindow.close(); }
+
+    public void setLoginStatus(int value) {
+        loginStatus.set(value);
     }
 }

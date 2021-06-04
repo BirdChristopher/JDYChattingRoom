@@ -109,7 +109,7 @@ public class MyWindow extends Stage {
         btnClose.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                MyWindow.super.close();
+                close();
             }
         });
 
@@ -176,7 +176,7 @@ public class MyWindow extends Stage {
             event.consume();
             if (yOffset != 0) {
                 super.setX(event.getScreenX() - xOffset);
-                if (event.getScreenX() - yOffset < 0) {
+                if (event.getScreenY() - yOffset < 0) {
                     super.setY(0);
                 } else {
                     super.setY(event.getScreenY() - yOffset);
@@ -225,5 +225,11 @@ public class MyWindow extends Stage {
 
     public BorderPane getContainer() {
         return container;
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        System.exit(0);
     }
 }

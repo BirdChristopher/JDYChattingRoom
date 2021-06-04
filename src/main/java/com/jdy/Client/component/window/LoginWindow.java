@@ -4,21 +4,26 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.svg.SVGGlyph;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sun.security.jca.GetInstance;
 
 public class LoginWindow extends Stage {
     private Scene scene;
@@ -44,33 +49,37 @@ public class LoginWindow extends Stage {
     // 顶层头像
     private AnchorPane avatarPane;
     private ImageView avatarView;
-
     // 默认图标和头像
     private SVGGlyph icon;
     private Image avatar;
     private Image background;
     private SVGGlyph minus;
     private SVGGlyph close;
+    // 窗口偏移量
+    private double xOffset;
+    private double yOffset;
+    // 登录状态
+    private SimpleIntegerProperty status;
 
     public LoginWindow() {
         this.root = new StackPane();
         this.back = new VBox();
-
+        // 背景
         this.backgroundPane = new StackPane();
         this.backgroundView = new ImageView();
-
+        // 标题栏
         this.topBar = new GridPane();
         this.title = new Label();
         this.minButton = new JFXButton();
         this.closeButton = new JFXButton();
-
+        // 下半界面
         this.bottom = new AnchorPane();
         this.accountIcon = new ImageView();
         this.accountField = new JFXTextField();
         this.passwordIcon = new ImageView();
         this.loginButton = new JFXButton();
         this.register = new Text();
-
+        // 头像
         this.avatarPane = new AnchorPane();
         this.avatarView = new ImageView();
         this.accountField = new JFXTextField();
@@ -88,6 +97,10 @@ public class LoginWindow extends Stage {
         this.avatar = new Image("/image/avatar_default01.png");
         this.scene = new Scene(root, 480, 400);
         this.background = new Image("/GIF/login_background.gif");
+        this.status = new SimpleIntegerProperty(-3);
+
+        xOffset = 0.0;
+        yOffset = 0.0;
         initialize();
     }
 
@@ -165,7 +178,7 @@ public class LoginWindow extends Stage {
         back.getChildren().add(backgroundPane);
         back.getChildren().add(bottom);
         back.setAlignment(Pos.TOP_CENTER);
-
+        // 头像
         avatarView.setLayoutX(176);
         avatarView.setLayoutY(86);
         avatarView.setFitWidth(128);
@@ -180,5 +193,58 @@ public class LoginWindow extends Stage {
         root.setAlignment(Pos.BASELINE_CENTER);
         //scene.getStylesheets().add("/CSS/Register.css");
         this.setScene(scene);
+
+        // 设置事件
+        // 最小化
+        minButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LoginWindow.super.setIconified(true);
+            }
+        });
+        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LoginWindow.super.close();
+            }
+        });
+        // 窗口拖拽
+        root.setOnMousePressed((MouseEvent event) -> {
+            event.consume();
+            xOffset = event.getSceneX();
+            if (event.getSceneY() > 50) {
+                yOffset = 0;
+            } else {
+                yOffset = event.getSceneY();
+            }
+        });
+        root.setOnMouseDragged((MouseEvent event) -> {
+            event.consume();
+            if (yOffset != 0) {
+                super.setX(event.getScreenX() - xOffset);
+                if (event.getScreenY() - yOffset < 0) {
+                    super.setY(0);
+                } else {
+                    super.setY(event.getScreenY() - yOffset);
+                }
+            }
+        });
     }
+    public JFXButton getLoginButton() {
+        return loginButton;
+    }
+
+    public Text getRegister() {
+        return register;
+    }
+
+    public JFXTextField getAccountField() {
+        return accountField;
+    }
+
+    public JFXPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public SimpleIntegerProperty getStatus() { return status; }
 }
