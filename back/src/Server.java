@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 public class Server {
     int port;
-    ArrayList<Socket> clients=new ArrayList<>();
+    //ArrayList<Socket> clients=new ArrayList<>();
+    ArrayList<MySocket> clients=new ArrayList<>();
     ServerSocket server;
     public static void main(String[] args) {
         new Server();
@@ -15,7 +16,8 @@ public class Server {
             server = new ServerSocket(port);
             while (true) {
                 Socket socket = server.accept();
-                clients.add(socket);
+                clients.add(new MySocket(socket));
+                //clients.add(socket);
                 Mythread mythread = new Mythread(socket);
                 mythread.start();
             }
@@ -220,17 +222,17 @@ public class Server {
                 for (int i = 0; i < clients.size(); i++) {
 
                     System.out.println(clients.size());
-                    System.out.println(clients.get(i).getPort());
+                    System.out.println(clients.get(i).getSocket().getPort());
 
-                    if(ssocket.getSocket().getPort()==clients.get(i).getPort()){
+                    if(ssocket.getSocket().getPort()==clients.get(i).getSocket().getPort()){
                         System.out.println("repeat");
                         continue;
                     }
-                    if(UserList.getInstance().searchUser(clients.get(i).getPort())==null){
+                    if(UserList.getInstance().searchUser(clients.get(i).getSocket().getPort())==null){
                         System.out.println("unload");
                         continue;
                     }
-                    pw = new PrintWriter(clients.get(i).getOutputStream(), true);
+                    pw = new PrintWriter(clients.get(i).getSocket().getOutputStream(), true);
                     pw.println(msg);
                     pw.flush();
                 }
@@ -262,8 +264,8 @@ public class Server {
                     return;
                 }
                 for(int i=0;i<clients.size();i++){
-                    if(port==clients.get(i).getPort()){
-                        pw = new PrintWriter(clients.get(i).getOutputStream(), true);
+                    if(port==clients.get(i).getSocket().getPort()){
+                        pw = new PrintWriter(clients.get(i).getSocket().getOutputStream(), true);
                         pw.println(msg);
                         pw.flush();
                         return;
@@ -283,7 +285,7 @@ public class Server {
                 int tNum=ssocket.getSocket().getPort();
                 ssocket.getSocket().close();
                 for (int i=0;i<clients.size();i++){
-                    if(clients.get(i).getPort()==tNum){
+                    if(clients.get(i).getSocket().getPort()==tNum){
                         clients.remove(i);
                         return;
                     }
