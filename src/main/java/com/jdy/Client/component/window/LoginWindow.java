@@ -4,16 +4,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.svg.SVGGlyph;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,8 +54,6 @@ public class LoginWindow extends Stage {
     // 窗口偏移量
     private double xOffset;
     private double yOffset;
-    // 登录状态
-    private SimpleIntegerProperty status;
 
     public LoginWindow() {
         this.root = new StackPane();
@@ -97,7 +91,6 @@ public class LoginWindow extends Stage {
         this.avatar = new Image("/image/avatar_default01.png");
         this.scene = new Scene(root, 480, 400);
         this.background = new Image("/GIF/login_background.gif");
-        this.status = new SimpleIntegerProperty(-3);
 
         xOffset = 0.0;
         yOffset = 0.0;
@@ -112,7 +105,7 @@ public class LoginWindow extends Stage {
         icon.setSize(32, 32);
         title.setGraphic(icon);
         title.setText("eMessage");
-        title.setFont(Font.font("Microsoft YaHei", 20));
+        title.setFont(Font.font("MicrosoftYaHei", 20));
         title.setTextFill(Color.WHITE);
         title.setPadding(new Insets(10));
         minus.setSize(15, 2);
@@ -246,5 +239,4 @@ public class LoginWindow extends Stage {
         return passwordField;
     }
 
-    public SimpleIntegerProperty getStatus() { return status; }
 }

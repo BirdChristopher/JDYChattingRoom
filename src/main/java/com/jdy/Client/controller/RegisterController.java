@@ -4,10 +4,10 @@ import com.jdy.Client.component.window.MyWindow;
 import com.jdy.Client.component.window.RegisterWindow;
 
 public class RegisterController {
-    private MyWindow window;
+    private RegisterWindow window;
 
     public RegisterController() {
-        window = new MyWindow();
+        window = new RegisterWindow();
     }
 
     public void showWindow() {

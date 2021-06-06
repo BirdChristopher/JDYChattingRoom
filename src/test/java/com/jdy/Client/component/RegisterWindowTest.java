@@ -1,21 +1,18 @@
-package com.jdy.Client;
+package com.jdy.Client.component;
 
-import com.jdy.Client.controller.LoginController;
 import com.jdy.Client.controller.RegisterController;
 import com.jdy.Client.data.ControllerFactory;
-import com.jdy.Client.util.DataManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class App extends Application {
+public class RegisterWindowTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoginController controller = ControllerFactory.getLoginController();
+        RegisterController controller = ControllerFactory.getRegisterController();
         controller.showWindow();
-        //DataManager.getInstance().connect();
     }
 
     public static void main(String[] args) {
-        Application.launch(args);
+        launch(args);
     }
 }

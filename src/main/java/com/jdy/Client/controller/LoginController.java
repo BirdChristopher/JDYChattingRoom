@@ -1,20 +1,16 @@
 package com.jdy.Client.controller;
 
 import com.jdy.Client.component.window.LoginWindow;
-import com.jdy.Client.component.window.RegisterWindow;
 import com.jdy.Client.data.ControllerFactory;
 import com.jdy.Client.util.DataManager;
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class LoginController{
-    private SimpleIntegerProperty loginStatus;
     private LoginWindow loginWindow;
     private JFXButton loginButton;
     private Text registerText;
@@ -22,15 +18,15 @@ public class LoginController{
     public LoginController() {
         this.loginWindow = new LoginWindow();
         this.loginButton = loginWindow.getLoginButton();
-        this.loginStatus = loginWindow.getStatus();
+        this.registerText = loginWindow.getRegister();
 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String account = loginWindow.getAccountField().getText();
                 String password = loginWindow.getPasswordField().getText();
-                DataManager.getInstance().sent("login#" + account + "#" + password);
-                // TODO: 挂起界面
+               /* DataManager.getInstance().sent("login#" + account + "#" + password);
+                // TODO: 加载界面
                 int status;
                 while ((status = DataManager.getInstance().getLoginStatus()) == -3) { }
                 switch (status) {
@@ -48,8 +44,12 @@ public class LoginController{
                         break;
                     default:
                         break;
-                }
+                }*/
             }
+        });
+
+        registerText.setOnMouseClicked((MouseEvent event) -> {
+            ControllerFactory.getRegisterController().showWindow();
         });
     }
 
@@ -68,8 +68,4 @@ public class LoginController{
     public void showWindow() { loginWindow.show(); }
 
     public void closeWindow() { loginWindow.close(); }
-
-    public void setLoginStatus(int value) {
-        loginStatus.set(value);
-    }
 }
