@@ -54,6 +54,7 @@ public class DataManager {
                 case "G":
                     break;
                 case "P":
+                    receiveMessage(data);
                     break;
                 case "start":
                     break;
@@ -61,6 +62,10 @@ public class DataManager {
                     break;
             }
         }
+    }
+
+    private void receiveMessage(String[] data) {
+        ControllerFactory.getHomeController().receiveMessage(data[1]);
     }
 
     public void setLoginStatus(int value) {

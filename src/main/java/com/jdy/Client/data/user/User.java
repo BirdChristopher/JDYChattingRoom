@@ -9,7 +9,9 @@ public class User {
     private int age;
     private Image avatar;
 
-    public User() {}
+    public User() {
+        this("000000", "Doctor", "男", 18, new Image("/image/avatar01.jpg"));
+    }
 
     public User(String uid, String name, String sex, int age, Image avatar) {
         this.uid = uid;

@@ -39,15 +39,25 @@ class ChatThread implements Runnable {
         System.out.println("成功连接：" + socket.getInetAddress().getHostAddress());
         String content = null;
         String send = null;
-        try {
+        int i = 0;
+        /*try {
             while (true){
                 if (((content = in.readLine()) != null)) {
                     System.out.println(content);
-                    out.println("login#1");
                 }
             }
         } catch (IOException e) {
             System.out.println("客户端断开连接");
+        }*/
+        while (true){
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("发送");
+            out.println("P#"+ i);
+            i++;
         }
     }
 }

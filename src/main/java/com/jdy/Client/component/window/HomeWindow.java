@@ -218,4 +218,8 @@ public class HomeWindow extends Stage {
             }
         });
     }
+
+    public JFXListView<ListViewCell> getFriends() {
+        return friends;
+    }
 }

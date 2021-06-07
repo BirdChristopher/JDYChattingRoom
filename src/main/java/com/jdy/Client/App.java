@@ -1,17 +1,24 @@
 package com.jdy.Client;
 
+import com.jdy.Client.controller.ChatController;
+import com.jdy.Client.controller.HomeController;
 import com.jdy.Client.controller.LoginController;
 import com.jdy.Client.util.ControllerFactory;
+import com.jdy.Client.util.DataManager;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Scanner;
 
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //ControllerFactory.getHomeController().showWindow();
-        ControllerFactory.getRegisterController().showWindow();
+        ChatController controller = ControllerFactory.createChatController("P01", ChatController.ChatType.SINGLE);
+        //HomeController controller = ControllerFactory.getHomeController();
+        controller.showWindow();
         //DataManager.getInstance().connect();
     }
 

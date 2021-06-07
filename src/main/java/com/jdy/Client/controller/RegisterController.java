@@ -1,6 +1,5 @@
 package com.jdy.Client.controller;
 
-import com.jdy.Client.component.window.MyWindow;
 import com.jdy.Client.component.window.RegisterWindow;
 
 public class RegisterController {

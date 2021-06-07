@@ -2,6 +2,7 @@ package com.jdy.Client.controller;
 
 import com.jdy.Client.component.frame.ChatFrame;
 import com.jdy.Client.component.base.MessageCell;
+import com.jdy.Client.component.window.ChatWindow;
 import com.jdy.Client.data.chat.Chat;
 import com.jdy.Client.data.message.Message;
 import com.jdy.Client.data.user.User;
@@ -20,27 +21,21 @@ import java.util.ResourceBundle;
  * 显示窗口，更新信息
  * @author dh
  */
-public class ChatController implements Initializable {
-    // 界面控件
-    private ChatFrame chatFrame;
-    private JFXListView<MessageCell> messageList;
-
-    // 界面数据
+public class ChatController{
+    public enum ChatType {
+        SINGLE, GROUP
+    }
+    private ChatWindow window;
+    private String id;
     private ChatType chatType;
-    private Chat chat;
     private ArrayList<Message> messages = new ArrayList<>();
     private ArrayList<User> members = new ArrayList<>();
 
 
-    public ChatController (Chat chat, ChatType chatType) {
-        this.chat = chat;
+    public ChatController (String id, ChatType chatType) {
+        this.id = id;
         this.chatType = chatType;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initData();
-        initView();
+        this.window = new ChatWindow();
     }
 
     private void initData() {
@@ -48,30 +43,18 @@ public class ChatController implements Initializable {
     }
 
     private void initView() {
-        if (chatType == ChatType.SINGLE) {
-            StackPane container = new StackPane(chatFrame);
 
-        } else {
-            //JFXListView<MemberCell> memberListView = new JFXListView<>();
-            /*for (User u : members) {
-                memberListView.getItems().add(new MemberCell(u));
-            }*/
-            JFXListView<Label> list = new JFXListView<>();
-            for (int i = 0; i < 4; i++) {
-                list.getItems().add(new Label("item" + i));
-            }
-            SplitPane container = new SplitPane();
-            container.getItems().add(0, chatFrame);
-            container.getItems().add(1, list);
-
-        }
     }
 
     private void sendMessage(String text) {
 
     }
-}
 
-enum ChatType {
-    SINGLE, GROUP
+    public void showWindow() {
+        window.show();
+    }
+
+    public void closeWindow() {
+        window.close();
+    }
 }
