@@ -1,8 +1,6 @@
 package com.jdy.Client.util;
 
 import com.jdy.Client.ReceiveThread;
-import com.jdy.Client.controller.LoginController;
-import com.jdy.Client.data.ControllerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package com.jdy.Client.component;
 
 import com.jdy.Client.controller.RegisterController;
-import com.jdy.Client.data.ControllerFactory;
+import com.jdy.Client.util.ControllerFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

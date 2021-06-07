@@ -8,19 +8,16 @@ import com.jfoenix.svg.SVGGlyph;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -91,7 +88,7 @@ public class RegisterWindow extends Stage {
         this.icon = new SVGGlyph("M512 960H64V512c0-247.04 200.96-448 448-448 246.976 0 448 200.96 448 448 " +
                 "0 246.976-201.024 448-448 448z m-384-64h384c211.776 0 384-172.224 384-384s-172.224-384-384-384-384 172.224-384 384v384z " +
                 "M448 640c-35.264 0-64-28.672-64-64V448c0-35.264 28.736-64 64-64s64 28.736 64 64v128c0 35.328-28.736 64-64 64z " +
-                "m0-64v32V576zM640 640a64 64 0 0 1-64-64V448a64.064 64.064 0 0 1 128 0v128a64 64 0 0 1-64 64z m0-64v32V576z");
+                "m0-64v32V576zM640 640a64 64 0 0 1-64-64V448a64.064 64.064 0 0 1 128 0v128a64 64 0 0 1-64 64z m0-64v32V576z", Color.WHITE);
         this.minus = new SVGGlyph("M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 " +
                 "0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z", Color.WHITE);
         this.close = new SVGGlyph("M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 " +
@@ -114,7 +111,6 @@ public class RegisterWindow extends Stage {
         // 背景图
         backgroundView.setImage(background);
         // 标题栏
-        icon.setFill(Color.WHITE);
         icon.setSize(32, 32);
         title.setGraphic(icon);
         title.setText("eMessage");

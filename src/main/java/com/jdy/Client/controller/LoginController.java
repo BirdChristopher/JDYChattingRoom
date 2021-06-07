@@ -1,8 +1,7 @@
 package com.jdy.Client.controller;
 
 import com.jdy.Client.component.window.LoginWindow;
-import com.jdy.Client.data.ControllerFactory;
-import com.jdy.Client.util.DataManager;
+import com.jdy.Client.util.ControllerFactory;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
