@@ -2,6 +2,7 @@ package com.jdy.Client.controller;
 
 import com.jdy.Client.component.window.LoginWindow;
 import com.jdy.Client.util.ControllerFactory;
+import com.jdy.Client.util.DataManager;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +25,7 @@ public class LoginController{
             public void handle(ActionEvent event) {
                 String account = loginWindow.getAccountField().getText();
                 String password = loginWindow.getPasswordField().getText();
-               /* DataManager.getInstance().sent("login#" + account + "#" + password);
+                DataManager.getInstance().sent("login#" + account + "#" + password);
                 // TODO: 加载界面
                 int status;
                 while ((status = DataManager.getInstance().getLoginStatus()) == -3) { }
@@ -43,7 +44,7 @@ public class LoginController{
                         break;
                     default:
                         break;
-                }*/
+                }
             }
         });
 

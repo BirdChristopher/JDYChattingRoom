@@ -4,6 +4,7 @@ import com.jdy.Client.util.DataManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Date;
 
 public class ReceiveThread implements Runnable{
     BufferedReader bufferedReader;
@@ -17,7 +18,7 @@ public class ReceiveThread implements Runnable{
             String receive = null;
             try {
                 while ((receive = bufferedReader.readLine()) != null){
-                    System.out.println(getClass().getSimpleName() + ": " + receive);
+                    System.out.println("[Receive] " + new Date() + ": " + receive);
                     DataManager.getInstance().manage(receive);
                 }
             } catch (IOException e) {

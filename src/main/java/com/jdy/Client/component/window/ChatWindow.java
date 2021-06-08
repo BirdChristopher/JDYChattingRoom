@@ -2,6 +2,7 @@ package com.jdy.Client.component.window;
 
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.base.MessageCell;
+import com.jdy.Client.component.base.SVGContent;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXScrollPane;
@@ -92,14 +93,9 @@ public class ChatWindow extends Stage {
         this.memberListView = new JFXListView<>();
 
         this.name = "标题";
-        this.minus = new SVGGlyph("M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 " +
-                "0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z", Color.WHITE);
-        this.close = new SVGGlyph("M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 " +
-                "5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 " +
-                "824.9c-4.4 5.2-0.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 " +
-                "12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z", Color.WHITE);
-        this.max = new SVGGlyph("M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 " +
-                "0 32-14.3 32-32V144c0-17.7-14.3-32-32-32z m-40 728H184V184h656v656z", Color.WHITE);
+        this.minus = new SVGGlyph(SVGContent.MINUS, Color.WHITE);
+        this.close = new SVGGlyph(SVGContent.CLOSE, Color.WHITE);
+        this.max = new SVGGlyph(SVGContent.MAX, Color.WHITE);
         this.scene = new Scene(root, 850, 600);
 
         xOffset = 0.0;
@@ -137,7 +133,7 @@ public class ChatWindow extends Stage {
         topBar.add(maxButton, 2, 0);
         topBar.add(closeButton, 3, 0);
         topPane.getChildren().add(topBar);
-        topPane.setStyle("-fx-background-image: url('/image/chat_title.png');");
+        topPane.setStyle("-fx-background-image: url('/image/background/chat_title.png');");
         GridPane.setHgrow(title, Priority.ALWAYS);
         GridPane.setHalignment(title, HPos.CENTER);
         GridPane.setValignment(minButton, VPos.TOP);

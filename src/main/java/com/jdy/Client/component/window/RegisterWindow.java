@@ -1,5 +1,6 @@
 package com.jdy.Client.component.window;
 
+import com.jdy.Client.component.base.SVGContent;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
@@ -85,18 +86,11 @@ public class RegisterWindow extends Stage {
         this.avatarPane = new AnchorPane();
         this.avatarView = new ImageView();
         // 一些资源
-        this.icon = new SVGGlyph("M512 960H64V512c0-247.04 200.96-448 448-448 246.976 0 448 200.96 448 448 " +
-                "0 246.976-201.024 448-448 448z m-384-64h384c211.776 0 384-172.224 384-384s-172.224-384-384-384-384 172.224-384 384v384z " +
-                "M448 640c-35.264 0-64-28.672-64-64V448c0-35.264 28.736-64 64-64s64 28.736 64 64v128c0 35.328-28.736 64-64 64z " +
-                "m0-64v32V576zM640 640a64 64 0 0 1-64-64V448a64.064 64.064 0 0 1 128 0v128a64 64 0 0 1-64 64z m0-64v32V576z", Color.WHITE);
-        this.minus = new SVGGlyph("M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 " +
-                "0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z", Color.WHITE);
-        this.close = new SVGGlyph("M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 " +
-                "5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 " +
-                "824.9c-4.4 5.2-0.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 " +
-                "12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z", Color.WHITE);
+        this.icon = new SVGGlyph(SVGContent.ICON, Color.WHITE);
+        this.minus = new SVGGlyph(SVGContent.MINUS, Color.WHITE);
+        this.close = new SVGGlyph(SVGContent.CLOSE, Color.WHITE);
         this.avatar = new Image("/image/avatar_default01.png");
-        this.background = new Image("/image/register_2.png");
+        this.background = new Image("/image/background/register_2.png");
         this.scene = new Scene(root, 400, 600);
 
         xOffset = 0.0;

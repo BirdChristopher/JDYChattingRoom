@@ -15,11 +15,8 @@ import java.util.Scanner;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ControllerFactory.getHomeController().showWindow();
-        //ChatController controller = ControllerFactory.createChatController("P01", ChatController.ChatType.SINGLE);
-        //HomeController controller = ControllerFactory.getHomeController();
-        //controller.showWindow();
-        //DataManager.getInstance().connect();
+        ControllerFactory.getLoginController().showWindow();
+        DataManager.getInstance().connect();
     }
 
     public static String load(String path) {

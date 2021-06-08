@@ -65,7 +65,7 @@ public class DataManager {
     }
 
     private void receiveMessage(String[] data) {
-        ControllerFactory.getHomeController().receiveMessage(data[1]);
+
     }
 
     public void setLoginStatus(int value) {

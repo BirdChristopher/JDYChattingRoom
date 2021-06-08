@@ -2,6 +2,7 @@ package com.jdy.Client.component.window;
 
 import com.jdy.Client.App;
 import com.jdy.Client.component.base.ListViewCell;
+import com.jdy.Client.component.base.SVGContent;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.svg.SVGGlyph;
@@ -61,12 +62,8 @@ public class LookUpWindow extends Stage {
         // 查询结果框
         this.resultListView = new JFXListView<>();
         this.scene = new Scene(root, 400, 600);
-        this.minus = new SVGGlyph("M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 " +
-                "0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z", Color.WHITE);
-        this.close = new SVGGlyph("M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 " +
-                "5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 " +
-                "824.9c-4.4 5.2-0.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 " +
-                "12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z", Color.WHITE);
+        this.minus = new SVGGlyph(SVGContent.MINUS, Color.WHITE);
+        this.close = new SVGGlyph(SVGContent.CLOSE, Color.WHITE);
 
         xOffset = 0.0;
         yOffset = 0.0;

@@ -2,6 +2,8 @@ package com.jdy.Client.component;
 
 import com.jdy.Client.component.window.LoginWindow;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class LoginWindowTest extends Application {
