@@ -213,7 +213,6 @@ public class RegisterWindow extends Stage {
         root.getChildren().add(avatarPane);
         this.setScene(scene);
 
-        // 设置事件
         // 最小化
         minButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

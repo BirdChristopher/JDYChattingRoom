@@ -1,20 +1,10 @@
 package com.jdy.Client.controller;
 
-import com.jdy.Client.component.frame.ChatFrame;
-import com.jdy.Client.component.base.MessageCell;
 import com.jdy.Client.component.window.ChatWindow;
-import com.jdy.Client.data.chat.Chat;
 import com.jdy.Client.data.message.Message;
 import com.jdy.Client.data.user.User;
-import com.jfoenix.controls.JFXListView;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.StackPane;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * 聊天窗口的控制类<br>

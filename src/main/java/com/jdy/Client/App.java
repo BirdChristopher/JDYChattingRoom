@@ -15,10 +15,10 @@ import java.util.Scanner;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //ControllerFactory.getHomeController().showWindow();
-        ChatController controller = ControllerFactory.createChatController("P01", ChatController.ChatType.SINGLE);
+        ControllerFactory.getHomeController().showWindow();
+        //ChatController controller = ControllerFactory.createChatController("P01", ChatController.ChatType.SINGLE);
         //HomeController controller = ControllerFactory.getHomeController();
-        controller.showWindow();
+        //controller.showWindow();
         //DataManager.getInstance().connect();
     }
 
