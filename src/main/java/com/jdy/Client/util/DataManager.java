@@ -1,6 +1,9 @@
 package com.jdy.Client.util;
 
 import com.jdy.Client.ReceiveThread;
+import com.jdy.Client.controller.ControllerFactory;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +14,7 @@ import java.net.Socket;
 public class DataManager {
     private static DataManager instance;
     private DataManager() {
-        loginStatus = -3;
+        loginStatus = LoginStatus.WAITING;
     }
     public static DataManager getInstance() {
         if (instance == null)
@@ -22,7 +25,11 @@ public class DataManager {
     private Socket socket;
     private BufferedReader in;
     private PrintStream out;
-    private int loginStatus;
+
+    private LoginStatus loginStatus;
+    private String uid;
+    private RegisterStatus registerStatus;
+    private boolean imageConfirmed;
 
     public void connect() throws IOException {
         socket = new Socket("10.136.112.180", 30000);
@@ -41,9 +48,10 @@ public class DataManager {
         if (data.length != 0) {
             switch (data[0]) {
                 case "login":
-                    setLoginStatus(Integer.parseInt(data[1]));
+                    login(data[1]);
                     break;
                 case "register":
+                    register(data);
                     break;
                 case "add":
                     break;
@@ -54,7 +62,7 @@ public class DataManager {
                 case "G":
                     break;
                 case "P":
-                    receiveMessage(data);
+                    //receiveMessage(data);
                     break;
                 case "start":
                     break;
@@ -63,16 +71,52 @@ public class DataManager {
             }
         }
     }
-
-    private void receiveMessage(String[] data) {
-
+    private void login(String value) {
+        switch (value) {
+            case "1":
+                loginStatus = LoginStatus.SUCCESS;
+                break;
+            case "0":
+                loginStatus = LoginStatus.PASSWORD_ERROR;
+                break;
+            case "-1":
+                loginStatus = LoginStatus.NONEXISTENT;
+                break;
+            case "-2":
+                loginStatus = LoginStatus.LOGGED_IN;
+                break;
+            default:
+                break;
+        }
     }
 
-    public void setLoginStatus(int value) {
-        loginStatus = value;
-    }
-
-    public int getLoginStatus() {
+    public LoginStatus getLoginStatus() {
         return loginStatus;
+    }
+
+    private void register(String[] data) {
+        if ("1".equals(data[1])) {
+            if (data.length == 3) {
+                ControllerFactory.getRegisterController().success(data[2]);
+            }
+        } else {
+            ControllerFactory.getRegisterController().fail();
+        }
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public RegisterStatus getRegisterStatus() {
+        return registerStatus;
+    }
+
+    public void setImageConfirmed(boolean imageConfirmed) {
+        this.imageConfirmed = imageConfirmed;
+    }
+
+    public boolean isImageConfirmed() {
+        return imageConfirmed;
     }
 }

@@ -21,18 +21,15 @@ public class ImageSelectWindow extends Stage {
     private VBox root;
     private GridPane gridPane;
     private ArrayList<Label> labelList;
-    private ArrayList<Boolean> selectedList;
     private Button confirmButton;
     private Button cancelButton;
     private HBox buttonPane;
-    private int selectedCol;
-    private int selectedRow;
+    private int selectedNum;
 
     public ImageSelectWindow() {
         this.root = new VBox();
         this.gridPane = new GridPane();
         this.labelList = new ArrayList<>();
-        this.selectedList = new ArrayList<>();
         this.confirmButton = new Button();
         this.cancelButton = new Button();
         this.buttonPane = new HBox();
@@ -43,10 +40,8 @@ public class ImageSelectWindow extends Stage {
             label.setGraphic(ImageUtil.circleImage(new Image("/image/avatar/" + i + ".jpg"), 50));
             label.setPadding(new Insets(20));
             labelList.add(label);
-            selectedList.add(false);
         }
-        this.selectedCol = 0;
-        this.selectedRow = 0;
+        this.selectedNum = 0;
 
         initialize();
     }
@@ -59,8 +54,9 @@ public class ImageSelectWindow extends Stage {
                 label.setOnMouseClicked(event -> {
                     reset();
                     label.setStyle("-fx-background-color: rgb(0,234,211,0.2);");
-                    selectedCol = GridPane.getColumnIndex(label);
-                    selectedRow = GridPane.getRowIndex(label);
+                    int selectedCol = GridPane.getColumnIndex(label);
+                    int selectedRow = GridPane.getRowIndex(label);
+                    selectedNum = selectedCol + 4 * selectedRow;
                 });
             }
         }
@@ -83,11 +79,30 @@ public class ImageSelectWindow extends Stage {
         root.setStyle("-fx-background-color: #fff5b7");
         this.setScene(scene);
         this.setResizable(false);
+
+        cancelButton.setOnAction(event -> {
+            this.close();
+        });
     }
 
     private void reset() {
         for (int i = 0; i < 16; ++i) {
             labelList.get(i).setStyle("-fx-background-color: TRANSPARENT;");
         }
+    }
+
+    public int getSelectedNum() {
+        return selectedNum;
+    }
+
+    public Button getConfirmButton() {
+        return confirmButton;
+    }
+
+    @Override
+    public void close() {
+        selectedNum = 0;
+        reset();
+        super.close();
     }
 }

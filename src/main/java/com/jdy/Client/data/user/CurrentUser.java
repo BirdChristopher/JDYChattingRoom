@@ -15,8 +15,8 @@ public class CurrentUser extends User{
         return instance;
     }
 
-    public CurrentUser(String uid, String name, String sex, int age, Image avatar, String password) {
-        super(uid, name, sex, age, avatar);
+    public CurrentUser(String uid, String name, String sex, Image avatar, String password) {
+        super(uid, name, sex, avatar);
         this.password = password;
     }
 }

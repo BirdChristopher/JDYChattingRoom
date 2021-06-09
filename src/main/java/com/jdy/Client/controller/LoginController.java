@@ -1,9 +1,10 @@
 package com.jdy.Client.controller;
 
 import com.jdy.Client.component.window.LoginWindow;
-import com.jdy.Client.util.ControllerFactory;
 import com.jdy.Client.util.DataManager;
+import com.jdy.Client.util.LoginStatus;
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -27,19 +28,21 @@ public class LoginController{
                 String password = loginWindow.getPasswordField().getText();
                 DataManager.getInstance().sent("login#" + account + "#" + password);
                 // TODO: 加载界面
-                int status;
-                while ((status = DataManager.getInstance().getLoginStatus()) == -3) { }
+                LoginStatus status;
+                while ((status = DataManager.getInstance().getLoginStatus()) == LoginStatus.WAITING) {
+                    System.out.println("[login]: waiting");
+                }
                 switch (status) {
-                    case 1:
+                    case SUCCESS:
                         loginSuccess();
                         break;
-                    case 0:
+                    case PASSWORD_ERROR:
                         loginFail("密码错误");
                         break;
-                    case -1:
+                    case NONEXISTENT:
                         loginFail("用户不存在");
                         break;
-                    case -2:
+                    case LOGGED_IN:
                         loginFail("用户已登录");
                         break;
                     default:
@@ -49,6 +52,7 @@ public class LoginController{
         });
 
         registerText.setOnMouseClicked((MouseEvent event) -> {
+            this.loginWindow.hide();
             ControllerFactory.getRegisterController().showWindow();
         });
     }
@@ -59,10 +63,20 @@ public class LoginController{
         alert.showAndWait();
     }
 
+/*    public void loginFail() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("失败");
+                alert.showAndWait();
+            }
+        });
+    }*/
+
     private void loginSuccess() {
         loginWindow.close();
-        RegisterController controller = ControllerFactory.getRegisterController();
-        controller.showWindow();
+        ControllerFactory.getHomeController().showWindow();
     }
 
     public void showWindow() { loginWindow.show(); }

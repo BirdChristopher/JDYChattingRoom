@@ -232,5 +232,4 @@ public class LoginWindow extends Stage {
     public JFXPasswordField getPasswordField() {
         return passwordField;
     }
-
 }

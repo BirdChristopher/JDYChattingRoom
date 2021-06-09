@@ -99,7 +99,7 @@ public class HomeWindow extends Stage {
         this.close = new SVGGlyph(SVGContent.CLOSE, Color.WHITE);
         this.addFriend = new SVGGlyph(SVGContent.ADD_FRIEND, Color.WHITE);
         this.addGroup = new SVGGlyph(SVGContent.ADD_GROUP, Color.WHITE);
-        this.avatar = new Image("/image/avatar_default01.png");
+        this.avatar = new Image("/image/avatar/0.jpg");
         this.scene = new Scene(root, 400, 900);
 
         xOffset = 0.0;

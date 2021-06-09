@@ -6,18 +6,16 @@ public class User {
     private String uid;
     private String name;
     private String sex;
-    private int age;
     private Image avatar;
 
     public User() {
-        this("000000", "Doctor", "男", 18, new Image("/image/avatar01.jpg"));
+        this("000000", "Doctor", "男", new Image("/image/avatar01.jpg"));
     }
 
-    public User(String uid, String name, String sex, int age, Image avatar) {
+    public User(String uid, String name, String sex, Image avatar) {
         this.uid = uid;
         this.name = name;
         this.sex = sex;
-        this.age = age;
         this.avatar = avatar;
     }
 
@@ -41,10 +39,6 @@ public class User {
 
     public String getSex() {
         return sex;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public Image getAvatar() {

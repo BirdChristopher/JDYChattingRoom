@@ -40,24 +40,16 @@ class ChatThread implements Runnable {
         String content = null;
         String send = null;
         int i = 0;
-        /*try {
+        try {
             while (true){
                 if (((content = in.readLine()) != null)) {
                     System.out.println(content);
+                    //send = Server.scanner.nextLine();
+                    out.println("register#1#15");
                 }
             }
         } catch (IOException e) {
             System.out.println("客户端断开连接");
-        }*/
-        while (true){
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("发送");
-            out.println("P#"+ i);
-            i++;
         }
     }
 }
