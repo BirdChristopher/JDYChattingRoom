@@ -2,12 +2,11 @@ package com.jdy.Client.controller;
 
 import com.jdy.Client.component.window.LoginWindow;
 import com.jdy.Client.util.DataManager;
-import com.jdy.Client.util.LoginStatus;
+import com.jdy.Client.util.DialogBuilder;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -27,27 +26,6 @@ public class LoginController{
                 String account = loginWindow.getAccountField().getText();
                 String password = loginWindow.getPasswordField().getText();
                 DataManager.getInstance().sent("login#" + account + "#" + password);
-                // TODO: 加载界面
-                LoginStatus status;
-                while ((status = DataManager.getInstance().getLoginStatus()) == LoginStatus.WAITING) {
-                    System.out.println("[login]: waiting");
-                }
-                switch (status) {
-                    case SUCCESS:
-                        loginSuccess();
-                        break;
-                    case PASSWORD_ERROR:
-                        loginFail("密码错误");
-                        break;
-                    case NONEXISTENT:
-                        loginFail("用户不存在");
-                        break;
-                    case LOGGED_IN:
-                        loginFail("用户已登录");
-                        break;
-                    default:
-                        break;
-                }
             }
         });
 
@@ -57,26 +35,38 @@ public class LoginController{
         });
     }
 
-    private void loginFail(String error) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(error);
-        alert.showAndWait();
-    }
-
-/*    public void loginFail() {
+    public void loginFail(int error) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("失败");
-                alert.showAndWait();
+                String str = "未知错误";
+                switch (error) {
+                    case 401:
+                        str = "密码错误";
+                        break;
+                    case 402:
+                        str = "用户不存在";
+                        break;
+                    case 403:
+                        str = "用户已登录";
+                        break;
+                    default:
+                        break;
+                }
+                new DialogBuilder(loginWindow.getLoginButton()).setTitle("登录失败").setMessage(str).setNegativeBtn("确认").create();
             }
         });
-    }*/
+    }
 
-    private void loginSuccess() {
-        loginWindow.close();
-        ControllerFactory.getHomeController().showWindow();
+    public void loginSuccess() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                loginWindow.close();
+
+                ControllerFactory.getHomeController().showWindow();
+            }
+        });
     }
 
     public void showWindow() { loginWindow.show(); }

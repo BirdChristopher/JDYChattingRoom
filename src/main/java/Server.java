@@ -44,8 +44,8 @@ class ChatThread implements Runnable {
             while (true){
                 if (((content = in.readLine()) != null)) {
                     System.out.println(content);
-                    //send = Server.scanner.nextLine();
-                    out.println("register#1#15");
+                    send = Server.scanner.nextLine();
+                    out.println(send);
                 }
             }
         } catch (IOException e) {

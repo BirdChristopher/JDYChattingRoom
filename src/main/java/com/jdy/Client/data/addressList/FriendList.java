@@ -6,4 +6,6 @@ import java.util.Vector;
 
 public class FriendList {
     public static Vector<User> friends = new Vector<>();
+
+    public FriendList() {}
 }

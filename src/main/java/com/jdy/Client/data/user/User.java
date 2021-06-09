@@ -10,7 +10,7 @@ public class User {
     protected Image avatar;
 
     public User() {
-        this("000000", "Doctor", "男", new Image("/image/avatar01.jpg"));
+        this("000000", "Doctor", "男", new Image("/image/avatar/0.jpg"));
     }
 
     public User(String uid, String name, Image avatar) {
@@ -65,6 +65,10 @@ public class User {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public void setName(String name) {

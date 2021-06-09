@@ -7,4 +7,6 @@ import java.util.Vector;
 
 public class GroupList {
     public static Vector<Group> groups = new Vector<>();
+
+    public GroupList() {}
 }

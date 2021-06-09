@@ -9,6 +9,7 @@ import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.ImagePattern;
 
@@ -24,7 +25,7 @@ public class HomeController {
         window = new HomeWindow();
         friendsView = window.getFriends();
         groupsView = window.getGroups();
-        // 初始化界面
+        // 加载数据
         initMyInfo();
         initFriends();
         initGroups();
@@ -110,7 +111,7 @@ public class HomeController {
         ListViewCell cell = new ListViewCell(group.getAvatar(), group.getName() + " (" + group.getGid() + ")");
         groupsView.getItems().add(0, cell);
         // 打开聊天窗口，双击打开
-        cell.setId("G" + group.getGid()); // 绑定cell和聊天
+        cell.setId(group.getGid()); // 绑定cell和聊天
         cell.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 ControllerFactory.getChatController(cell.getId()).showWindow();
