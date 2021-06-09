@@ -9,8 +9,6 @@ public class Message {
     private final User sender;
     private final String cid;
     private final MessageType type;
-    // 私聊消息还是群聊消息
-
     // 内容
     private final String content;
     // 时间戳

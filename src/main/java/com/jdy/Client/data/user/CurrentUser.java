@@ -2,6 +2,8 @@ package com.jdy.Client.data.user;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+
 public class CurrentUser extends User{
     private String password;
 
@@ -15,8 +17,7 @@ public class CurrentUser extends User{
         return instance;
     }
 
-    public CurrentUser(String uid, String name, String sex, Image avatar, String password) {
-        super(uid, name, sex, avatar);
+    public void setPassword(String password) {
         this.password = password;
     }
 }

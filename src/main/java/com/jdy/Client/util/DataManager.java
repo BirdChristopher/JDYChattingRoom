@@ -62,7 +62,6 @@ public class DataManager {
                 case "G":
                     break;
                 case "P":
-                    //receiveMessage(data);
                     break;
                 case "start":
                     break;

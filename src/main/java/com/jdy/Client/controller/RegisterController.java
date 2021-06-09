@@ -66,4 +66,5 @@ public class RegisterController {
     public void closeWindow() {
         window.close();
     }
+
 }

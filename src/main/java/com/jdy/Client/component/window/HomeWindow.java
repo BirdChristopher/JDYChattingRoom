@@ -3,6 +3,7 @@ package com.jdy.Client.component.window;
 import com.jdy.Client.App;
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.base.SVGContent;
+import com.jdy.Client.util.ImageUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -45,7 +47,7 @@ public class HomeWindow extends Stage {
     private Label addGroupLabel;
     private Label createGroupLabel;
     private HBox topBottom;
-    private ImageView avatarView;
+    private Circle avatarView;
     private VBox rightPane;
     private Text name;
     private Text description;
@@ -82,7 +84,7 @@ public class HomeWindow extends Stage {
         this.addGroupLabel = new Label("加入群聊");
         this.createGroupLabel = new Label("创建群聊");
         this.topBottom = new HBox();
-        this.avatarView = new ImageView();
+        this.avatarView = new Circle();
         this.rightPane = new VBox();
         this.name = new Text();
         this.description = new Text();
@@ -139,9 +141,7 @@ public class HomeWindow extends Stage {
         GridPane.setValignment(minButton, VPos.TOP);
         GridPane.setValignment(closeButton, VPos.TOP);
         // 头像，昵称，简介
-        avatarView.setImage(avatar);
-        avatarView.setFitWidth(100);
-        avatarView.setFitHeight(100);
+        avatarView = ImageUtil.circleImage(avatar, 50);
         name.setText("昵称");
         name.setFont(Font.font("MicrosoftYaHei", FontWeight.BOLD, 22));
         name.setFill(Color.WHITE);
@@ -230,7 +230,35 @@ public class HomeWindow extends Stage {
         });
     }
 
+    public Text getName() {
+        return name;
+    }
+
+    public Text getDescription() {
+        return description;
+    }
+
+    public JFXButton getAddFriendButton() {
+        return addFriendButton;
+    }
+
+    public Label getAddGroupLabel() {
+        return addGroupLabel;
+    }
+
+    public Label getCreateGroupLabel() {
+        return createGroupLabel;
+    }
+
     public JFXListView<ListViewCell> getFriends() {
         return friends;
+    }
+
+    public JFXListView<ListViewCell> getGroups() {
+        return groups;
+    }
+
+    public Circle getAvatarView() {
+        return avatarView;
     }
 }
