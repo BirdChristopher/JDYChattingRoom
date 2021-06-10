@@ -5,7 +5,7 @@
 }
 
 .jfx-list-cell:hover {
-    -fx-background-color: rgba(0, 0, 255, 0.2);
+    -fx-background-color: TRANSPARENT;
 }
 
 .split-pane {
@@ -15,4 +15,8 @@
 .split-pane *.split-pane-divider {
     -fx-padding: 0 0.5 0 0.5;
     -fx-background-color: #bbbbbb;
+}
+
+.jfx-list:hover {
+    -fx-background-color: TRANSPARENT;
 }

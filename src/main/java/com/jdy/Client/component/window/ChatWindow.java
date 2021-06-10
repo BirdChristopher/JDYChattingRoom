@@ -11,6 +11,7 @@ import com.jfoenix.svg.SVGGlyph;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
 import javafx.scene.Cursor;
@@ -176,33 +177,15 @@ public class ChatWindow extends Stage {
         scene.getStylesheets().add("/CSS/chat-window.css");
         this.setScene(scene);
 
+        messageListView.setOnMouseMoved(Event::consume);
+
+        messageListView.setOnMouseClicked(Event::consume);
+
         // 最小化
         minButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 ChatWindow.super.setIconified(true);
-            }
-        });
-        // TODO: 窗口最大化和拖拽改大小有bug
-        // 最大化及还原
-        maxButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Rectangle2D rectangle2D = Screen.getPrimary().getVisualBounds();
-                isMax = !isMax;
-                if (isMax) {
-                    // 最大化
-                    ChatWindow.super.setX(rectangle2D.getMinX());
-                    ChatWindow.super.setY(rectangle2D.getMinY());
-                    ChatWindow.super.setWidth(rectangle2D.getWidth());
-                    ChatWindow.super.setHeight(rectangle2D.getHeight());
-                } else {
-                    // 还原
-                    ChatWindow.super.setX(x);
-                    ChatWindow.super.setY(y);
-                    ChatWindow.super.setWidth(width);
-                    ChatWindow.super.setHeight(height);
-                }
             }
         });
 
@@ -214,65 +197,16 @@ public class ChatWindow extends Stage {
             }
         });
 
-        // 监听大小
-        this.xProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null && !isMax) {
-                    x = newValue.doubleValue();
-                }
-            }
-        });
-        this.yProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null && !isMax) {
-                    y = newValue.doubleValue();
-                }
-            }
-        });
-        this.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null && !isMax) {
-                    width = newValue.doubleValue();
-                }
-            }
-        });
-        this.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null && !isMax) {
-                    height = newValue.doubleValue();
-                }
-            }
-        });
-
-        // 监听鼠标位置，改变鼠标光标
-        root.setOnMouseMoved((MouseEvent event) -> {
+        // 窗口拖拽
+        root.setOnMousePressed((MouseEvent event) -> {
             event.consume();
-            double x = event.getSceneX();
-            double y = event.getSceneY();
-            double width = super.getWidth();
-            double height = super.getHeight();
-            Cursor cursorType = Cursor.DEFAULT; // 光标默认类型
-            isRight = isBottomRight = isBottom = false;
-            if (y >= height - RESIZE_WIDTH) {
-                if (x <= RESIZE_WIDTH) {
-                } else if (x >= width - RESIZE_WIDTH) {
-                    isBottomRight = true;
-                    cursorType = Cursor.SE_RESIZE;
-                } else {
-                    isBottom = true;
-                    cursorType = Cursor.S_RESIZE;
-                }
-            } else if (x >= width - RESIZE_WIDTH) {
-                isRight = true;
-                cursorType = Cursor.E_RESIZE;
+            xOffset = event.getSceneX();
+            if (event.getSceneY() > 35) {
+                yOffset = 0;
+            } else {
+                yOffset = event.getSceneY();
             }
-            root.setCursor(cursorType);
         });
-        // 监听鼠标拖拽
         root.setOnMouseDragged((MouseEvent event) -> {
             event.consume();
             if (yOffset != 0) {
@@ -283,32 +217,6 @@ public class ChatWindow extends Stage {
                     super.setY(event.getScreenY() - yOffset);
                 }
             }
-            double x = event.getSceneX();
-            double y = event.getSceneY();
-            // 保存窗口改变后的x, y及宽高
-            double nextX = super.getX();
-            double nextY = super.getY();
-            double nextWidth = super.getWidth();
-            double nextHeight = super.getHeight();
-            // 调整窗口
-            if (isRight || isBottomRight) {
-                nextWidth = x;
-            }
-            if (isBottomRight || isBottom) {
-                nextHeight = y;
-            }
-            // 判断宽高是否超过最小宽高
-            if (nextWidth <= MIN_WIDTH) {
-                nextWidth = MIN_WIDTH;
-            }
-            if (nextHeight <= MIN_HEIGHT) {
-                nextHeight = MIN_HEIGHT;
-            }
-            // 统一调整窗口，避免多次刷新
-            super.setX(nextX);
-            super.setY(nextY);
-            super.setWidth(nextWidth);
-            super.setHeight(nextHeight);
         });
 
         // 鼠标点击获取横纵坐标

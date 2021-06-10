@@ -7,6 +7,7 @@ import com.jdy.Client.data.dataList.FriendList;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
 import com.jdy.Client.util.DataManager;
+import com.jdy.Client.util.DialogBuilder;
 import com.jdy.Client.util.IdUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -37,8 +38,7 @@ public class CreateGroupController {
         for (User u : FriendList.friends) {
             UserCheckCell cell = new UserCheckCell(u);
             friendsView.getItems().add(0, cell);
-            // 打开聊天窗口，双击打开
-            cell.setId(u.getUid()); // 绑定cell和聊天
+            cell.setId(u.getUid()); // 绑定cell和好友
         }
 
         avatarView.setOnMouseClicked(event -> {
@@ -56,9 +56,11 @@ public class CreateGroupController {
             String myId = CurrentUser.getInstance().getUid();
             data.append(IdUtil.C2S(myId));
             DataManager.getInstance().sent(data.toString());
+            new DialogBuilder(createButton).setTitle("创建群聊").setMessage("创建成功").setNegativeBtn("确认").create();
+            window.close();
         });
     }
-
+    // 选择头像
     public void updateAvatar(Image avatar, int avatarNum) {
         this.avatarNum = avatarNum;
         window.getAvatarView().setFill(new ImagePattern(avatar));

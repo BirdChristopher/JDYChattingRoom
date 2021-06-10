@@ -54,7 +54,7 @@ public class RegisterController {
     }
 
     public void fail() {
-        new DialogBuilder(window.getRegisterButton()).setTitle("注册失败").setNegativeBtn("确认").create();
+        new DialogBuilder(window.getRegisterButton()).setTitle("用户名已存在").setNegativeBtn("确认").create();
     }
 
     public void updateAvatar(Image avatar, int avatarNum) {

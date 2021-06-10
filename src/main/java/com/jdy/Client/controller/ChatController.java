@@ -7,7 +7,6 @@ import com.jdy.Client.data.dataList.FriendList;
 import com.jdy.Client.data.dataList.GroupList;
 import com.jdy.Client.data.dataList.MemberList;
 import com.jdy.Client.data.dataList.MessageList;
-import com.jdy.Client.data.group.Group;
 import com.jdy.Client.data.message.Message;
 import com.jdy.Client.data.message.MessageType;
 import com.jdy.Client.data.user.CurrentUser;
@@ -18,9 +17,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * 聊天窗口的控制类<br>
@@ -63,16 +63,18 @@ public class ChatController{
         });
 
         textArea.setOnKeyPressed(event -> {
-            String content = textArea.getText();
-            Message message = new Message(this.id, CurrentUser.getInstance(), content, MessageType.SENT);
-            MessageCell cell = new MessageCell(message);
-            messageListView.getItems().add(cell);
-            textArea.clear();
-            String myId = IdUtil.C2S(CurrentUser.getInstance().getUid());
-            if (chatType == ChatType.SINGLE)
-                DataManager.getInstance().sent("P#" + myId + "#" + IdUtil.C2S(this.id) + "#" + content);
-            else
-                DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + "#" + content);
+            if (event.getCode() == KeyCode.ENTER) {
+                String content = textArea.getText();
+                Message message = new Message(this.id, CurrentUser.getInstance(), content, MessageType.SENT);
+                MessageCell cell = new MessageCell(message);
+                messageListView.getItems().add(cell);
+                textArea.clear();
+                String myId = IdUtil.C2S(CurrentUser.getInstance().getUid());
+                if (chatType == ChatType.SINGLE)
+                    DataManager.getInstance().sent("P#" + myId + "#" + IdUtil.C2S(this.id) + "#" + content);
+                else
+                    DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + "#" + content);
+            }
         });
     }
 
@@ -83,10 +85,14 @@ public class ChatController{
                 ArrayList<Message> messages = MessageList.getList(id);
                 ArrayList<User> members = MemberList.getList(id);
                 for (User u : members) {
-                    memberListView.getItems().add(new ListViewCell(u.getAvatar(), u.getName()));
+                    ListViewCell cell = new ListViewCell(u.getAvatar(), u.getName());
+                    cell.setMaxWidth(180);
+                    memberListView.getItems().add(cell);
                 }
                 for (Message m : messages) {
-                    messageListView.getItems().add(new MessageCell(m));
+                    MessageCell cell = new MessageCell(m);
+                    cell.setOnMouseClicked(Event::consume);
+                    messageListView.getItems().add(cell);
                 }
                 if (chatType == ChatType.SINGLE)
                     window.getTitleLabel().setText(FriendList.getUserById(id).getName());
@@ -103,7 +109,9 @@ public class ChatController{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                messageListView.getItems().add(new MessageCell(new Message(cid, user, content, MessageType.RECEIVED)));
+                MessageCell cell = new MessageCell(new Message(cid, user, content, MessageType.RECEIVED));
+                cell.setOnMouseClicked(Event::consume);
+                messageListView.getItems().add(cell);
             }
         });
     }
@@ -112,7 +120,9 @@ public class ChatController{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                memberListView.getItems().add(new ListViewCell(user.getAvatar(), user.getName()));
+                ListViewCell cell = new ListViewCell(user.getAvatar(), user.getName());
+                cell.setMaxWidth(100);
+                memberListView.getItems().add(cell);
             }
         });
     }

@@ -64,7 +64,6 @@ public class LoginController{
             @Override
             public void run() {
                 loginWindow.close();
-
                 ControllerFactory.getHomeController().showWindow();
             }
         });

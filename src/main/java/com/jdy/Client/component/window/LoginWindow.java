@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.svg.SVGGlyph;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -198,6 +199,8 @@ public class LoginWindow extends Stage {
             @Override
             public void handle(ActionEvent event) {
                 LoginWindow.super.close();
+                Platform.exit();
+                System.exit(0);
             }
         });
         // 窗口拖拽
