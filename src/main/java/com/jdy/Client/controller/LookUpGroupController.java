@@ -2,6 +2,7 @@ package com.jdy.Client.controller;
 
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.window.LookUpWindow;
+import com.jdy.Client.data.dataList.GroupList;
 import com.jdy.Client.data.group.Group;
 import com.jdy.Client.util.DataManager;
 import com.jdy.Client.util.DialogBuilder;
@@ -49,6 +50,7 @@ public class LookUpGroupController {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         DataManager.getInstance().sent("jgroup#" + IdUtil.C2S(cell.getId()));
                         ControllerFactory.getHomeController().addGroup(group);
+                        GroupList.groups.add(group);
                         new DialogBuilder(window.getSearchButton()).setTitle("加群")
                                 .setMessage("加入 " + group.getName() + " (" + group.getGid() + ") 成功!").setNegativeBtn("确认").create();
                     }

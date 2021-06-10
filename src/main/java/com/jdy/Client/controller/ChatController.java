@@ -90,6 +90,7 @@ public class ChatController{
                     memberListView.getItems().add(cell);
                 }
                 for (Message m : messages) {
+
                     MessageCell cell = new MessageCell(m);
                     cell.setOnMouseClicked(Event::consume);
                     messageListView.getItems().add(cell);

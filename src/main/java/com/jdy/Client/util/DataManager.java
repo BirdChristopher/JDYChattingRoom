@@ -129,7 +129,7 @@ public class DataManager {
         CurrentUser.getInstance().setSex(myInfo[3]);
         CurrentUser.getInstance().setSignature(myInfo[4]);
         // 好友列表
-        if (data.length >= 3) {
+        if (!data[2].equals("")) {
             String[] friends = data[2].split("%%");
             for (int i = 0; i < friends.length; ++i) {
                 String[] str = friends[i].split("&");
@@ -233,7 +233,7 @@ public class DataManager {
     private void updateGroupMember(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
         String uid = IdUtil.S2C(data[2]);
-        User user = new User(uid, data[3], new Image("/image/avatar/" + data[3] + "./jpg"));
+        User user = new User(uid, data[3], new Image("/image/avatar/" + data[4] + "./jpg"));
         ControllerFactory.getChatController(gid).addMember(user);
     }
 
@@ -276,7 +276,9 @@ public class DataManager {
             String gid = "G" + IdUtil.S2C(data[2]);
             String name = data[3];
             Image avatar = new Image("/image/avatar/" + data[4] + ".jpg");
-            ControllerFactory.getHomeController().addGroup(new Group(gid, name, avatar));
+            Group group = new Group(gid, name, avatar);
+            GroupList.groups.add(group);
+            ControllerFactory.getHomeController().addGroup(group);
         }
     }
 

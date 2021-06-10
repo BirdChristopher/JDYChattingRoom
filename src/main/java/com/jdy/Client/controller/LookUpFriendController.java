@@ -2,6 +2,9 @@ package com.jdy.Client.controller;
 
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.window.LookUpWindow;
+import com.jdy.Client.data.dataList.FriendList;
+import com.jdy.Client.data.dataList.MemberList;
+import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
 import com.jdy.Client.util.DataManager;
 import com.jdy.Client.util.DialogBuilder;
@@ -11,6 +14,8 @@ import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
+
+import java.util.ArrayList;
 
 public class LookUpFriendController {
     private LookUpWindow window;
@@ -42,6 +47,7 @@ public class LookUpFriendController {
                     if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                         DataManager.getInstance().sent("add#" + IdUtil.C2S(cell.getId()));
                         ControllerFactory.getHomeController().addFriend(user);
+                        FriendList.friends.add(user);
                         new DialogBuilder(window.getSearchButton()).setTitle("添加好友")
                                 .setMessage("添加 " + user.getName() + " (" + user.getUid() + ") 成功!").setNegativeBtn("确认").create();
                     }
