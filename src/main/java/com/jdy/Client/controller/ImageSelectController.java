@@ -16,7 +16,7 @@ public class ImageSelectController {
             if ("register".equals(commander)) {
                 ControllerFactory.getRegisterController().updateAvatar(imageSelected, window.getSelectedNum());
             } else if ("group".equals(commander)) {
-
+                ControllerFactory.getCreateGroupController().updateAvatar(imageSelected, window.getSelectedNum());
             }
             window.close();
         });

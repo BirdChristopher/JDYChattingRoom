@@ -1,6 +1,7 @@
 package com.jdy.Client.component.window;
 
 import com.jdy.Client.component.base.SVGContent;
+import com.jdy.Client.util.ImageUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -12,11 +13,13 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,7 +48,7 @@ public class LoginWindow extends Stage {
     private Text register;
     // 顶层头像
     private AnchorPane avatarPane;
-    private ImageView avatarView;
+    private Circle avatarView;
     // 默认图标和头像
     private SVGGlyph icon;
     private Image avatar;
@@ -76,7 +79,7 @@ public class LoginWindow extends Stage {
         this.register = new Text();
         // 头像
         this.avatarPane = new AnchorPane();
-        this.avatarView = new ImageView();
+        this.avatarView = new Circle();
         this.accountField = new JFXTextField();
         this.passwordField = new JFXPasswordField();
         this.icon = new SVGGlyph(SVGContent.ICON);
@@ -166,14 +169,16 @@ public class LoginWindow extends Stage {
         back.getChildren().add(bottom);
         back.setAlignment(Pos.TOP_CENTER);
         // 头像
-        avatarView.setLayoutX(176);
-        avatarView.setLayoutY(86);
-        avatarView.setFitWidth(128);
-        avatarView.setFitHeight(128);
-        avatarView.setImage(avatar);
+        DropShadow dps1 = new DropShadow(); // 阴影
+        dps1.setRadius(20.0);
+        dps1.setColor(Color.BLACK);
+        avatarView = ImageUtil.circleImage(avatar, 60);
+        avatarView.setEffect(dps1);
         avatarPane.setPrefSize(480, 214);
         avatarPane.getChildren().add(avatarView);
         avatarPane.setManaged(false);
+        avatarView.setLayoutX(240);
+        avatarView.setLayoutY(140);
 
         root.getChildren().add(0, back);
         root.getChildren().add(1, avatarPane);

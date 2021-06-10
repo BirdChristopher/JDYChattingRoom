@@ -10,7 +10,6 @@ import com.jfoenix.svg.SVGGlyph;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -49,6 +48,7 @@ public class RegisterWindow extends Stage {
     private ToggleGroup sexGroup;
     private JFXRadioButton maleButton;
     private JFXRadioButton femaleButton;
+    private JFXTextField signature;
     // 头像
     private AnchorPane avatarPane;
     private Circle avatarView;
@@ -84,6 +84,7 @@ public class RegisterWindow extends Stage {
         this.sexGroup = new ToggleGroup();
         this.maleButton = new JFXRadioButton();
         this.femaleButton = new JFXRadioButton();
+        this.signature = new JFXTextField();
         // 注册按钮
         this.registerButton = new JFXButton();
         // 头像
@@ -128,41 +129,47 @@ public class RegisterWindow extends Stage {
         GridPane.setValignment(minButton, VPos.TOP);
         GridPane.setValignment(closeButton, VPos.TOP);
         // 信息框
-        nameField.setLayoutY(80);
+        nameField.setLayoutY(60);
         nameField.setLayoutX(40);
-        nameField.setFont(Font.font("MicrosoftYaHei", 18));
+        nameField.setFont(Font.font("MicrosoftYaHei", 15));
         nameField.setPrefWidth(200);
         nameField.setPromptText("用户名");
         nameField.setLabelFloat(true);
         nameField.requestFocus();
 
-        passwordField.setLayoutY(150);
+        passwordField.setLayoutY(120);
         passwordField.setLayoutX(40);
-        passwordField.setFont(Font.font("MicrosoftYaHei", 18));
+        passwordField.setFont(Font.font("MicrosoftYaHei", 15));
         passwordField.setPrefWidth(200);
         passwordField.setPromptText("请输入密码");
         passwordField.setLabelFloat(true);
 
-        confirmField.setLayoutY(220);
+        confirmField.setLayoutY(180);
         confirmField.setLayoutX(40);
-        confirmField.setFont(Font.font("MicrosoftYaHei", 18));
+        confirmField.setFont(Font.font("MicrosoftYaHei", 15));
         confirmField.setPrefWidth(200);
         confirmField.setPromptText("请确认密码");
         confirmField.setLabelFloat(true);
 
+        signature.setLayoutY(240);
+        signature.setLayoutX(40);
+        signature.setPrefWidth(200);
+        signature.setFont(Font.font("MicrosoftYaHei", 15));
+        signature.setPromptText("个性签名");
+        signature.setLabelFloat(true);
+
         maleButton.setToggleGroup(sexGroup);
-        maleButton.setLayoutY(280);
+        maleButton.setLayoutY(290);
         maleButton.setLayoutX(40);
         maleButton.setText("男");
-        maleButton.setFont(Font.font("MicrosoftYaHei", 18));
+        maleButton.setFont(Font.font("MicrosoftYaHei", 15));
         maleButton.setUserData("男");
         femaleButton.setToggleGroup(sexGroup);
-        femaleButton.setLayoutY(280);
+        femaleButton.setLayoutY(290);
         femaleButton.setLayoutX(120);
         femaleButton.setText("女");
-        femaleButton.setFont(Font.font("MicrosoftYaHei", 18));
+        femaleButton.setFont(Font.font("MicrosoftYaHei", 15));
         femaleButton.setUserData("女");
-
 
         registerButton.setLayoutX(45);
         registerButton.setLayoutY(330);
@@ -178,17 +185,18 @@ public class RegisterWindow extends Stage {
         dps1.setRadius(20.0);
         dps1.setColor(Color.BLACK);
         infoView.setEffect(dps1);
-        infoView.setPrefSize(280, 395);
+        infoView.setPrefSize(280, 420);
         infoView.setStyle("-fx-background-color: white; -fx-background-radius: 10px;");
         infoView.getChildren().add(nameField);
         infoView.getChildren().add(passwordField);
         infoView.getChildren().add(confirmField);
         infoView.getChildren().add(maleButton);
         infoView.getChildren().add(femaleButton);
+        infoView.getChildren().add(signature);
         infoView.getChildren().add(registerButton);
 
         infoPane.getChildren().add(infoView);
-        infoPane.setPadding(new Insets(100, 60, 40, 60));
+        infoPane.setPadding(new Insets(60, 60, 40, 60));
         // 添加标题栏和信息框
         surfacePane.getChildren().add(topBar);
         surfacePane.getChildren().add(infoPane);
@@ -202,7 +210,7 @@ public class RegisterWindow extends Stage {
         avatarPane.setPrefSize(400, 400);
         avatarPane.getChildren().add(avatarView);
         avatarPane.setManaged(false);
-        avatarView.setLayoutY(150);
+        avatarView.setLayoutY(110);
         avatarView.setLayoutX(200);
 
         // 背景模糊
@@ -272,5 +280,9 @@ public class RegisterWindow extends Stage {
 
     public Image getAvatar() {
         return avatar;
+    }
+
+    public JFXTextField getSignature() {
+        return signature;
     }
 }

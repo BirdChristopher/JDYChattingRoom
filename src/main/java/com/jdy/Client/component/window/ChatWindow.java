@@ -322,4 +322,24 @@ public class ChatWindow extends Stage {
             }
         });
     }
+
+    public JFXListView<MessageCell> getMessageListView() {
+        return messageListView;
+    }
+
+    public JFXTextArea getTextArea() {
+        return textArea;
+    }
+
+    public JFXButton getSendButton() {
+        return sendButton;
+    }
+
+    public JFXListView<ListViewCell> getMemberListView() {
+        return memberListView;
+    }
+
+    public Label getTitleLabel() {
+        return title;
+    }
 }

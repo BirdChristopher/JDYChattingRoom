@@ -2,14 +2,15 @@ package com.jdy.Client.controller;
 
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.window.HomeWindow;
-import com.jdy.Client.data.addressList.FriendList;
-import com.jdy.Client.data.addressList.GroupList;
+import com.jdy.Client.data.dataList.FriendList;
+import com.jdy.Client.data.dataList.GroupList;
 import com.jdy.Client.data.group.Group;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
+import com.jdy.Client.util.DataManager;
+import com.jdy.Client.util.IdUtil;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.ImagePattern;
 
@@ -102,7 +103,8 @@ public class HomeController {
         cell.setId(user.getUid()); // 绑定cell和聊天
         cell.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                ControllerFactory.getChatController(cell.getId()).showWindow();
+                DataManager.getInstance().sent("ph#" + IdUtil.C2S(cell.getId()));
+                ControllerFactory.createChatController(cell.getId());
             }
         });
     }
@@ -114,7 +116,8 @@ public class HomeController {
         cell.setId(group.getGid()); // 绑定cell和聊天
         cell.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                ControllerFactory.getChatController(cell.getId()).showWindow();
+                DataManager.getInstance().sent("gh#" + IdUtil.C2S(cell.getId()));
+                ControllerFactory.createChatController(cell.getId());
             }
         });
     }

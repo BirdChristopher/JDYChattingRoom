@@ -3,12 +3,14 @@ package com.jdy.Client.component.window;
 import com.jdy.Client.App;
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.base.SVGContent;
+import com.jdy.Client.util.DataManager;
 import com.jdy.Client.util.ImageUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.svg.SVGGlyph;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -201,6 +203,9 @@ public class HomeWindow extends Stage {
             @Override
             public void handle(ActionEvent event) {
                 HomeWindow.super.close();
+                DataManager.getInstance().sent("logout");
+                Platform.exit();
+                System.exit(0);
             }
         });
         // 窗口拖拽

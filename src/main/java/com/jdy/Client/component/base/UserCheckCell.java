@@ -4,6 +4,7 @@ import com.jdy.Client.data.user.User;
 import com.jdy.Client.util.ImageUtil;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -20,6 +21,7 @@ public class UserCheckCell extends HBox {
         this.setPadding(new Insets(8));
         this.getChildren().add(userLabel);
         this.getChildren().add(checkBox);
+        this.setAlignment(Pos.CENTER_LEFT);
     }
 
     public JFXCheckBox getCheckBox() {

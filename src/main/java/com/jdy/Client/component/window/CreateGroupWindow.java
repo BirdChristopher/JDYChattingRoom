@@ -13,6 +13,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -61,7 +62,7 @@ public class CreateGroupWindow extends Stage {
         this.userList = new JFXListView<>();
         this.avatarView = new Circle();
         this.createButton = new JFXButton();
-        this.avatar = new Image("/image/avatar01.jpg");
+        this.avatar = new Image("/image/avatar/0.jpg");
         this.minus = new SVGGlyph(SVGContent.MINUS, Color.WHITE);
         this.close = new SVGGlyph(SVGContent.CLOSE, Color.WHITE);
         this.scene = new Scene(root, 480, 800);
@@ -122,6 +123,10 @@ public class CreateGroupWindow extends Stage {
         infoView.setStyle("-fx-background-color: #f8edeb;");
         infoView.setPadding(new Insets(8));
         infoView.getChildren().addAll(avatarView, nameField, userList, createButton);
+        DropShadow dps1 = new DropShadow(); // 阴影
+        dps1.setRadius(20.0);
+        dps1.setColor(Color.GRAY);
+        infoView.setEffect(dps1);
 
         infoPane.getChildren().add(infoView);
         infoPane.setStyle("-fx-background-color: #fcd5ce;");
@@ -165,5 +170,21 @@ public class CreateGroupWindow extends Stage {
                 }
             }
         });
+    }
+
+    public JFXListView<UserCheckCell> getUserList() {
+        return userList;
+    }
+
+    public JFXButton getCreateButton() {
+        return createButton;
+    }
+
+    public JFXTextField getNameField() {
+        return nameField;
+    }
+
+    public Circle getAvatarView() {
+        return avatarView;
     }
 }

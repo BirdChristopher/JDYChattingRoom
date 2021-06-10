@@ -54,13 +54,23 @@ public class ControllerFactory {
         return createGroupController;
     }
 
-    public static ChatController createChatController(String id, ChatController.ChatType type) {
-        ChatController controller = new ChatController(id, type);
-        chatControllerHashMap.put(id, controller);
-        return controller;
+    public static ChatController getChatController(String id) {
+        if (chatControllerHashMap.get(id) == null) {
+            ChatController.ChatType type = ChatController.ChatType.SINGLE;
+            if (id.length() == 7)
+                type = ChatController.ChatType.GROUP;
+            ChatController controller = new ChatController(id, type);
+            chatControllerHashMap.put(id, controller);
+            return controller;
+        }
+        return chatControllerHashMap.get(id);
     }
 
-    public static ChatController getChatController(String id) {
-        return chatControllerHashMap.get(id);
+    public static void createChatController(String id) {
+        ChatController.ChatType type = ChatController.ChatType.SINGLE;
+        if (id.length() == 7)
+            type = ChatController.ChatType.GROUP;
+        ChatController controller = new ChatController(id, type);
+        chatControllerHashMap.put(id, controller);
     }
 }

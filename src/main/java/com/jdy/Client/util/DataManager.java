@@ -1,15 +1,16 @@
 package com.jdy.Client.util;
 
-import com.jdy.Client.App;
 import com.jdy.Client.ReceiveThread;
 import com.jdy.Client.controller.ControllerFactory;
-import com.jdy.Client.data.addressList.FriendList;
-import com.jdy.Client.data.addressList.GroupList;
+import com.jdy.Client.data.dataList.FriendList;
+import com.jdy.Client.data.dataList.GroupList;
+import com.jdy.Client.data.dataList.MemberList;
+import com.jdy.Client.data.dataList.MessageList;
 import com.jdy.Client.data.group.Group;
+import com.jdy.Client.data.message.Message;
+import com.jdy.Client.data.message.MessageType;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
-import com.sun.org.apache.bcel.internal.generic.FCMPG;
-import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 import java.io.BufferedReader;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class DataManager {
     private static DataManager instance;
@@ -32,6 +34,7 @@ public class DataManager {
     private PrintStream out;
 
     public void connect() throws IOException {
+        //socket = new Socket("10.128.160.5", 8080);
         socket = new Socket("10.136.112.180", 30000);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintStream(socket.getOutputStream());
@@ -54,33 +57,60 @@ public class DataManager {
                     register(data);
                     break;
                 case "add":
+                    addFriend(data);
                     break;
                 case "cgroup":
+                    createGroup(data);
                     break;
                 case "jgroup":
+                    joinGroup(data);
+                    break;
+                case "sf":
+                    searchFriend(data);
+                    break;
+                case "sg":
+                    searchGroup(data);
                     break;
                 case "G":
+                    receiveGroupMessage(data);
                     break;
                 case "P":
+                    receivePrivateMessage(data);
                     break;
                 case "start":
                     initInformation(data);
+                    break;
+                case "ph":
+                    setPrivateHistory(data);
+                    break;
+                case "gm":
+                    setGroupMember(data);
+                    break;
+                case "gh":
+                    setGroupHistory(data);
+                    break;
+                case "upGroup":
+                    updateGroup(data);
+                    break;
+                case "upFriend":
+                    updateFriend(data);
                     break;
                 default:
                     break;
             }
         }
     }
+
     private void login(String[] data) {
-        if ("200".equals(data[1])) {
-            DataManager.getInstance().sent("success"); // 测试代码
-        } else {
+        if (!"200".equals(data[1])) {
             ControllerFactory.getLoginController().loginFail(Integer.parseInt(data[1]));
+        } else {
+            sent("success");
         }
     }
 
     private void register(String[] data) {
-        if ("1".equals(data[1])) {
+        if ("200".equals(data[1])) {
             if (data.length == 3) {
                 ControllerFactory.getRegisterController().success(data[2]);
             }
@@ -92,7 +122,7 @@ public class DataManager {
     private void initInformation(String[] data) {
         // 个人信息
         String[] myInfo = data[1].split("&");
-        CurrentUser.getInstance().setUid(myInfo[0]);
+        CurrentUser.getInstance().setUid(IdUtil.S2C(myInfo[0]));
         CurrentUser.getInstance().setName(myInfo[1]);
         CurrentUser.getInstance().setAvatar(new Image("/image/avatar/" + myInfo[2] + ".jpg"));
         CurrentUser.getInstance().setSex(myInfo[3]);
@@ -118,5 +148,129 @@ public class DataManager {
             }
         }
         ControllerFactory.getLoginController().loginSuccess();
+    }
+
+
+    private void setPrivateHistory(String[] data) {
+        String uid = IdUtil.S2C(data[1]);
+        User friend = FriendList.getUserById(uid);
+        User me = CurrentUser.getInstance();
+        ArrayList<Message> list = MessageList.getList(uid);
+        if (data.length > 2) {
+            for (int i = 2; i < data.length; ++i) {
+                String[] str = data[i].split("@@");
+                String myid = IdUtil.S2C(str[0]);
+                if (myid.equals(me.getUid()))
+                    list.add(new Message(uid, me, str[2], MessageType.SENT));
+                else
+                    list.add(new Message(uid, friend, str[2], MessageType.RECEIVED));
+            }
+        }
+        ArrayList<User>  list1 = MemberList.getList(uid);
+        list1.add(me);
+        list1.add(friend);
+        ControllerFactory.getChatController(uid).init();
+    }
+
+    private void setGroupHistory(String[] data) {
+        String id = "G" + IdUtil.S2C(data[1]);
+        User me = CurrentUser.getInstance();
+        ArrayList<Message> list = MessageList.getList(id);
+        ArrayList<User> list1 = MemberList.getList(id);
+        synchronized (list1) {
+            if (data.length > 2) {
+                for (int i = 2; i < data.length; ++i) {
+                    String[] str = data[i].split("@@");
+                    String myid = IdUtil.S2C(str[0]);
+                    if (myid.equals(me.getUid()))
+                        list.add(new Message(id, me, str[2], MessageType.SENT));
+                    else
+                        list.add(new Message(id, MemberList.getUserById(id, myid), str[2], MessageType.RECEIVED));
+                }
+            }
+        }
+        ControllerFactory.getChatController(id).init();
+    }
+
+    private void setGroupMember(String[] data) {
+        String id = "G" + IdUtil.S2C(data[1]);
+        User me = CurrentUser.getInstance();
+        ArrayList<User> list = MemberList.getList(id);
+        synchronized (list) {
+            if (data.length > 2) {
+                for (int i = 2; i < data.length; ++i) {
+                    String[] str = data[i].split("@@");
+                    User user = new User(IdUtil.S2C(str[0]), str[1], new Image("/image/avatar/" + str[2] + ".jpg"));
+                    list.add(user);
+                }
+            }
+        }
+    }
+
+    private void receivePrivateMessage(String[] data) {
+        String id = IdUtil.S2C(data[1]);
+        String content = data[2];
+        User user = FriendList.getUserById(id);
+        ControllerFactory.getChatController(id).updateMessage(id, user, content);
+    }
+
+    private void receiveGroupMessage(String[] data) {
+        String gid = "G" + IdUtil.S2C(data[1]);
+        String uid = IdUtil.S2C(data[2]);
+        String content = data[3];
+        User user = MemberList.getUserById(gid, uid);
+        ControllerFactory.getChatController(gid).updateMessage(gid, user, content);
+    }
+
+    private void updateFriend(String[] data) {
+        String uid = IdUtil.S2C(data[1]);
+        User user = new User(uid, data[2], new Image("/image/avatar/" + data[3] + "./jpg"));
+        ControllerFactory.getHomeController().addFriend(user);
+        FriendList.friends.add(user);
+    }
+
+    private void updateGroup(String[] data) {
+        String gid = "G" + IdUtil.S2C(data[1]);
+        String uid = IdUtil.S2C(data[2]);
+        User user = new User(uid, data[3], new Image("/image/avatar/" + data[3] + "./jpg"));
+        ControllerFactory.getChatController(gid).addMember(user);
+    }
+
+    private void searchGroup(String[] data) {
+        if ("200".equals(data[1])) {
+            String gid = "G" + IdUtil.S2C(data[2]);
+            String name = data[3];
+            Image avatar = new Image("/image/avatar/" + data[4] + ".jpg");
+            ControllerFactory.getLookUpGroupController().setResult(new Group(gid, name, avatar));
+        }
+    }
+
+    private void searchFriend(String[] data) {
+        if (!"408".equals(data[1])) {
+            String uid = IdUtil.S2C(data[1]);
+            String name = data[2];
+            Image avatar = new Image("/image/avatar/" + data[3] + ".jpg");
+            System.out.println("test");
+            ControllerFactory.getLookUpFriendController().setResult(new User(uid, name, avatar));
+            System.out.println("test");
+        }
+    }
+
+    private void joinGroup(String[] data) {
+        /*if ("200".equals(data[2]))
+            ControllerFactory.getHomeController().addGroup();*/
+    }
+
+    private void createGroup(String[] data) {
+        if ("200".equals(data[1])) {
+            String gid = "G" + IdUtil.S2C(data[2]);
+            String name = data[3];
+            Image avatar = new Image("/image/avatar/" + data[4] + ".jpg");
+            ControllerFactory.getHomeController().addGroup(new Group(gid, name, avatar));
+        }
+    }
+
+    private void addFriend(String[] data) {
+
     }
 }

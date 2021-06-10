@@ -8,18 +8,16 @@ import java.sql.Timestamp;
 public class Message {
     private final User sender;
     private final String cid;
-    private final MessageType type;
     // 内容
     private final String content;
     // 时间戳
-    private final Timestamp timestamp;
+    private final MessageType type;
 
-    public Message(String cid , User sender, String content, Timestamp timestamp, MessageType type) {
+    public Message(String cid , User sender, String content, MessageType type) {
         this.cid = cid;
         this.sender = sender;
-        this.type = type;
         this.content = content;
-        this.timestamp = timestamp;
+        this.type = type;
     }
 
     public String getContent() {
@@ -28,10 +26,6 @@ public class Message {
 
     public User getSender() {
         return sender;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
     }
 
     public String getCid() { return cid; }

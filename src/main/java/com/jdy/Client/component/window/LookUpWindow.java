@@ -146,4 +146,16 @@ public class LookUpWindow extends Stage {
             }
         });
     }
+
+    public TextField getSearchField() {
+        return searchField;
+    }
+
+    public JFXButton getSearchButton() {
+        return searchButton;
+    }
+
+    public JFXListView<ListViewCell> getResultListView() {
+        return resultListView;
+    }
 }

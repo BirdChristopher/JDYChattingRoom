@@ -16,9 +16,9 @@ import java.util.Date;
 public class MessageCellTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        VBox vBox = new VBox();
-        Message sentMessage = new Message("P01", new User(), "xxxxxxxxxxx000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", Timestamp.valueOf("2021-06-07 21:31:28"), MessageType.SENT);
-        Message receivedMessage = new Message("P01", new User(), "h", Timestamp.valueOf("2021-06-07 21:32:45"), MessageType.RECEIVED);
+        /*VBox vBox = new VBox();
+        //Message sentMessage = new Message("P01", new User(), "xxxxxxxxxxx000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", Timestamp.valueOf("2021-06-07 21:31:28"), MessageType.SENT);
+        //Message receivedMessage = new Message("P01", new User(), "h", Timestamp.valueOf("2021-06-07 21:32:45"), MessageType.RECEIVED);
         MessageCell sent = new MessageCell(sentMessage);
         MessageCell receive = new MessageCell(receivedMessage);
         vBox.getChildren().addAll(sent, receive);
@@ -27,7 +27,7 @@ public class MessageCellTest extends Application {
         Stage stage = new Stage();
         stage.setTitle("MessageCellDemo");
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
     }
 
     public static void main(String[] args) {

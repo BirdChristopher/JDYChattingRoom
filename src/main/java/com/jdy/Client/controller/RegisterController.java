@@ -15,6 +15,7 @@ public class RegisterController {
     private String name;
     private String password;
     private String sex;
+    private String signature;
 
     public RegisterController() {
         window = new RegisterWindow();
@@ -23,6 +24,7 @@ public class RegisterController {
         name = null;
         password = null;
         sex = "未知";
+        signature = "两面包加芝士";
 
         window.getAvatarView().setOnMouseClicked(event -> {
             // 打开头像选择窗口
@@ -34,7 +36,8 @@ public class RegisterController {
             name = window.getNameField().getText();
             password = window.getPasswordField().getText();
             sex = window.getSelectedSex();
-            DataManager.getInstance().sent("register#" + avatarNum+ "#" + name + "#" + password + "#" + sex);
+            signature = window.getSignature().getText();
+            DataManager.getInstance().sent("register#" + name + "#" + password + "#" + sex + "#" + avatarNum + "#" + signature);
         });
     }
 

@@ -3,6 +3,7 @@ package com.jdy.Client.controller;
 import com.jdy.Client.component.window.LoginWindow;
 import com.jdy.Client.util.DataManager;
 import com.jdy.Client.util.DialogBuilder;
+import com.jdy.Client.util.IdUtil;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
