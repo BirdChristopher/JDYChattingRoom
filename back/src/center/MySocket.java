@@ -1,3 +1,7 @@
+package center;
+
+import entity.User;
+
 import java.net.Socket;
 
 public class MySocket {

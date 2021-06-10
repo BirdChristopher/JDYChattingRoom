@@ -1,6 +1,8 @@
+package client;
+
 import java.io.*;
 import java.net.*;
-import java.util.*;
+
 public class Client {
     public int port = 8080;
     Socket socket = null;
@@ -10,7 +12,8 @@ public class Client {
     public Client() {
         try {
             socket = new Socket("127.0.0.1", port);
-            new Cthread().start();
+            Cthread newClient = new Cthread(socket);
+            newClient.start();
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String msg1;
             while ((msg1 = br.readLine()) != null) {
@@ -20,8 +23,15 @@ public class Client {
             e.printStackTrace();
         }
     }
-    class Cthread extends Thread {
-        public void run() {
+
+}
+class Cthread extends Thread {
+    Socket socket;
+    public Cthread(Socket socket) {
+        this.socket = socket;
+    }
+    public void run() {
+        synchronized (socket){
             try {
                 BufferedReader re = new BufferedReader(new InputStreamReader(System.in));
                 PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
@@ -34,5 +44,6 @@ public class Client {
                 e.printStackTrace();
             }
         }
+
     }
 }
