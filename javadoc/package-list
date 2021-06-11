@@ -1,0 +1,10 @@
+com.jdy.Client
+com.jdy.Client.component.base
+com.jdy.Client.component.window
+com.jdy.Client.controller
+com.jdy.Client.data.chat
+com.jdy.Client.data.dataList
+com.jdy.Client.data.group
+com.jdy.Client.data.message
+com.jdy.Client.data.user
+com.jdy.Client.util
