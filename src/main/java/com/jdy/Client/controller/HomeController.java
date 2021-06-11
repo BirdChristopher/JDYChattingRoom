@@ -14,6 +14,13 @@ import javafx.application.Platform;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.ImagePattern;
 
+/**
+ * 主页窗口的控制类.
+ *
+ * 控制主页窗口的开关，一些组件的事件绑定，视图更新.
+ *
+ * @author dh
+ */
 public class HomeController {
     private HomeWindow window;
     private JFXListView<ListViewCell> friendsView;
@@ -45,6 +52,9 @@ public class HomeController {
         });
     }
 
+    /**
+     * 初始化个人信息.
+     */
     private void initMyInfo() {
         Platform.runLater(new Runnable() {
             @Override

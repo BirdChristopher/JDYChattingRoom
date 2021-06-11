@@ -2,6 +2,13 @@ package com.jdy.Client.data.user;
 
 import javafx.scene.image.Image;
 
+/**
+ * 用户类.
+ *
+ * 用户的相关信息.
+ *
+ * @author dh
+ */
 public class User {
     protected String uid;
     protected String name;
@@ -30,12 +37,10 @@ public class User {
     }
 
     public void changeName(String newName) {
-        // TODO: 修改密码，包括同步数据库信息
         this.name = newName;
     }
 
     public boolean changePassword(String oldPassword, String newPassword) {
-        // TODO: 检查旧密码是否正确以及新密码是否合法，同步数据库信息
         return true;
     }
 

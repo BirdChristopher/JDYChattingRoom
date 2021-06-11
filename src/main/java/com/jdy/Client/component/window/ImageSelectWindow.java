@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * 选择头像的窗口类.
+ *
+ * @author dh
+ */
 public class ImageSelectWindow extends Stage {
     private Scene scene;
     private VBox root;
@@ -46,6 +51,9 @@ public class ImageSelectWindow extends Stage {
         initialize();
     }
 
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
@@ -85,6 +93,9 @@ public class ImageSelectWindow extends Stage {
         });
     }
 
+    /**
+     * 重置视图选择状态.
+     */
     private void reset() {
         for (int i = 0; i < 16; ++i) {
             labelList.get(i).setStyle("-fx-background-color: TRANSPARENT;");
@@ -99,6 +110,9 @@ public class ImageSelectWindow extends Stage {
         return confirmButton;
     }
 
+    /**
+     * 关闭窗口时重置选择状态.
+     */
     @Override
     public void close() {
         selectedNum = 0;

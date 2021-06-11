@@ -5,6 +5,13 @@ import javafx.scene.image.Image;
 
 import java.util.Vector;
 
+/**
+ * 群聊类.
+ *
+ * 群聊相关信息.
+ *
+ * @author dh
+ */
 public class Group {
     private String gid;
     private String name;
@@ -17,6 +24,10 @@ public class Group {
         this.avatar = avatar;
     }
 
+    /**
+     * 添加成员.
+     * @param member 新增成员
+     */
     public void addMember(User member) {
         members.add(member);
     }

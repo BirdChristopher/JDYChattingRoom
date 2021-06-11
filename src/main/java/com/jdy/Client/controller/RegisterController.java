@@ -8,6 +8,13 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
+/**
+ * 注册界面的控制类.
+ *
+ * 控制注册窗口的开关，一些组件的事件绑定，视图更新.
+ *
+ * @author dh
+ */
 public class RegisterController {
     private RegisterWindow window;
     private Image avatar;
@@ -57,6 +64,10 @@ public class RegisterController {
         });
     }
 
+    /**
+     * 注册成功提示弹窗，关闭窗口返回登录界面.
+     * @param uid 账号id
+     */
     public void success(String uid) {
         Platform.runLater(new Runnable() {
             @Override
@@ -69,6 +80,9 @@ public class RegisterController {
         });
     }
 
+    /**
+     * 注册失败，弹窗提示.
+     */
     public void fail() {
         Platform.runLater(new Runnable() {
             @Override
@@ -78,6 +92,11 @@ public class RegisterController {
         });
     }
 
+    /**
+     * 更新用户选择的头像.
+     * @param avatar 头像
+     * @param avatarNum 头像编号
+     */
     public void updateAvatar(Image avatar, int avatarNum) {
         this.avatar = avatar;
         this.avatarNum = avatarNum;

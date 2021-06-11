@@ -24,6 +24,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 创建群聊窗口类.
+ *
+ * 创建群聊的视图.
+ *
+ * @author dh
+ */
 public class CreateGroupWindow extends Stage {
     private Scene scene;
     // View
@@ -72,6 +79,9 @@ public class CreateGroupWindow extends Stage {
         initialize();
     }
 
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         this.initStyle(StageStyle.TRANSPARENT);
         title.setText("创建群聊");

@@ -22,6 +22,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 查找窗口类.
+ *
+ * 查找好友窗口、查找群聊窗口的父类.
+ *
+ * @author dh
+ */
 public class LookUpWindow extends Stage {
     private Scene scene;
     // View
@@ -46,6 +53,10 @@ public class LookUpWindow extends Stage {
     private double xOffset;
     private double yOffset;
 
+    /**
+     * 带参构造器.
+     * @param title 窗口标题
+     */
     public LookUpWindow(String title) {
         this.titleName = title;
         this.root = new VBox();
@@ -70,6 +81,9 @@ public class LookUpWindow extends Stage {
         initialize();
     }
 
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         this.initStyle(StageStyle.TRANSPARENT);
         title.setText(titleName);

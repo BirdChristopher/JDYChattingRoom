@@ -26,6 +26,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 登录窗口类.
+ *
+ * 登录时的视图.
+ *
+ * @author dh
+ */
 public class LoginWindow extends Stage {
     private Scene scene;
     // 根节点
@@ -95,6 +102,9 @@ public class LoginWindow extends Stage {
         initialize();
     }
 
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         // 隐藏系统样式
         this.initStyle(StageStyle.TRANSPARENT);

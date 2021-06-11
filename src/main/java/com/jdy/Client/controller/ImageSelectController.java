@@ -3,6 +3,13 @@ package com.jdy.Client.controller;
 import com.jdy.Client.component.window.ImageSelectWindow;
 import javafx.scene.image.Image;
 
+/**
+ * 头像选择窗口的控制类.
+ *
+ * 控制头像选择窗口的开关，一些组件的事件绑定.
+ *
+ * @author dh
+ */
 public class ImageSelectController {
     private ImageSelectWindow window;
     private Image imageSelected;

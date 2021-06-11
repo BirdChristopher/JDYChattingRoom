@@ -1,6 +1,5 @@
 package com.jdy.Client.controller;
 
-import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.base.UserCheckCell;
 import com.jdy.Client.component.window.CreateGroupWindow;
 import com.jdy.Client.data.dataList.FriendList;
@@ -13,10 +12,16 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
+/**
+ * 创建群聊窗口的控制类.
+ *
+ * 控制创建群聊窗口的开关，一些组件的事件绑定，视图更新.
+ *
+ * @author dh
+ */
 public class CreateGroupController {
     private CreateGroupWindow window;
     private JFXListView<UserCheckCell> friendsView;
@@ -60,7 +65,12 @@ public class CreateGroupController {
             window.close();
         });
     }
-    // 选择头像
+
+    /**
+     * 更新头像.
+     * @param avatar 头像图片类
+     * @param avatarNum 头像的编号
+     */
     public void updateAvatar(Image avatar, int avatarNum) {
         this.avatarNum = avatarNum;
         window.getAvatarView().setFill(new ImagePattern(avatar));

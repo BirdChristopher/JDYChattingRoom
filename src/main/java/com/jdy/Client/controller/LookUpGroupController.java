@@ -13,6 +13,13 @@ import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 
+/**
+ * 查找群聊窗口的控制类.
+ *
+ * 控制查找群聊窗口的开关，一些组件的事件绑定，视图更新.
+ *
+ * @author dh
+ */
 public class LookUpGroupController {
     private LookUpWindow window;
     private TextField searchField;
@@ -44,6 +51,10 @@ public class LookUpGroupController {
         window.close();
     }
 
+    /**
+     * 更新显示查询结果.
+     * @param group 查找到的群聊，null表示不存在
+     */
     public void setResult(Group group) {
         Platform.runLater(new Runnable() {
             @Override

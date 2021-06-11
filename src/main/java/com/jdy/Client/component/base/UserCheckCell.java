@@ -9,6 +9,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * 新建群聊窗口的列表单元.
+ * @author dh
+ */
 public class UserCheckCell extends HBox {
     private Label userLabel;
     private JFXCheckBox checkBox;
@@ -24,6 +28,10 @@ public class UserCheckCell extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
     }
 
+    /**
+     * 返回复选框让调用者获取选择状态.
+     * @return 复选框
+     */
     public JFXCheckBox getCheckBox() {
         return checkBox;
     }

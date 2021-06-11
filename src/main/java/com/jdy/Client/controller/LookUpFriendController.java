@@ -17,6 +17,13 @@ import javafx.scene.input.MouseButton;
 
 import java.util.ArrayList;
 
+/**
+ * 查找好友窗口的控制类.
+ *
+ * 控制查找好友窗口的开关，一些组件的事件绑定，视图更新.
+ *
+ * @author dh
+ */
 public class LookUpFriendController {
     private LookUpWindow window;
     private TextField searchField;
@@ -40,6 +47,10 @@ public class LookUpFriendController {
         });
     }
 
+    /**
+     * 更新显示查询结果.
+     * @param user 查找到的用户，null表示用户不存在
+     */
     public void setResult(User user) {
         Platform.runLater(new Runnable() {
             @Override

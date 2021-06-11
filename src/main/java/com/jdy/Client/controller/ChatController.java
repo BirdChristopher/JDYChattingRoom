@@ -23,8 +23,10 @@ import javafx.scene.input.KeyCode;
 import java.util.ArrayList;
 
 /**
- * 聊天窗口的控制类<br>
- * 显示窗口，更新信息
+ * 聊天窗口的控制类.
+ *
+ * 控制聊天窗口的开关，一些组件的事件绑定，视图更新.
+ *
  * @author dh
  */
 public class ChatController{
@@ -78,6 +80,9 @@ public class ChatController{
         });
     }
 
+    /**
+     * 初始化聊天窗口信息，包括历史聊天记录和成员列表.
+     */
     public void init() {
         Platform.runLater(new Runnable() {
             @Override
@@ -106,6 +111,13 @@ public class ChatController{
         });
     }
 
+    /**
+     * 更新聊天记录.
+     *
+     * @param cid 聊天的id
+     * @param user 消息发送者
+     * @param content 消息内容
+     */
     public void updateMessage(String cid, User user, String content) {
         Platform.runLater(new Runnable() {
             @Override
@@ -117,6 +129,10 @@ public class ChatController{
         });
     }
 
+    /**
+     * 添加新聊天成员.
+     * @param user 新的聊天成员
+     */
     public void addMember(User user) {
         Platform.runLater(new Runnable() {
             @Override

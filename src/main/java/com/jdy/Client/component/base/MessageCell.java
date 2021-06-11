@@ -13,6 +13,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * 消息单元组件，自定义封装的HBox.
+ *
+ * 用于聊天窗口的消息列表.
+ *
+ * @author dh
+ */
 public class MessageCell extends HBox {
     // View
     private Label messageText;
@@ -37,6 +44,9 @@ public class MessageCell extends HBox {
         initialize();
     }
 
+    /**
+     * 初始化样式.
+     */
     private void initialize() {
         messageText.setText(message);
         messageText.setFont(Font.font(18));

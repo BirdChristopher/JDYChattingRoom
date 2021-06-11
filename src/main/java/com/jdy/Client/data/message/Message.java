@@ -5,6 +5,13 @@ import com.jdy.Client.data.user.User;
 
 import java.sql.Timestamp;
 
+/**
+ * 消息类.
+ *
+ * 一条消息的相关信息.
+ *
+ * @author dh
+ */
 public class Message {
     private final User sender;
     private final String cid;

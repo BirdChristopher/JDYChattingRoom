@@ -11,6 +11,13 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
+/**
+ * 登录窗口的控制类.
+ *
+ * 控制登录窗口的开关，一些组件的事件绑定，视图更新.
+ *
+ * @author dh
+ */
 public class LoginController{
     private LoginWindow loginWindow;
     private JFXButton loginButton;
@@ -41,6 +48,10 @@ public class LoginController{
         });
     }
 
+    /**
+     * 登录失败显示弹窗.
+     * @param error 错误代码
+     */
     public void loginFail(int error) {
         Platform.runLater(new Runnable() {
             @Override
@@ -64,6 +75,9 @@ public class LoginController{
         });
     }
 
+    /**
+     * 登录成功，关闭窗口，打开主页.
+     */
     public void loginSuccess() {
         Platform.runLater(new Runnable() {
             @Override

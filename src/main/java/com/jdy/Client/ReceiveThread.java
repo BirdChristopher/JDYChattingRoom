@@ -6,6 +6,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * 接收消息的线程类.
+ *
+ * 一直监听服务器消息的线程.
+ *
+ * @author dh
+ */
 public class ReceiveThread implements Runnable{
     BufferedReader bufferedReader;
 

@@ -20,6 +20,13 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * 数据处理类.
+ *
+ * 核心业务类，连接服务器，接收消息，处理消息，调用controller类更新视图.
+ *
+ * @author dh
+ */
 public class DataManager {
     private static DataManager instance;
     private DataManager() {}
@@ -33,6 +40,10 @@ public class DataManager {
     private BufferedReader in;
     private PrintStream out;
 
+    /**
+     * 连接服务器.
+     * @throws IOException IO异常
+     */
     public void connect() throws IOException {
         socket = new Socket("10.135.224.45", 8080);
         // socket = new Socket("10.136.112.180", 30000); // 测试代码
@@ -42,10 +53,18 @@ public class DataManager {
         receiveThread.start();
     }
 
+    /**
+     * 给服务器发送消息.
+     * @param data 需要发送的消息
+     */
     public void sent(String data) {
         out.println(data);
     }
 
+    /**
+     * 解析服务器发送来的消息，调用相应方法处理.
+     * @param string 服务器发送来的消息
+     */
     public void manage(String string) {
         String[] data = string.split("#");
         if (data.length != 0) {
@@ -104,12 +123,20 @@ public class DataManager {
         }
     }
 
+    /**
+     * 登录信息处理.
+     * @param data 服务器发送来的消息
+     */
     private void login(String[] data) {
         if (!"200".equals(data[1])) {
             ControllerFactory.getLoginController().loginFail(Integer.parseInt(data[1]));
         }
     }
 
+    /**
+     * 注册信息处理.
+     * @param data 服务器发送来的消息
+     */
     private void register(String[] data) {
         if ("200".equals(data[1])) {
             if (data.length == 3) {
@@ -120,6 +147,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * 登录后，初始化CurrentUser, FriendList, GroupList信息.
+     * @param data 服务器发送来的消息
+     */
     private void initInformation(String[] data) {
         // 个人信息
         String[] myInfo = data[1].split("&");
@@ -151,7 +182,10 @@ public class DataManager {
         ControllerFactory.getLoginController().loginSuccess();
     }
 
-
+    /**
+     * 更新私聊历史消息.
+     * @param data 服务器发送来的消息
+     */
     private void setPrivateHistory(String[] data) {
         String uid = IdUtil.S2C(data[1]);
         User friend = FriendList.getUserById(uid);
@@ -172,7 +206,10 @@ public class DataManager {
         list1.add(friend);
         ControllerFactory.getChatController(uid).init();
     }
-
+    /**
+     * 更新群聊历史消息.
+     * @param data 服务器发送来的消息
+     */
     private void setGroupHistory(String[] data) {
         String id = "G" + IdUtil.S2C(data[1]);
         User me = CurrentUser.getInstance();
@@ -193,6 +230,10 @@ public class DataManager {
         ControllerFactory.getChatController(id).init();
     }
 
+    /**
+     * 更新群聊成员.
+     * @param data 服务器发送来的消息
+     */
     private void setGroupMember(String[] data) {
         String id = "G" + IdUtil.S2C(data[1]);
         User me = CurrentUser.getInstance();
@@ -208,6 +249,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * 接收处理私聊历史消息.
+     * @param data 服务器发送来的消息
+     */
     private void receivePrivateMessage(String[] data) {
         String id = IdUtil.S2C(data[1]);
         String content = data[2];
@@ -215,6 +260,10 @@ public class DataManager {
         ControllerFactory.getChatController(id).updateMessage(id, user, content);
     }
 
+    /**
+     * 接收处理群聊历史消息.
+     * @param data 服务器发送来的消息
+     */
     private void receiveGroupMessage(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
         String uid = IdUtil.S2C(data[2]);
@@ -223,6 +272,10 @@ public class DataManager {
         ControllerFactory.getChatController(gid).updateMessage(gid, user, content);
     }
 
+    /**
+     * 更新好友信息和列表.
+     * @param data 服务器发送来的消息
+     */
     private void updateFriend(String[] data) {
         String uid = IdUtil.S2C(data[1]);
         User user = new User(uid, data[2], new Image("/image/avatar/" + data[3] + "./jpg"));
@@ -230,6 +283,10 @@ public class DataManager {
         FriendList.friends.add(user);
     }
 
+    /**
+     * 更新群聊成员信息和列表.
+     * @param data 服务器发送来的消息
+     */
     private void updateGroupMember(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
         String uid = IdUtil.S2C(data[2]);
@@ -237,6 +294,10 @@ public class DataManager {
         ControllerFactory.getChatController(gid).addMember(user);
     }
 
+    /**
+     * 更新群聊信息和列表.
+     * @param data 服务器发送来的消息
+     */
     private void updateGroup(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
         Group group = new Group(gid, data[2], new Image("/image/avatar/" + data[3] + "./jpg"));
@@ -244,6 +305,10 @@ public class DataManager {
         GroupList.groups.add(group);
     }
 
+    /**
+     * 处理查找群聊的消息.
+     * @param data 服务器发送来的消息
+     */
     private void searchGroup(String[] data) {
         Group group = null;
         if (data.length > 2) {
@@ -255,6 +320,10 @@ public class DataManager {
         ControllerFactory.getLookUpGroupController().setResult(group);
     }
 
+    /**
+     * 处理查找好友的消息.
+     * @param data 服务器发送来的消息
+     */
     private void searchFriend(String[] data) {
         User user = null;
         if (data.length > 2) {
@@ -266,11 +335,19 @@ public class DataManager {
         ControllerFactory.getLookUpFriendController().setResult(user);
     }
 
+    /**
+     * 处理加入群聊的消息.
+     * @param data 服务器发送来的消息
+     */
     private void joinGroup(String[] data) {
         /*if ("200".equals(data[2]))
             ControllerFactory.getHomeController().addGroup();*/
     }
 
+    /**
+     * 处理创建群聊的消息.
+     * @param data 服务器发送来的消息
+     */
     private void createGroup(String[] data) {
         if ("200".equals(data[1])) {
             String gid = "G" + IdUtil.S2C(data[2]);
@@ -282,6 +359,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * 处理添加好友的消息.
+     * @param data 服务器发送来的消息
+     */
     private void addFriend(String[] data) {
 
     }

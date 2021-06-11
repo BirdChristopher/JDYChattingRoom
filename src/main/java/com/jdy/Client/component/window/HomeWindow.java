@@ -31,7 +31,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
+/**
+ * 主页窗口类.
+ *
+ * 主页的视图.
+ *
+ * @author dh
+ */
 public class HomeWindow extends Stage {
     private Scene scene;
     // View
@@ -110,7 +116,9 @@ public class HomeWindow extends Stage {
         yOffset = 0.0;
         initialize();
     }
-
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         this.initStyle(StageStyle.TRANSPARENT);
         // 顶部

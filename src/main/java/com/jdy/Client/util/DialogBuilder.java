@@ -1,6 +1,5 @@
 package com.jdy.Client.util;
 
-import com.jdy.Client.controller.ControllerFactory;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -8,10 +7,18 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.stage.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.util.Optional;
 
+/**
+ * JFXDialog的封装类.
+ *
+ * 封装了一下JFXDialog，使用更方便，参考了一下网上的代码.
+ *
+ */
 public class DialogBuilder {
     private String title, message;
     private JFXButton negativeBtn = null;
@@ -25,28 +32,61 @@ public class DialogBuilder {
         window = control.getScene().getWindow();
     }
 
+    /**
+     * 设置标题.
+     * @param title 标题
+     * @return this
+     */
     public DialogBuilder setTitle(String title) {
         this.title = title;
         return this;
     }
 
+    /**
+     * 设置主要内容.
+     * @param message 主要内容
+     * @return this
+     */
     public DialogBuilder setMessage(String message) {
         this.message = message;
         return this;
     }
 
+    /**
+     * 设置按钮.
+     * @param positiveBtnText 按钮文字
+     * @return this
+     */
     public DialogBuilder setPositiveBtn(String positiveBtnText) {
         return setPositiveBtn(positiveBtnText, null, null);
     }
 
+    /**
+     * 设置按钮.
+     * @param negativeBtnText 按钮文字
+     * @return this
+     */
     public DialogBuilder setNegativeBtn(String negativeBtnText) {
         return setNegativeBtn(negativeBtnText, null, null);
     }
 
+    /**
+     * 设置按钮.
+     * @param negativeBtnText 按钮文字
+     * @param color 按钮颜色
+     * @return this
+     */
     public DialogBuilder setNegativeBtn(String negativeBtnText, String color) {
         return setNegativeBtn(negativeBtnText, null, color);
     }
 
+    /**
+     * 设置按钮.
+     * @param negativeBtnText 按钮文字
+     * @param negativeBtnOnclickListener 按钮监听器
+     * @param color 按钮颜色
+     * @return this
+     */
     public DialogBuilder setNegativeBtn(String negativeBtnText, OnClickListener negativeBtnOnclickListener, String color) {
         if (color != null) {
             this.negativeBtnPaint = Paint.valueOf(color);
@@ -54,6 +94,12 @@ public class DialogBuilder {
         return setNegativeBtn(negativeBtnText, negativeBtnOnclickListener);
     }
 
+    /**
+     * 设置按钮.
+     * @param negativeBtnText 按钮文字
+     * @param negativeBtnOnclickListener 按钮监听器
+     * @return this
+     */
     public DialogBuilder setNegativeBtn(String negativeBtnText, OnClickListener negativeBtnOnclickListener) {
 
         negativeBtn = new JFXButton(negativeBtnText);
@@ -69,10 +115,23 @@ public class DialogBuilder {
         return this;
     }
 
+    /**
+     * 设置按钮.
+     * @param positiveBtnText 按钮文字
+     * @param color 按钮颜色
+     * @return this
+     */
     public DialogBuilder setPositiveBtn(String positiveBtnText, String color) {
         return setPositiveBtn(positiveBtnText, null, color);
     }
 
+    /**
+     * 设置按钮.
+     * @param positiveBtnText 按钮文字
+     * @param positiveBtnOnclickListener 按钮监听器
+     * @param color 按钮颜色
+     * @return this
+     */
     public DialogBuilder setPositiveBtn(String positiveBtnText, OnClickListener positiveBtnOnclickListener, String color) {
         if (color != null) {
             this.positiveBtnPaint = Paint.valueOf(color);
@@ -80,6 +139,12 @@ public class DialogBuilder {
         return setPositiveBtn(positiveBtnText, positiveBtnOnclickListener);
     }
 
+    /**
+     * 设置按钮.
+     * @param positiveBtnText 按钮文字
+     * @param positiveBtnOnclickListener 按钮监听器
+     * @return this
+     */
     public DialogBuilder setPositiveBtn(String positiveBtnText, OnClickListener positiveBtnOnclickListener) {
         positiveBtn = new JFXButton(positiveBtnText);
         positiveBtn.setDefaultButton(true);
@@ -93,6 +158,10 @@ public class DialogBuilder {
         return this;
     }
 
+    /**
+     * 新建弹窗.
+     * @return alert
+     */
     public JFXAlert<String> create() {
         alert = new JFXAlert<>((Stage) window);
         alert.initModality(Modality.APPLICATION_MODAL);

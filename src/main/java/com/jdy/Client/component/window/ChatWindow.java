@@ -30,6 +30,13 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 聊天窗口类.
+ *
+ * 聊天窗口的视图.
+ *
+ * @author dh
+ */
 public class ChatWindow extends Stage {
     private Scene scene;
     // View
@@ -112,6 +119,9 @@ public class ChatWindow extends Stage {
         initialize();
     }
 
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         this.initStyle(StageStyle.TRANSPARENT);
         // 标题栏

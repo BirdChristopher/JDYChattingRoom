@@ -26,6 +26,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 注册窗口类.
+ *
+ * 注册时的视图.
+ *
+ * @author dh
+ */
 public class RegisterWindow extends Stage {
     private Scene scene;
     // View
@@ -104,6 +111,9 @@ public class RegisterWindow extends Stage {
         initialize();
     }
 
+    /**
+     * 初始化样式，绑定事件.
+     */
     private void initialize() {
         // 隐藏系统样式
         this.initStyle(StageStyle.TRANSPARENT);
