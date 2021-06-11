@@ -1,22 +1,19 @@
 package com.jdy.Client;
 
+import com.jdy.Client.controller.ControllerFactory;
+import com.jdy.Client.util.DataManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ControllerFactory.getLoginController().showWindow();
+        DataManager.getInstance().connect();
+    }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(App.class.getResource("/fxml/register.fxml"));
-        VBox rootLayout = loader.load();
-        Scene scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public static String load(String path) {
+        return App.class.getResource(path).toExternalForm();
     }
 
     public static void main(String[] args) {
