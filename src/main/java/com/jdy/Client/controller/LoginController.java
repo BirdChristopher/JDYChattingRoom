@@ -26,7 +26,12 @@ public class LoginController{
             public void handle(ActionEvent event) {
                 String account = loginWindow.getAccountField().getText();
                 String password = loginWindow.getPasswordField().getText();
-                DataManager.getInstance().sent("login#" + account + "#" + password);
+                if (account == null)
+                    new DialogBuilder(loginButton).setTitle("提示").setMessage("账号不能为空").setNegativeBtn("确认").create();
+                else if (password == null)
+                    new DialogBuilder(loginButton).setTitle("提示").setMessage("请输入密码").setNegativeBtn("确认").create();
+                else
+                    DataManager.getInstance().sent("login#" + account + "#" + password);
             }
         });
 

@@ -129,7 +129,7 @@ public class DataManager {
         CurrentUser.getInstance().setSex(myInfo[3]);
         CurrentUser.getInstance().setSignature(myInfo[4]);
         // 好友列表
-        if (!data[2].equals("")) {
+        if (data.length > 2 && !data[2].equals("")) {
             String[] friends = data[2].split("%%");
             for (int i = 0; i < friends.length; ++i) {
                 String[] str = friends[i].split("&");

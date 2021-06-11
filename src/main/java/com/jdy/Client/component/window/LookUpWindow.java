@@ -121,6 +121,7 @@ public class LookUpWindow extends Stage {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                resultListView.getItems().clear();
                 LookUpWindow.super.close();
             }
         });

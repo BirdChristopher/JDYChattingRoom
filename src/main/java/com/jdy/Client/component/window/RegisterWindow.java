@@ -285,4 +285,8 @@ public class RegisterWindow extends Stage {
     public JFXTextField getSignature() {
         return signature;
     }
+
+    public JFXPasswordField getConfirmField() {
+        return confirmField;
+    }
 }

@@ -14,6 +14,7 @@ public class RegisterController {
     private int avatarNum;
     private String name;
     private String password;
+    private String confirm;
     private String sex;
     private String signature;
 
@@ -23,6 +24,7 @@ public class RegisterController {
         avatarNum = 0;
         name = null;
         password = null;
+        confirm = null;
         sex = "未知";
         signature = "两面包加芝士";
 
@@ -35,9 +37,23 @@ public class RegisterController {
         window.getRegisterButton().setOnAction(event -> {
             name = window.getNameField().getText();
             password = window.getPasswordField().getText();
+
             sex = window.getSelectedSex();
             signature = window.getSignature().getText();
-            DataManager.getInstance().sent("register#" + name + "#" + password + "#" + sex + "#" + avatarNum + "#" + signature);
+            if (name == null)
+                new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("用户名不能为空").setNegativeBtn("确认").create();
+            else if (!name.matches("\\w+"))
+                new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("用户名只能有数字和字母").setNegativeBtn("确认").create();
+            else if (password == null)
+                new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("密码不能为空").setNegativeBtn("确认").create();
+            else if (!password.equals(confirm))
+                new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("密码不一致").setNegativeBtn("确认").create();
+            else if (sex == null)
+                new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("请选择您的性别").setNegativeBtn("确认").create();
+            else if (signature == null)
+                new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("给自己写个酷酷的签名吧").setNegativeBtn("确认").create();
+            else
+                DataManager.getInstance().sent("register#" + name + "#" + password + "#" + sex + "#" + avatarNum + "#" + signature);
         });
     }
 
