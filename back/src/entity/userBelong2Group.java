@@ -7,15 +7,15 @@ package entity;
  */
 public class userBelong2Group {
     /**
-     * @value 用户id
+     * 用户id
      */
     public int user_id;
     /**
-     * @value 所属群聊id
+     * 所属群聊id
      */
     public int group_id;
     /**
-     * @value 用户在群聊中的备注名
+     * 用户在群聊中的备注名
      */
     public String nickname;
 

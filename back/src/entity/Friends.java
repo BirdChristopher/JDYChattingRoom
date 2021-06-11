@@ -6,11 +6,11 @@ package entity;
  */
 public class Friends {
     /**
-     * @value 好友1 id
+     * 好友1 id
      */
     public int user_1;
     /**
-     * @value 好友2 id
+     * 好友2 id
      */
     public int user_2;
 
