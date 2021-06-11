@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <typeAlias alias="User" type="entity.User"/>
+        <typeAlias alias="PrivateMessage" type="entity.PrivateMessage"/>
+        <typeAlias alias="GroupMessage" type="entity.GroupMessage"/>
+        <typeAlias alias="Group" type="entity.Group"/>
+        <typeAlias alias="Friends" type="entity.Friends"/>
+        <typeAlias alias="userBelong2Group" type="entity.userBelong2Group"/>
+        <package name="entity"/>
+    </typeAliases>
+    <environments default="chattingroom">
+        <environment id="chattingroom">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+                <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=chattingroom"/>
+                <property name="username" value="sa"/>
+                <property name="password" value="zeddhardwell"/>
+                <property name="driver.encoding" value="UTF-8"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 映射文件,告诉MyBatis去哪里寻找映射资源 -->
+    <mappers>
+        <!--这里的路径是相对本配置文件的路径-->
+        <mapper resource="mapper/GroupMapper.xml"/>
+        <mapper resource="mapper/HistoryMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
