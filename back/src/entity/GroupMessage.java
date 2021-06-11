@@ -9,23 +9,23 @@ import java.util.Date;
  */
 public class GroupMessage {
     /**
-     * @value 群聊id
+     * 群聊id
      */
     public int group_id;
     /**
-     * @value 群聊消息内容
+     * 群聊消息内容
      */
     public String content;
     /**
-     * @value 发送者id
+     * 发送者id
      */
     public int user_id;
     /**
-     * @value 发送者名称
+     * 发送者名称
      */
     public String sender_name;
     /**
-     * @value 发送时间
+     * 发送时间
      */
     public Date time;
 

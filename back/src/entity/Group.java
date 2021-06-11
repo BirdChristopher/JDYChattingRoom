@@ -6,15 +6,15 @@ package entity;
  */
 public class Group {
     /**
-     * @value 小组id
+     * 小组id
      */
     public int id;
     /**
-     * @value 小组头像
+     * 小组头像
      */
     public int avatar;
     /**
-     * @value 小组名称
+     * 小组名称
      */
     public String name;
 

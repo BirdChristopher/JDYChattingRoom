@@ -11,20 +11,20 @@ import java.util.*;
 
 /**
  * 中央服务的入口类
- *  @author 于添 & 季晓东
+ *  @author 于添 / 季晓东
  *  @version 2.0
  */
 public class CenterServer {
     /**
-     * @value 存储当前在线的用户所对应的MySocket {@link center.MySocket}
+     * 存储当前在线的用户所对应的MySocket {@link center.MySocket}
      */
     public static ArrayList<MySocket> clients=new ArrayList<>();
     /**
-     * @value 服务器socket
+     * 服务器socket
      */
     ServerSocket server;
     /**
-     * @value 数据库会话
+     * 数据库会话
      */
     public static SqlSession sqlSession;
 
@@ -33,7 +33,7 @@ public class CenterServer {
     }
 
     /**
-     * @value MyBatis的配置文件的位置
+     * MyBatis的配置文件的位置
      */
     String resource="mapper/mybatis-config.xml";
 
@@ -43,7 +43,7 @@ public class CenterServer {
      * <li>打开服务器的ServerSocket</li>
      * <li>打开数据库连接</li>
      * <li>为连入的socket分配线程来处理</li>
-     * @author 于添 & 季晓东
+     * @author 于添 / 季晓东
      */
     private CenterServer() {
         // 开启数据库连接
@@ -76,7 +76,7 @@ public class CenterServer {
     /**
      * 服务器线程类
      * 用于监听用户的消息并处理
-     * @author 季晓东 & 于添
+     * @author 季晓东 / 于添
      * @version 2.0
      */
     class Mythread extends Thread {
@@ -335,7 +335,7 @@ public class CenterServer {
     /**
      * 群发消息方法
      * <p>用于向一批用户群发指定消息，其中只有在线用户会收到这些消息</p>
-     * @author 于添 & 季晓东
+     * @author 于添 / 季晓东
      * @param userlist 计划群发信息的目标用户列表
      * @param msg 计划发出的信息
      */
@@ -365,7 +365,7 @@ public class CenterServer {
     /**
      * 私发消息方法
      * <p>用于向指定id的用户私发消息，该用户只有上线才能收到消息</p>
-     * @author 季晓东 & 于添
+     * @author 季晓东 / 于添
      * @param targetUserID 目标用户的id
      * @param msg 将要发送的消息
      */
@@ -406,7 +406,7 @@ public class CenterServer {
 
     /**
      * 下线
-     * @author 于添 & 季晓东
+     * @author 于添 / 季晓东
      * @param ssocket 将要下线的用户对应的MySocket {@link center.MySocket}
      */
     public static void offline(MySocket ssocket){

@@ -9,19 +9,19 @@ import java.util.Date;
  */
 public class PrivateMessage {
     /**
-     * @value 发送者id
+     * 发送者id
      */
     public int user_from;
     /**
-     * @value 接受者id
+     * 接受者id
      */
     public int user_to;
     /**
-     * @value 内容
+     * 内容
      */
     public String content;
     /**
-     * @value 推送时间
+     * 推送时间
      */
     public Date push_time;
 

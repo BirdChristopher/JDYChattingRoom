@@ -9,27 +9,27 @@ import java.net.Socket;
  */
 public class User {
     /**
-     * @value 用户名
+     * 用户名
      */
     public String username;
     /**
-     * @value 密码
+     * 密码
      */
     public String password;
     /**
-     * @value 用户id
+     * 用户id
      */
     public int id;
     /**
-     * @value 用户介绍
+     * 用户介绍
      */
     public String introduction;
     /**
-     * @value 用户头像
+     * 用户头像
      */
     public int avatar;
     /**
-     * @value 用户性别
+     * 用户性别
      */
     public String sex;
     //用于resultMap，一般不用

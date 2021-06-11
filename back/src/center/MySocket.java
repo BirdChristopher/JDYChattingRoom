@@ -11,11 +11,11 @@ import java.net.Socket;
  */
 public class MySocket {
     /**
-     * @value 客户端的socket
+     * 客户端的socket
      */
     private Socket socket;
     /**
-     * @value 客户端对应的用户信息
+     * 客户端对应的用户信息
      */
     private User user;
     public MySocket(Socket socket){

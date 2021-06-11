@@ -6,6 +6,9 @@ package exception;
  * @author 季晓东
  */
 public class MyException extends Throwable{
+    /**
+     * 自定义错误码
+     */
     public int code = 200;
     public MyException(int code){
         this.code=code;
