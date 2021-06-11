@@ -37,20 +37,20 @@ public class RegisterController {
         window.getRegisterButton().setOnAction(event -> {
             name = window.getNameField().getText();
             password = window.getPasswordField().getText();
-
+            confirm = window.getConfirmField().getText();
             sex = window.getSelectedSex();
             signature = window.getSignature().getText();
-            if (name == null)
+            if (name.equals(""))
                 new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("用户名不能为空").setNegativeBtn("确认").create();
             else if (!name.matches("\\w+"))
                 new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("用户名只能有数字和字母").setNegativeBtn("确认").create();
-            else if (password == null)
+            else if (password.equals(""))
                 new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("密码不能为空").setNegativeBtn("确认").create();
             else if (!password.equals(confirm))
                 new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("密码不一致").setNegativeBtn("确认").create();
             else if (sex == null)
                 new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("请选择您的性别").setNegativeBtn("确认").create();
-            else if (signature == null)
+            else if (signature.equals(""))
                 new DialogBuilder(window.getRegisterButton()).setTitle("提示").setMessage("给自己写个酷酷的签名吧").setNegativeBtn("确认").create();
             else
                 DataManager.getInstance().sent("register#" + name + "#" + password + "#" + sex + "#" + avatarNum + "#" + signature);
@@ -70,7 +70,12 @@ public class RegisterController {
     }
 
     public void fail() {
-        new DialogBuilder(window.getRegisterButton()).setTitle("用户名已存在").setNegativeBtn("确认").create();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                new DialogBuilder(window.getRegisterButton()).setTitle("注册失败").setMessage("用户名已存在").setNegativeBtn("确认").create();
+            }
+        });
     }
 
     public void updateAvatar(Image avatar, int avatarNum) {

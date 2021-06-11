@@ -233,6 +233,10 @@ public class RegisterWindow extends Stage {
         closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                nameField.clear();
+                passwordField.clear();
+                confirmField.clear();
+                signature.clear();
                 RegisterWindow.super.close();
             }
         });
@@ -271,7 +275,10 @@ public class RegisterWindow extends Stage {
     }
 
     public String getSelectedSex() {
-        return sexGroup.getSelectedToggle().getUserData().toString();
+        if (sexGroup.getSelectedToggle() == null)
+            return null;
+        else
+            return sexGroup.getSelectedToggle().getUserData().toString();
     }
 
     public Circle getAvatarView() {
