@@ -37,9 +37,10 @@ public class LookUpFriendController {
         this.resultListView = window.getResultListView();
 
         searchButton.setOnAction(event -> {
+            resultListView.getItems().clear();
             String input = searchField.getText();
             if (!input.matches("\\d{6}"))
-                new DialogBuilder(searchButton).setTitle("提示").setMessage("群聊号格式错误").setNegativeBtn("确认").create();
+                new DialogBuilder(searchButton).setTitle("提示").setMessage("用户账号格式错误").setNegativeBtn("确认").create();
             else {
                 String id = IdUtil.C2S(searchField.getText());
                 DataManager.getInstance().sent("sf#" + id);
@@ -55,8 +56,8 @@ public class LookUpFriendController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if (user != null)
-                    new DialogBuilder(searchButton).setTitle("提示").setMessage("群聊不存在").setNegativeBtn("确认").create();
+                if (user == null)
+                    new DialogBuilder(searchButton).setTitle("提示").setMessage("用户不存在").setNegativeBtn("确认").create();
                 else {
                     ListViewCell cell = new ListViewCell(user.getAvatar(), user.getName() + " (" + user.getUid() + ")");
                     cell.setId(user.getUid());
@@ -66,6 +67,7 @@ public class LookUpFriendController {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                             DataManager.getInstance().sent("add#" + IdUtil.C2S(cell.getId()));
                             ControllerFactory.getHomeController().addFriend(user);
+                            ControllerFactory.createChatController(cell.getId());
                             FriendList.friends.add(user);
                             new DialogBuilder(window.getSearchButton()).setTitle("添加好友")
                                     .setMessage("添加 " + user.getName() + " (" + user.getUid() + ") 成功!").setNegativeBtn("确认").create();

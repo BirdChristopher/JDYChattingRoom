@@ -33,6 +33,7 @@ public class LookUpGroupController {
         this.resultListView = window.getResultListView();
 
         searchButton.setOnAction(event -> {
+            resultListView.getItems().clear();
             String input = searchField.getText();
             if (!input.matches("G\\d{6}"))
                 new DialogBuilder(searchButton).setTitle("提示").setMessage("群聊号格式错误").setNegativeBtn("确认").create();
@@ -59,7 +60,7 @@ public class LookUpGroupController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if (group != null)
+                if (group == null)
                     new DialogBuilder(searchButton).setTitle("提示").setMessage("群聊不存在").setNegativeBtn("确认").create();
                 else {
                     ListViewCell cell = new ListViewCell(group.getAvatar(), group.getName() + " (" + group.getGid() + ")");
@@ -70,6 +71,7 @@ public class LookUpGroupController {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                             DataManager.getInstance().sent("jgroup#" + IdUtil.C2S(cell.getId()));
                             ControllerFactory.getHomeController().addGroup(group);
+                            ControllerFactory.createChatController(cell.getId());
                             GroupList.groups.add(group);
                             new DialogBuilder(window.getSearchButton()).setTitle("加群")
                                     .setMessage("加入 " + group.getName() + " (" + group.getGid() + ") 成功!").setNegativeBtn("确认").create();

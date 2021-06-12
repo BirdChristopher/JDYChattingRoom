@@ -61,7 +61,7 @@ public class ChatController{
             if (chatType == ChatType.SINGLE)
                 DataManager.getInstance().sent("P#" + myId + "#" + IdUtil.C2S(this.id) + "#" + content);
             else
-                DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + content);
+                DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + "#" + content);
         });
 
         textArea.setOnKeyPressed(event -> {
