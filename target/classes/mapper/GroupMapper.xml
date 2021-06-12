@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GroupMapper">
+    <!--搜索小组信息-->
+    <select id="findGroupInfo" parameterType="Group" resultType="Group">
+        select * from groupinfo
+        <where>
+            <if test="id!=0">
+                id=#{id}
+            </if>
+            <if test="name!=null">
+                AND name=#{name}
+            </if>
+        </where>
+    </select>
+    <!--插入小组信息，创建群聊-->
+    <insert id="addGroup" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
+        insert into groupinfo values(#{avatar},#{name})
+    </insert>
+    <!--不支持修改小组信息-->
+</mapper>
