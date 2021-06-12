@@ -122,7 +122,7 @@ public class LookUpWindow extends Stage {
         root.setStyle("-fx-background-color: #fcd5ce;");
         root.setSpacing(10);
         root.setAlignment(Pos.TOP_CENTER);
-        scene.getStylesheets().add(App.load("/css/home-window.css"));
+        scene.getStylesheets().add("/CSS/home-window.css");
         this.setScene(scene);
 
         // 最小化

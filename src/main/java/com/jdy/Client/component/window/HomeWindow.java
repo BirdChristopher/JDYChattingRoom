@@ -197,7 +197,7 @@ public class HomeWindow extends Stage {
         //root.setPadding(new Insets(0,0,10,0));
         root.getChildren().add(top);
         root.getChildren().add(tabPane);
-        scene.getStylesheets().add(App.load("/css/home-window.css"));
+        scene.getStylesheets().add("/CSS/home-window.css");
         this.setScene(scene);
 
         // 最小化
