@@ -76,6 +76,7 @@ public class ChatController{
                     DataManager.getInstance().sent("P#" + myId + "#" + IdUtil.C2S(this.id) + "#" + content);
                 else
                     DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + "#" + content);
+                textArea.clear();
             }
         });
     }
@@ -105,8 +106,8 @@ public class ChatController{
                 else if (chatType == ChatType.GROUP)
                     window.getTitleLabel().setText(GroupList.getGroupById(id).getName());
                 window.show();
-                messages.clear();
-                members.clear();
+                //messages.clear();
+                //members.clear();
             }
         });
     }

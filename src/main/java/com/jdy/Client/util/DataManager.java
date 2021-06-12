@@ -183,7 +183,7 @@ public class DataManager {
     }
 
     /**
-     * 更新私聊历史消息.
+     * 初始化私聊历史消息.
      * @param data 服务器发送来的消息
      */
     private void setPrivateHistory(String[] data) {
@@ -206,8 +206,9 @@ public class DataManager {
         list1.add(friend);
         ControllerFactory.getChatController(uid).init();
     }
+
     /**
-     * 更新群聊历史消息.
+     * 初始化群聊历史消息.
      * @param data 服务器发送来的消息
      */
     private void setGroupHistory(String[] data) {
@@ -231,7 +232,7 @@ public class DataManager {
     }
 
     /**
-     * 更新群聊成员.
+     * 初始化群聊成员.
      * @param data 服务器发送来的消息
      */
     private void setGroupMember(String[] data) {
@@ -267,9 +268,12 @@ public class DataManager {
     private void receiveGroupMessage(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
         String uid = IdUtil.S2C(data[2]);
-        String content = data[3];
-        User user = MemberList.getUserById(gid, uid);
-        ControllerFactory.getChatController(gid).updateMessage(gid, user, content);
+        if (!uid.equals(CurrentUser.getInstance().getUid())) {
+            String content = data[3];
+            User user = MemberList.getUserById(gid, uid);
+            System.out.println(user);
+            ControllerFactory.getChatController(gid).updateMessage(gid, user, content);
+        }
     }
 
     /**
@@ -278,7 +282,7 @@ public class DataManager {
      */
     private void updateFriend(String[] data) {
         String uid = IdUtil.S2C(data[1]);
-        User user = new User(uid, data[2], new Image("/image/avatar/" + data[3] + "./jpg"));
+        User user = new User(uid, data[2], new Image("/image/avatar/" + data[3] + ".jpg"));
         ControllerFactory.getHomeController().addFriend(user);
         FriendList.friends.add(user);
     }
@@ -290,7 +294,7 @@ public class DataManager {
     private void updateGroupMember(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
         String uid = IdUtil.S2C(data[2]);
-        User user = new User(uid, data[3], new Image("/image/avatar/" + data[4] + "./jpg"));
+        User user = new User(uid, data[3], new Image("/image/avatar/" + data[4] + ".jpg"));
         ControllerFactory.getChatController(gid).addMember(user);
     }
 
@@ -300,7 +304,7 @@ public class DataManager {
      */
     private void updateGroup(String[] data) {
         String gid = "G" + IdUtil.S2C(data[1]);
-        Group group = new Group(gid, data[2], new Image("/image/avatar/" + data[3] + "./jpg"));
+        Group group = new Group(gid, data[2], new Image("/image/avatar/" + data[3] + ".jpg"));
         ControllerFactory.getHomeController().addGroup(group);
         GroupList.groups.add(group);
     }
@@ -336,7 +340,7 @@ public class DataManager {
     }
 
     /**
-     * 处理加入群聊的消息.
+     * 处理加入群聊的消息(默认成功不做处理).
      * @param data 服务器发送来的消息
      */
     private void joinGroup(String[] data) {
@@ -360,7 +364,7 @@ public class DataManager {
     }
 
     /**
-     * 处理添加好友的消息.
+     * 处理添加好友的消息（默认成功不做处理）.
      * @param data 服务器发送来的消息
      */
     private void addFriend(String[] data) {

@@ -3,6 +3,7 @@ package com.jdy.Client.data.dataList;
 import com.jdy.Client.data.user.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author dh
  */
 public class MemberList {
-    private static ConcurrentHashMap<String, ArrayList<User>> memberLists = new ConcurrentHashMap<>();
+    private static HashMap<String, ArrayList<User>> memberLists = new HashMap<>();
 
     public MemberList() {}
 
