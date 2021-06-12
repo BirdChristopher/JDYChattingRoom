@@ -16,6 +16,8 @@ MSSQL Database文件夹内是项目的SQL Server数据库的数据库迁移文�
 
 2.SDK1.8
 
+3.MyBatis
+
 #### 运行方法：
 
 1.导入数据库文件

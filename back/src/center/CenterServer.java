@@ -349,13 +349,14 @@ public class CenterServer {
                 for(j=0;j<len;j++){
                     if(clients.get(j).getUser().getId() == userlist.get(i).getId()){
                         socketList.add(clients.get(j));
-                        break;
+                        //break;
                     }
                 }
             }
             for(i=0;i<socketList.size();i++){
                 PrintWriter pw = new PrintWriter(socketList.get(i).getSocket().getOutputStream(),true);
                 pw.println(msg);
+                pw.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
