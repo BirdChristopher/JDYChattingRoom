@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.net.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -354,7 +355,7 @@ public class CenterServer {
                 }
             }
             for(i=0;i<socketList.size();i++){
-                PrintWriter pw = new PrintWriter(socketList.get(i).getSocket().getOutputStream(),true);
+                PrintWriter pw = new PrintWriter(new OutputStreamWriter(socketList.get(i).getSocket().getOutputStream(),StandardCharsets.UTF_8),true);
                 pw.println(msg);
                 pw.flush();
             }
@@ -380,7 +381,7 @@ public class CenterServer {
                 }
             }
             if(targetClient!=null){
-                PrintWriter pw = new PrintWriter(targetClient.getSocket().getOutputStream(),true);
+                PrintWriter pw = new PrintWriter(new OutputStreamWriter(targetClient.getSocket().getOutputStream(), StandardCharsets.UTF_8),true);
                 pw.println(msg);
                 pw.flush();
             }
@@ -397,7 +398,7 @@ public class CenterServer {
      */
     public static void sendToSpecificUser(Socket targetSocket,String msg){
         try{
-            PrintWriter pw = new PrintWriter(targetSocket.getOutputStream(),true);
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(targetSocket.getOutputStream(), StandardCharsets.UTF_8),true);
             pw.println(msg);
             pw.flush();
         }catch(IOException e){
