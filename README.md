@@ -16,7 +16,11 @@ MSSQL Database文件夹内是项目的SQL Server数据库的数据库迁移文�
 
 2.SDK1.8
 
-3.MyBatis
+3.MyBatis 3.5.5
+
+4.Windows10
+
+5.Microsoft Sql Server 数据库
 
 #### 运行方法：
 
