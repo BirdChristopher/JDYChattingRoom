@@ -12,12 +12,12 @@ import com.jdy.Client.data.message.MessageType;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
 import javafx.scene.image.Image;
+import sun.nio.cs.ext.GBK;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -38,17 +38,17 @@ public class DataManager {
 
     private Socket socket;
     private BufferedReader in;
-    private PrintStream out;
+    private PrintWriter out;
 
     /**
      * 连接服务器.
      * @throws IOException IO异常
      */
     public void connect() throws IOException {
-        socket = new Socket("10.135.224.45", 8080);
+        socket = new Socket("82.157.34.127", 8080);
         // socket = new Socket("10.136.112.180", 30000); // 测试代码
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintStream(socket.getOutputStream());
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+        out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
         Thread receiveThread = new Thread(new ReceiveThread(in));
         receiveThread.start();
     }
