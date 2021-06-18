@@ -298,6 +298,8 @@ public class DataManager {
         String uid = IdUtil.S2C(data[2]);
         User user = new User(uid, data[3], new Image("/image/avatar/" + data[4] + ".jpg"));
         ControllerFactory.getChatController(gid).addMember(user);
+        HashMap<String, User> list = MemberList.getList(gid);
+        list.put(uid, user);
     }
 
     /**
