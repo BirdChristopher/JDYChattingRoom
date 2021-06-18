@@ -69,9 +69,11 @@ public class LookUpFriendController {
                     cell.setOnMouseClicked(event -> {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                             DataManager.getInstance().sent("add#" + IdUtil.C2S(cell.getId()));
-                            cell.setManaged(false);
+                            cell.setDisable(true);
                         }
                     });
+                    if (FriendList.getUserById(user.getUid()) != null)
+                        cell.setDisable(true);
                 }
             }
         });
@@ -98,7 +100,7 @@ public class LookUpFriendController {
             public void run() {
                 new DialogBuilder(window.getSearchButton()).setTitle("添加好友")
                         .setMessage("添加 " + foundUser.getName() + " (" + foundUser.getUid() + ") 失败.").setNegativeBtn("确认").create();
-                resultListView.getItems().get(0).setManaged(true);
+                resultListView.getItems().get(0).setDisable(false);
             }
         });
     }

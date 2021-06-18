@@ -11,13 +11,13 @@ import com.jdy.Client.data.message.Message;
 import com.jdy.Client.data.message.MessageType;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 数据处理类.
@@ -50,6 +50,15 @@ public class DataManager {
         out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
         Thread receiveThread = new Thread(new ReceiveThread(in));
         receiveThread.start();
+        // 定时器线程，服务器端检测在线
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sent("ONLINE");
+                System.out.println("ONLINE");
+            }
+        }, new Date(), 5000);
     }
 
     /**

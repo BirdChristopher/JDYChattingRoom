@@ -92,5 +92,9 @@ public class LoginController{
 
     public void showWindow() { loginWindow.show(); }
 
-    public void closeWindow() { loginWindow.close(); }
+    public void closeWindow() {
+        loginWindow.close();
+        Platform.exit();
+        System.exit(0);
+    }
 }

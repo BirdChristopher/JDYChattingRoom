@@ -21,11 +21,13 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         LoginController controller =  ControllerFactory.getLoginController();
         controller.showWindow();
+        // 检测网络连接
         try {
             DataManager.getInstance().connect();
         } catch (IOException e) {
             new DialogBuilder(controller.getLoginWindow().getLoginButton()).setTitle("网络错误")
                     .setMessage("连接服务器失败").setNegativeBtn("确认").create();
+            controller.closeWindow();
         }
     }
 

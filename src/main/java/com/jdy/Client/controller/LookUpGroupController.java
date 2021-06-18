@@ -72,9 +72,11 @@ public class LookUpGroupController {
                     cell.setOnMouseClicked(event -> {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                             DataManager.getInstance().sent("jgroup#" + IdUtil.C2S(cell.getId()));
-                            cell.setDisable(false);
+                            cell.setDisable(true);
                         }
                     });
+                    if (GroupList.getGroupById(group.getGid()) != null)
+                        cell.setDisable(true);
                 }
             }
         });
@@ -99,7 +101,7 @@ public class LookUpGroupController {
             public void run() {
                 new DialogBuilder(window.getSearchButton()).setTitle("加群")
                         .setMessage("加入 " + foundGroup.getName() + " (" + foundGroup.getGid() + ") 失败.").setNegativeBtn("确认").create();
-                resultListView.getItems().get(0).setDisable(true);
+                resultListView.getItems().get(0).setDisable(false);
             }
         });
     }
