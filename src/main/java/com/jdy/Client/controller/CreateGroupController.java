@@ -52,17 +52,24 @@ public class CreateGroupController {
         });
 
         createButton.setOnAction(event -> {
-            data.append(nameField.getText()).append("#");
-            data.append(avatarNum).append("#");
-            for (UserCheckCell cell : friendsView.getItems()) {
-                if (cell.getCheckBox().isSelected())
-                    data.append(IdUtil.C2S(cell.getId())).append("#");
+            String name = nameField.getText();
+            if (name.equals(""))
+                new DialogBuilder(window.getCreateButton()).setTitle("提示").setMessage("群聊名不能为空").setNegativeBtn("确认").create();
+            else if (!name.equals("\\w+"))
+                new DialogBuilder(window.getCreateButton()).setTitle("提示").setMessage("群聊名只能有数字和字母").setNegativeBtn("确认").create();
+            else {
+                data.append(name).append("#");
+                data.append(avatarNum).append("#");
+                for (UserCheckCell cell : friendsView.getItems()) {
+                    if (cell.getCheckBox().isSelected())
+                        data.append(IdUtil.C2S(cell.getId())).append("#");
+                }
+                String myId = CurrentUser.getInstance().getUid();
+                data.append(IdUtil.C2S(myId));
+                DataManager.getInstance().sent(data.toString());
+                new DialogBuilder(createButton).setTitle("创建群聊").setMessage("创建成功").setNegativeBtn("确认").create();
+                window.close();
             }
-            String myId = CurrentUser.getInstance().getUid();
-            data.append(IdUtil.C2S(myId));
-            DataManager.getInstance().sent(data.toString());
-            new DialogBuilder(createButton).setTitle("创建群聊").setMessage("创建成功").setNegativeBtn("确认").create();
-            window.close();
         });
     }
 

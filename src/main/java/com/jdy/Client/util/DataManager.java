@@ -12,10 +12,8 @@ import com.jdy.Client.data.message.MessageType;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
 import javafx.scene.image.Image;
-import sun.nio.cs.ext.GBK;
 
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

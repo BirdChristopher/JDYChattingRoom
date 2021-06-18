@@ -136,6 +136,7 @@ public class LookUpWindow extends Stage {
             @Override
             public void handle(ActionEvent event) {
                 resultListView.getItems().clear();
+                searchField.clear();
                 LookUpWindow.super.close();
             }
         });
