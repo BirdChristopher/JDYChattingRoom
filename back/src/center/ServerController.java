@@ -24,23 +24,24 @@ public class ServerController {
         String[] attrs = msg.split("#");
         String username = attrs[1];
         String password = attrs[2];
+        User name_user = new User();
+        name_user.setUsername(username);
+        List<User> returnUserList;
         synchronized (CenterServer.sqlSession){
-            User name_user = new User();
-            name_user.setUsername(username);
-            List<User> returnUserList = UserService.searchUser(name_user);
-            if(returnUserList.size()==0){
-                //找不到对应用户
-                throw new MyException(402);
+            returnUserList = UserService.searchUser(name_user);
+        }
+        if(returnUserList.size()==0){
+            //找不到对应用户
+            throw new MyException(402);
+        }
+        else{
+            User user = returnUserList.get(0);
+            if(user.password.equals(password)) {
+                return user;
             }
             else{
-                User user = returnUserList.get(0);
-                if(user.password.equals(password)) {
-                    return user;
-                }
-                else{
-                    //密码错误
-                    throw new MyException(401);
-                }
+                //密码错误
+                throw new MyException(401);
             }
         }
     }
@@ -86,16 +87,16 @@ public class ServerController {
         String[] attrs = msg.split("#");
         int target_user_id = Integer.parseInt(attrs[1]);
         int self_id = self.getId();
+        Friends friend = new Friends(target_user_id,self_id);
         synchronized (CenterServer.sqlSession) {
-            Friends friend = new Friends(target_user_id,self_id);
             List<Friends> friends_entry_list = HistoryService.findFriendRelation(friend);
             if (friends_entry_list.size()>0){
                 throw new MyException(405);
             }
             HistoryService.buildFriendShip(friend);
-            String result = "upFriend#"+self.id+"#"+self.getUsername()+"#"+self.avatar;
-            CenterServer.sendToSpecificUser(target_user_id,result);
         }
+        String result = "upFriend#"+self.id+"#"+self.getUsername()+"#"+self.avatar;
+        CenterServer.sendToSpecificUser(target_user_id,result);
     }
 
     /**
@@ -109,11 +110,10 @@ public class ServerController {
         String group_name = attrs[1];
         int group_avatar = Integer.parseInt(attrs[2]);
         int i;
-
+        Group new_group = new Group();
+        new_group.setAvatar(group_avatar);
+        new_group.setName(group_name);
         synchronized (CenterServer.sqlSession) {
-            Group new_group = new Group();
-            new_group.setAvatar(group_avatar);
-            new_group.setName(group_name);
             try{
                 int group_id = GroupService.addGroup(new_group);
                 userBelong2Group entry;
@@ -137,7 +137,6 @@ public class ServerController {
             }catch(IndexOutOfBoundsException e){
                 throw new MyException(406);
             }
-
         }
     }
 
@@ -150,15 +149,15 @@ public class ServerController {
     public static void joinGroup(User self,String msg) throws MyException{
         String[] attrs = msg.split("#");
         int group_id = Integer.parseInt(attrs[1]);
+        userBelong2Group belong_entry = new userBelong2Group();
+        belong_entry.setGroup_id(group_id);
+        self.setBelongInfo(belong_entry);
+        List<User> userList;
         synchronized (CenterServer.sqlSession){
             //查证是否已经加入过了
-            userBelong2Group belong_entry = new userBelong2Group();
-            belong_entry.setGroup_id(group_id);
-            self.setBelongInfo(belong_entry);
             if(HistoryService.showBelongInfo(self).size()>0){
                 throw new MyException(407);
             }
-
             belong_entry.setUser_id(self.getId());
             belong_entry.setNickname(self.getUsername());
             HistoryService.addMember2Group(belong_entry);
@@ -172,10 +171,10 @@ public class ServerController {
                 e.printStackTrace();
                 throw new MyException(500);
             }
-            List<User> userList = HistoryService.showAllMembers(group);
-            String result = "upGroupM#"+group_id+"#"+self.getId()+"#"+self.getUsername()+"#"+self.getAvatar();
-            CenterServer.send2Group(userList,result);
+            userList = HistoryService.showAllMembers(group);
         }
+        String result = "upGroupM#"+group_id+"#"+self.getId()+"#"+self.getUsername()+"#"+self.getAvatar();
+        CenterServer.send2Group(userList,result);
     }
 
     /**
@@ -187,20 +186,25 @@ public class ServerController {
         String[] attrs = msg.split("#");
         int user_from_id = Integer.parseInt(attrs[1]);
         int user_to_id = Integer.parseInt(attrs[2]);
-        String content = attrs[3];
+        String content;
+        try{
+            content = attrs[3];
+        }catch(IndexOutOfBoundsException e){
+            throw new MyException(501);
+        }
+        User user = new User();
+        user.setId(user_to_id);
         synchronized (CenterServer.sqlSession){
-            User user = new User();
-            user.setId(user_to_id);
             List<User> userList = UserService.searchUser(user);
             if(userList.size()==0){
                 throw new MyException(500);
             }
-            //推送消息
-            User targetUser = userList.get(0);
-            CenterServer.sendToSpecificUser(targetUser.getId(),"P#"+user_from_id+"#"+content+"#"+new Date());
             //存储记录
             PrivateMessage primsg = new PrivateMessage(user_from_id,user_to_id,content);
             HistoryService.addPrivateMessage(primsg);
+            //推送消息
+            User targetUser = userList.get(0);
+            CenterServer.sendToSpecificUser(targetUser.getId(),"P#"+user_from_id+"#"+content+"#"+new Date());
         }
     }
 
@@ -213,7 +217,13 @@ public class ServerController {
     public static void groupTalk(User user,String msg) throws MyException{
         String[] attrs = msg.split("#");
         int group_id = Integer.parseInt(attrs[1]);
-        String content = attrs[3];
+        String content;
+        try{
+            content = attrs[3];
+        }catch(IndexOutOfBoundsException e){
+            throw new MyException(501);
+        }
+        List<User> userList;
         synchronized (CenterServer.sqlSession){
             //群聊成员身份信息获取，顺便取一波群聊专用昵称，虽然并没有什么用
             //userBelong2Group entry = new userBelong2Group();
@@ -231,12 +241,11 @@ public class ServerController {
 
                 Group TargetGroup = new Group();
                 TargetGroup.setId(group_id);
-                List<User> userList = HistoryService.showAllMembers(TargetGroup);
-
-                String res = "G#"+group_id+"#"+user.id+"#"+content+"#"+new Date();
-                CenterServer.send2Group(userList,res);
+                userList = HistoryService.showAllMembers(TargetGroup);
             }
         }
+        String res = "G#"+group_id+"#"+user.id+"#"+content+"#"+new Date();
+        CenterServer.send2Group(userList,res);
     }
 
     /**
@@ -252,9 +261,12 @@ public class ServerController {
         result.append(user.loginInfo()).append("#");
 
         StringBuilder group_item;
+
+        List<User> friendList;
+        List<Group> groupList;
         synchronized (CenterServer.sqlSession){
             //好友列表
-            List<User> friendList = HistoryService.getFriendList(user);
+            friendList = HistoryService.getFriendList(user);
             for(i = 0;i<friendList.size();i++){
                 result.append(friendList.get(i).friendInfo());
                 if(i!=friendList.size()-1){
@@ -263,20 +275,19 @@ public class ServerController {
             }
             result.append("#");
 
-            List<Group> groupList = HistoryService.getGroupList(user);
-            for(int u=0;u<groupList.size()-1;u++){System.out.println(groupList.get(u).getName());}
-
-            //循环加入小组信息
-            for(i = 0;i<groupList.size();i++){
-                group_item = new StringBuilder();
-                group_item.append(groupList.get(i));
-                if(i!=groupList.size()-1){
-                    group_item.append("@@");
-                }
-                result.append(group_item);
-            }
-            return result.toString();
+            groupList = HistoryService.getGroupList(user);
+            //for(int u=0;u<groupList.size()-1;u++){System.out.println(groupList.get(u).getName());}历史遗留产物
         }
+        //循环加入小组信息
+        for(i = 0;i<groupList.size();i++){
+            group_item = new StringBuilder();
+            group_item.append(groupList.get(i));
+            if(i!=groupList.size()-1){
+                group_item.append("@@");
+            }
+            result.append(group_item);
+        }
+        return result.toString();
     }
 
     /**
@@ -286,20 +297,21 @@ public class ServerController {
      * @throws MyException 无
      */
     public static String groupMembers(Group group) throws MyException{
+        List<User> members;
         synchronized (CenterServer.sqlSession){
-            List<User> members = HistoryService.showAllMembers(group);
-            int j;
-            //小组内循环加入成员信息
-            StringBuilder memberListInfo = new StringBuilder("gm#");
-            memberListInfo.append(group.id).append("#");
-            for(j = 0;j<members.size();j++){
-                memberListInfo.append(members.get(j).memberInfo());
-                if(j!=members.size()-1){//尾巴不需要分节符
-                    memberListInfo.append("#");
-                }
-            }
-            return memberListInfo.toString();
+            members = HistoryService.showAllMembers(group);
         }
+        int j;
+        //小组内循环加入成员信息
+        StringBuilder memberListInfo = new StringBuilder("gm#");
+        memberListInfo.append(group.id).append("#");
+        for(j = 0;j<members.size();j++){
+            memberListInfo.append(members.get(j).memberInfo());
+            if(j!=members.size()-1){//尾巴不需要分节符
+                memberListInfo.append("#");
+            }
+        }
+        return memberListInfo.toString();
     }
 
     /**
@@ -355,32 +367,33 @@ public class ServerController {
     public static String groupHistory(User self,String msg)throws MyException{
         String[] attrs = msg.split("#");
         int group_id = Integer.parseInt(attrs[1]);
+        List<GroupMessage> groupMessagesList;
+        Group group;
         synchronized (CenterServer.sqlSession){
             Group group_form = new Group();
-            Group group;
             group_form.setId(group_id);
             try{
                 group = GroupService.findGroup(group_form).get(0);
             }catch(IndexOutOfBoundsException e){
                 throw new MyException(500);
             }
-            CenterServer.sendToSpecificUser(self.getId(),groupMembers(group));
 
-            StringBuilder result = new StringBuilder("gh#").append(group_id).append("#");
-            List<GroupMessage> groupMessagesList = HistoryService.getGroupMessage(group);
-            int i;
-            GroupMessage groupMessage;
-            for(i=0;i<groupMessagesList.size();i++){
-                groupMessage = groupMessagesList.get(i);
-                result.append(groupMessage.getUser_id()).append("@@");
-                result.append(groupMessage.getTime_stamp()).append("@@");
-                result.append(groupMessage.getContent());
-                if(i!=groupMessagesList.size()-1){
-                    result.append("#");
-                }
-            }
-            return result.toString();
+            groupMessagesList = HistoryService.getGroupMessage(group);
         }
+        CenterServer.sendToSpecificUser(self.getId(),groupMembers(group));
+        StringBuilder result = new StringBuilder("gh#").append(group_id).append("#");
+        int i;
+        GroupMessage groupMessage;
+        for(i=0;i<groupMessagesList.size();i++){
+            groupMessage = groupMessagesList.get(i);
+            result.append(groupMessage.getUser_id()).append("@@");
+            result.append(groupMessage.getTime_stamp()).append("@@");
+            result.append(groupMessage.getContent());
+            if(i!=groupMessagesList.size()-1){
+                result.append("#");
+            }
+        }
+        return result.toString();
     }
 
     /**
@@ -392,18 +405,19 @@ public class ServerController {
     public static String searchUser(String msg) throws MyException{
         String[] attrs = msg.split("#");
         int user_id = Integer.parseInt(attrs[1]);
+        List<User> userList;
         synchronized (CenterServer.sqlSession){
             User user_form = new User();
             user_form.setId(user_id);
-            List<User> userList= UserService.searchUser(user_form);
-            if(userList.size()>0){
-                User target_user = userList.get(0);
-                String result = "sf#"+target_user.getId()+"#"+target_user.getUsername()+"#"+target_user.getAvatar();
-                return result;
-            }
-            else{
-                throw new MyException(408);
-            }
+            userList= UserService.searchUser(user_form);
+        }
+        if(userList.size()>0){
+            User target_user = userList.get(0);
+            String result = "sf#"+target_user.getId()+"#"+target_user.getUsername()+"#"+target_user.getAvatar();
+            return result;
+        }
+        else{
+            throw new MyException(408);
         }
     }
 
@@ -416,18 +430,19 @@ public class ServerController {
     public static String searchGroup(String msg) throws MyException{
         String[] attrs = msg.split("#");
         int group_id = Integer.parseInt(attrs[1]);
+        List<Group> groupList;
         synchronized (CenterServer.sqlSession){
             Group group_form = new Group();
             group_form.setId(group_id);
-            List<Group> groupList = GroupService.findGroup(group_form);
-            if(groupList.size()>0){
-                Group target_group = groupList.get(0);
-                String result = "sg#"+target_group.getId()+"#"+target_group.getName()+"#"+target_group.getAvatar();
-                return result;
-            }
-            else{
-                throw new MyException(409);
-            }
+            groupList = GroupService.findGroup(group_form);
+        }
+        if(groupList.size()>0){
+            Group target_group = groupList.get(0);
+            String result = "sg#"+target_group.getId()+"#"+target_group.getName()+"#"+target_group.getAvatar();
+            return result;
+        }
+        else{
+            throw new MyException(409);
         }
     }
 }

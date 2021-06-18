@@ -67,7 +67,10 @@ public class CenterServer {
                 Socket socket = server.accept();
                 Mythread mythread = new Mythread(socket);
                 mythread.start();
-                System.out.println("another thread go on");
+                synchronized (System.out){
+                    System.out.println("another thread go on");
+                    System.out.println(socket.getPort()+"\n=================================");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,18 +103,19 @@ public class CenterServer {
         /**
          * 线程运行内容
          */
-        public void run() {
+        public void run(){
             String msg;
             try {
                 targetClientSocket = ssocket.getSocket();
-                System.out.println(targetClientSocket.getPort());
                 //try catch
-                BufferedReader br = new BufferedReader(new InputStreamReader(targetClientSocket.getInputStream()));
+                BufferedReader br = new BufferedReader(new InputStreamReader(targetClientSocket.getInputStream(),StandardCharsets.UTF_8));
                 while ((msg = br.readLine()) != null) {
-                    System.out.println(ssocket.getSocket());
-                    System.out.println(new Date());
-                    System.out.println(msg);
-                    System.out.println("=================================");
+                    synchronized (System.out){
+                        System.out.println(ssocket.getSocket());
+                        System.out.println(new Date());
+                        System.out.println(msg);
+                        System.out.println("=================================");
+                    }
                     //用户登录,登录成功后直接初始化
                     if(msg.startsWith("login#")){
                         login(msg);
@@ -137,7 +141,7 @@ public class CenterServer {
                         register(msg);
                     }
                     //登出
-                    else if(msg.startsWith("logout#")){
+                    else if(msg.startsWith("logout")){
                         br.close();
                         offline(ssocket);
                         return;
@@ -346,9 +350,9 @@ public class CenterServer {
         int len=clients.size();
         try {
             //筛选所有在线的群友
-            for(i=0;i<userlist.size();i++){
-                for(j=0;j<len;j++){
-                    if(clients.get(j).getUser().getId() == userlist.get(i).getId()){
+            for(i=0;i<userlist.size();i++) {
+                for (j = 0; j < len; j++) {
+                    if (clients.get(j).getUser().getId() == userlist.get(i).getId()) {
                         socketList.add(clients.get(j));
                         //break;
                     }
@@ -360,7 +364,9 @@ public class CenterServer {
                 pw.flush();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            synchronized (System.out){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -386,7 +392,9 @@ public class CenterServer {
                 pw.flush();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            synchronized (System.out){
+                e.printStackTrace();
+            }
         }
     }
     /**
@@ -398,11 +406,13 @@ public class CenterServer {
      */
     public static void sendToSpecificUser(Socket targetSocket,String msg){
         try{
-            PrintWriter pw = new PrintWriter(new OutputStreamWriter(targetSocket.getOutputStream(), StandardCharsets.UTF_8),true);
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(targetSocket.getOutputStream(), StandardCharsets.UTF_8), true);
             pw.println(msg);
             pw.flush();
         }catch(IOException e){
-            e.printStackTrace();
+            synchronized (System.out){
+                e.printStackTrace();
+            }
         }
     }
 
