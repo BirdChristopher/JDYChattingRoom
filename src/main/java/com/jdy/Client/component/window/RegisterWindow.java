@@ -306,4 +306,8 @@ public class RegisterWindow extends Stage {
     public JFXPasswordField getConfirmField() {
         return confirmField;
     }
+
+    public JFXButton getCloseButton() {
+        return closeButton;
+    }
 }

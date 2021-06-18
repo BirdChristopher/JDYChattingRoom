@@ -19,6 +19,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 数据处理类.
@@ -201,9 +202,9 @@ public class DataManager {
                     list.add(new Message(uid, friend, str[2], MessageType.RECEIVED));
             }
         }
-        ArrayList<User>  list1 = MemberList.getList(uid);
-        list1.add(me);
-        list1.add(friend);
+        HashMap<String, User> list1 = MemberList.getList(uid);
+        list1.put(me.getUid(), me);
+        list1.put(uid, friend);
         ControllerFactory.getChatController(uid).init();
     }
 
@@ -215,7 +216,7 @@ public class DataManager {
         String id = "G" + IdUtil.S2C(data[1]);
         User me = CurrentUser.getInstance();
         ArrayList<Message> list = MessageList.getList(id);
-        ArrayList<User> list1 = MemberList.getList(id);
+        HashMap<String, User> list1 = MemberList.getList(id);
         synchronized (list1) {
             if (data.length > 2) {
                 for (int i = 2; i < data.length; ++i) {
@@ -238,13 +239,13 @@ public class DataManager {
     private void setGroupMember(String[] data) {
         String id = "G" + IdUtil.S2C(data[1]);
         User me = CurrentUser.getInstance();
-        ArrayList<User> list = MemberList.getList(id);
+        HashMap<String, User> list = MemberList.getList(id);
         synchronized (list) {
             if (data.length > 2) {
                 for (int i = 2; i < data.length; ++i) {
                     String[] str = data[i].split("@@");
                     User user = new User(IdUtil.S2C(str[0]), str[1], new Image("/image/avatar/" + str[2] + ".jpg"));
-                    list.add(user);
+                    list.put(user.getUid(), user);
                 }
             }
         }

@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author dh
  */
 public class MemberList {
-    private static HashMap<String, ArrayList<User>> memberLists = new HashMap<>();
+    private static HashMap<String, HashMap<String, User>> memberLists = new HashMap<>();
 
     public MemberList() {}
 
@@ -25,9 +25,9 @@ public class MemberList {
      * @param id 聊天id
      * @return 成员列表，不存在则新建
      */
-    public static ArrayList<User> getList(String id) {
+    public static HashMap<String, User> getList(String id) {
         if (memberLists.get(id) == null) {
-            ArrayList<User> list = new ArrayList<>();
+            HashMap<String, User> list = new HashMap<>();
             memberLists.put(id, list);
             return list;
         }
@@ -42,13 +42,7 @@ public class MemberList {
      */
     public static User getUserById(String cid, String uid) {
         User user = null;
-        ArrayList<User> list = getList(cid);
-        for (User u : list) {
-            if (u.getUid().equals(uid)) {
-                user = u;
-                break;
-            }
-        }
-        return user;
+        HashMap<String, User> list = getList(cid);
+        return list.get(uid);
     }
 }

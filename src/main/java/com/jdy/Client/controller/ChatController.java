@@ -21,6 +21,7 @@ import javafx.event.Event;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 聊天窗口的控制类.
@@ -89,8 +90,11 @@ public class ChatController{
             @Override
             public void run() {
                 ArrayList<Message> messages = MessageList.getList(id);
-                ArrayList<User> members = MemberList.getList(id);
-                for (User u : members) {
+                HashMap<String, User> members = MemberList.getList(id);
+                // 清除原有的，重新加载
+                memberListView.getItems().clear();
+                messageListView.getItems().clear();
+                for (User u : members.values()) {
                     ListViewCell cell = new ListViewCell(u.getAvatar(), u.getName());
                     cell.setMaxWidth(180);
                     memberListView.getItems().add(cell);
@@ -106,8 +110,6 @@ public class ChatController{
                 else if (chatType == ChatType.GROUP)
                     window.getTitleLabel().setText(GroupList.getGroupById(id).getName());
                 window.show();
-                //messages.clear();
-                //members.clear();
             }
         });
     }

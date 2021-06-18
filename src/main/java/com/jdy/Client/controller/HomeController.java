@@ -71,7 +71,7 @@ public class HomeController {
             @Override
             public void run() {
                 for (User u : FriendList.friends) {
-                    addFriendCell(u);
+                    addFriend(u);
                 }
             }
         });
@@ -82,7 +82,7 @@ public class HomeController {
             @Override
             public void run() {
                 for (Group g : GroupList.groups) {
-                    addGroupCell(g);
+                    addGroup(g);
                 }
             }
         });
@@ -92,6 +92,7 @@ public class HomeController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                ControllerFactory.createChatController(user.getUid());
                 addFriendCell(user);
             }
         });
@@ -101,6 +102,7 @@ public class HomeController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                ControllerFactory.createChatController(group.getGid());
                 addGroupCell(group);
             }
         });
@@ -114,7 +116,6 @@ public class HomeController {
         cell.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 DataManager.getInstance().sent("ph#" + IdUtil.C2S(cell.getId()));
-                ControllerFactory.createChatController(cell.getId());
             }
         });
     }
@@ -127,7 +128,6 @@ public class HomeController {
         cell.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 DataManager.getInstance().sent("gh#" + IdUtil.C2S(cell.getId()));
-                ControllerFactory.createChatController(cell.getId());
             }
         });
     }

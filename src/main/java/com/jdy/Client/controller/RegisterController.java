@@ -62,6 +62,14 @@ public class RegisterController {
             else
                 DataManager.getInstance().sent("register#" + name + "#" + password + "#" + sex + "#" + avatarNum + "#" + signature);
         });
+
+        window.getCloseButton().setOnAction(event -> {
+            window.getNameField().clear();
+            window.getPasswordField().clear();
+            window.getConfirmField().clear();
+            window.getSignature().clear();
+            closeWindow();
+        });
     }
 
     /**
@@ -75,7 +83,6 @@ public class RegisterController {
                 new DialogBuilder(window.getRegisterButton()).setTitle("注册成功").
                         setMessage("您的账号为 " + IdUtil.S2C(uid)).setNegativeBtn("确认").create();
                 closeWindow();
-                ControllerFactory.getLoginController().showWindow();
             }
         });
     }
@@ -108,6 +115,7 @@ public class RegisterController {
     }
     public void closeWindow() {
         window.close();
+        ControllerFactory.getLoginController().showWindow();
     }
 
 }
