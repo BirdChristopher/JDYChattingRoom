@@ -21,8 +21,14 @@ public class ServerController {
      * @throws MyException 找不到对应用户或者密码错误
      */
     public static User login(String msg) throws MyException {
+        int i;
         String[] attrs = msg.split("#");
         String username = attrs[1];
+        for(i=0;i<CenterServer.clients.size();i++){
+            if(CenterServer.clients.get(i).getUser().getUsername().equals(username)){
+                throw new MyException(410);
+            }
+        }
         String password = attrs[2];
         User name_user = new User();
         name_user.setUsername(username);
@@ -150,8 +156,9 @@ public class ServerController {
         String[] attrs = msg.split("#");
         int group_id = Integer.parseInt(attrs[1]);
         userBelong2Group belong_entry = new userBelong2Group();
-        belong_entry.setGroup_id(group_id);
-        self.setBelongInfo(belong_entry);
+        self.setBelong_group_id(group_id);
+        //belong_entry.setGroup_id(group_id);
+        //self.setBelongInfo(belong_entry);
         List<User> userList;
         synchronized (CenterServer.sqlSession){
             //查证是否已经加入过了
