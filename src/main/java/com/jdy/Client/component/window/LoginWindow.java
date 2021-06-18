@@ -196,6 +196,7 @@ public class LoginWindow extends Stage {
         root.setAlignment(Pos.BASELINE_CENTER);
         //scene.getStylesheets().add("/CSS/Register.css");
         this.setScene(scene);
+        this.setTitle("eMessage");
 
         // 设置事件
         // 最小化

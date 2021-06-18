@@ -192,6 +192,7 @@ public class DataManager {
         User friend = FriendList.getUserById(uid);
         User me = CurrentUser.getInstance();
         ArrayList<Message> list = MessageList.getList(uid);
+        list.clear(); // 清除原有的，重新加载
         if (data.length > 2) {
             for (int i = 2; i < data.length; ++i) {
                 String[] str = data[i].split("@@");
@@ -252,7 +253,7 @@ public class DataManager {
     }
 
     /**
-     * 接收处理私聊历史消息.
+     * 接收处理私聊消息.
      * @param data 服务器发送来的消息
      */
     private void receivePrivateMessage(String[] data) {
@@ -263,7 +264,7 @@ public class DataManager {
     }
 
     /**
-     * 接收处理群聊历史消息.
+     * 接收处理群聊消息.
      * @param data 服务器发送来的消息
      */
     private void receiveGroupMessage(String[] data) {

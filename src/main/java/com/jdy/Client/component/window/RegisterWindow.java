@@ -232,22 +232,13 @@ public class RegisterWindow extends Stage {
         root.getChildren().add(1, surfacePane);
         root.getChildren().add(2, avatarPane);
         this.setScene(scene);
+        this.setTitle("注册");
 
         // 最小化
         minButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 RegisterWindow.super.setIconified(true);
-            }
-        });
-        closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                nameField.clear();
-                passwordField.clear();
-                confirmField.clear();
-                signature.clear();
-                RegisterWindow.super.close();
             }
         });
         // 窗口拖拽

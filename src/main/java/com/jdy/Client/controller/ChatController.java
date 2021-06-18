@@ -66,7 +66,7 @@ public class ChatController{
         });
 
         textArea.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.ENTER && !textArea.getText().isEmpty()) {
                 String content = textArea.getText();
                 Message message = new Message(this.id, CurrentUser.getInstance(), content, MessageType.SENT);
                 MessageCell cell = new MessageCell(message);
@@ -77,7 +77,7 @@ public class ChatController{
                     DataManager.getInstance().sent("P#" + myId + "#" + IdUtil.C2S(this.id) + "#" + content);
                 else
                     DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + "#" + content);
-                textArea.clear();
+                textArea.setText("");
             }
         });
     }
@@ -105,10 +105,16 @@ public class ChatController{
                     cell.setOnMouseClicked(Event::consume);
                     messageListView.getItems().add(cell);
                 }
-                if (chatType == ChatType.SINGLE)
-                    window.getTitleLabel().setText(FriendList.getUserById(id).getName());
-                else if (chatType == ChatType.GROUP)
-                    window.getTitleLabel().setText(GroupList.getGroupById(id).getName());
+                if (chatType == ChatType.SINGLE) {
+                    String name = FriendList.getUserById(id).getName();
+                    window.getTitleLabel().setText(name);
+                    window.setTitle(name);
+                }
+                else if (chatType == ChatType.GROUP) {
+                    String name = GroupList.getGroupById(id).getName();
+                    window.getTitleLabel().setText(name);
+                    window.setTitle(name);
+                }
                 window.show();
             }
         });

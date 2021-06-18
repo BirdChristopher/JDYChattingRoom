@@ -62,6 +62,7 @@ public class HomeController {
                 window.getAvatarView().setFill(new ImagePattern(currentUser.getAvatar()));
                 window.getName().setText(currentUser.getName());
                 window.getDescription().setText(currentUser.getSignature());
+                window.setTitle("主页-" + currentUser.getName());
             }
         });
     }
