@@ -18,6 +18,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 import javafx.event.Event;
+import javafx.scene.control.IndexRange;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class ChatController{
 
         textArea.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && !textArea.getText().isEmpty()) {
+                event.consume();
                 String content = textArea.getText();
                 Message message = new Message(this.id, CurrentUser.getInstance(), content, MessageType.SENT);
                 MessageCell cell = new MessageCell(message);
@@ -77,7 +79,7 @@ public class ChatController{
                     DataManager.getInstance().sent("P#" + myId + "#" + IdUtil.C2S(this.id) + "#" + content);
                 else
                     DataManager.getInstance().sent("G#" + IdUtil.C2S(this.id) + "#" + myId + "#" + content);
-                textArea.setText("");
+                textArea.replaceText(0, textArea.getLength(), "");
             }
         });
     }
