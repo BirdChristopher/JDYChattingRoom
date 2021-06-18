@@ -5,7 +5,7 @@
 <mapper namespace="UserMapper">
     <!--插入用户数据-->
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into chattingroom.dbo.userinfo values(#{username},#{password},#{avatar},#{sex},#{introduction})
+        insert into userinfo values(#{username},#{password},#{avatar},#{sex},#{introduction})
     </insert>
     <!--按给出条件查找用户-->
     <select id="findUser" parameterType="User" resultType="User">

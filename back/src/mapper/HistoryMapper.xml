@@ -22,7 +22,7 @@
     </select>
     <!--拉取群聊历史记录-->
     <select id="findGroupMessage" parameterType="Group" resultType="GroupMessage">
-        select * from chattingroom.dbo.groupMessageHistory
+        select * from groupMessageHistory
         where group_id=#{id}
         order by time
     </select>
@@ -75,7 +75,7 @@
     </delete>
     <!--搜索群聊从属记录-->
     <select id="showBelongInfo" parameterType="User" resultType="userBelong2Group">
-        select * from chattingroom.dbo.userbelong2group
+        select * from userbelong2group
         where user_id=#{id} and group_id=#{belong_group_id}
     </select>
 </mapper>
