@@ -25,12 +25,14 @@ import java.util.ArrayList;
  * @author dh
  */
 public class LookUpFriendController {
+    private User foundUser;
     private LookUpWindow window;
     private TextField searchField;
     private JFXButton searchButton;
     private JFXListView<ListViewCell> resultListView;
 
     public LookUpFriendController() {
+        this.foundUser = null;
         this.window = new LookUpWindow("查找好友");
         this.searchButton = window.getSearchButton();
         this.searchField = window.getSearchField();
@@ -59,6 +61,7 @@ public class LookUpFriendController {
                 if (user == null)
                     new DialogBuilder(searchButton).setTitle("提示").setMessage("用户不存在").setNegativeBtn("确认").create();
                 else {
+                    foundUser = user;
                     ListViewCell cell = new ListViewCell(user.getAvatar(), user.getName() + " (" + user.getUid() + ")");
                     cell.setId(user.getUid());
                     cell.setMaxWidth(200);
@@ -66,14 +69,36 @@ public class LookUpFriendController {
                     cell.setOnMouseClicked(event -> {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                             DataManager.getInstance().sent("add#" + IdUtil.C2S(cell.getId()));
-                            ControllerFactory.getHomeController().addFriend(user);
-                            ControllerFactory.createChatController(cell.getId());
-                            FriendList.friends.add(user);
-                            new DialogBuilder(window.getSearchButton()).setTitle("添加好友")
-                                    .setMessage("添加 " + user.getName() + " (" + user.getUid() + ") 成功!").setNegativeBtn("确认").create();
+                            cell.setManaged(false);
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public void addSuccess() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (foundUser != null) {
+                    ControllerFactory.getHomeController().addFriend(foundUser);
+                    ControllerFactory.createChatController(foundUser.getUid());
+                    FriendList.friends.add(foundUser);
+                    new DialogBuilder(window.getSearchButton()).setTitle("添加好友")
+                            .setMessage("添加 " + foundUser.getName() + " (" + foundUser.getUid() + ") 成功!").setNegativeBtn("确认").create();
+                }
+            }
+        });
+    }
+
+    public void addFail() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                new DialogBuilder(window.getSearchButton()).setTitle("添加好友")
+                        .setMessage("添加 " + foundUser.getName() + " (" + foundUser.getUid() + ") 失败.").setNegativeBtn("确认").create();
+                resultListView.getItems().get(0).setManaged(true);
             }
         });
     }
@@ -83,6 +108,7 @@ public class LookUpFriendController {
     }
 
     public void closeWindow() {
+        foundUser = null;
         window.close();
     }
 }

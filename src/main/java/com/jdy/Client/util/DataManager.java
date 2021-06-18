@@ -346,8 +346,10 @@ public class DataManager {
      * @param data 服务器发送来的消息
      */
     private void joinGroup(String[] data) {
-        /*if ("200".equals(data[2]))
-            ControllerFactory.getHomeController().addGroup();*/
+        if ("200".equals(data[2]))
+            ControllerFactory.getLookUpGroupController().joinSuccess();
+        else
+            ControllerFactory.getLookUpGroupController().joinFail();
     }
 
     /**
@@ -370,6 +372,9 @@ public class DataManager {
      * @param data 服务器发送来的消息
      */
     private void addFriend(String[] data) {
-
+        if ("200".equals(data[1]))
+            ControllerFactory.getLookUpFriendController().addSuccess();
+        else
+            ControllerFactory.getLookUpFriendController().addFail();
     }
 }

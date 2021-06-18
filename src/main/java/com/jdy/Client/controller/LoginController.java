@@ -64,7 +64,7 @@ public class LoginController{
                     case 402:
                         str = "用户不存在";
                         break;
-                    case 403:
+                    case 410:
                         str = "用户已登录";
                         break;
                     default:
@@ -87,6 +87,8 @@ public class LoginController{
             }
         });
     }
+
+    public LoginWindow getLoginWindow() { return loginWindow; }
 
     public void showWindow() { loginWindow.show(); }
 

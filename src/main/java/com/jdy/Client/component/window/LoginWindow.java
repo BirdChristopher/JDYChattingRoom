@@ -1,6 +1,7 @@
 package com.jdy.Client.component.window;
 
 import com.jdy.Client.component.base.SVGContent;
+import com.jdy.Client.util.DataManager;
 import com.jdy.Client.util.ImageUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -210,6 +211,7 @@ public class LoginWindow extends Stage {
             @Override
             public void handle(ActionEvent event) {
                 LoginWindow.super.close();
+                DataManager.getInstance().sent("logout");
                 Platform.exit();
                 System.exit(0);
             }

@@ -21,12 +21,14 @@ import javafx.scene.input.MouseButton;
  * @author dh
  */
 public class LookUpGroupController {
+    private Group foundGroup;
     private LookUpWindow window;
     private TextField searchField;
     private JFXButton searchButton;
     private JFXListView<ListViewCell> resultListView;
 
     public LookUpGroupController() {
+        this.foundGroup = null;
         window = new LookUpWindow("查找群聊");
         this.searchButton = window.getSearchButton();
         this.searchField = window.getSearchField();
@@ -70,14 +72,34 @@ public class LookUpGroupController {
                     cell.setOnMouseClicked(event -> {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                             DataManager.getInstance().sent("jgroup#" + IdUtil.C2S(cell.getId()));
-                            ControllerFactory.getHomeController().addGroup(group);
-                            ControllerFactory.createChatController(cell.getId());
-                            GroupList.groups.add(group);
-                            new DialogBuilder(window.getSearchButton()).setTitle("加群")
-                                    .setMessage("加入 " + group.getName() + " (" + group.getGid() + ") 成功!").setNegativeBtn("确认").create();
+                            cell.setDisable(false);
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public void joinSuccess() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ControllerFactory.getHomeController().addGroup(foundGroup);
+                ControllerFactory.createChatController(foundGroup.getGid());
+                GroupList.groups.add(foundGroup);
+                new DialogBuilder(window.getSearchButton()).setTitle("加群")
+                        .setMessage("加入 " + foundGroup.getName() + " (" + foundGroup.getGid() + ") 成功!").setNegativeBtn("确认").create();
+            }
+        });
+    }
+
+    public void joinFail() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                new DialogBuilder(window.getSearchButton()).setTitle("加群")
+                        .setMessage("加入 " + foundGroup.getName() + " (" + foundGroup.getGid() + ") 失败.").setNegativeBtn("确认").create();
+                resultListView.getItems().get(0).setDisable(true);
             }
         });
     }

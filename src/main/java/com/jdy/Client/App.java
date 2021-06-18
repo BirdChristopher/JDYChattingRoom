@@ -1,9 +1,13 @@
 package com.jdy.Client;
 
 import com.jdy.Client.controller.ControllerFactory;
+import com.jdy.Client.controller.LoginController;
 import com.jdy.Client.util.DataManager;
+import com.jdy.Client.util.DialogBuilder;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * 程序主入口.
@@ -15,8 +19,14 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ControllerFactory.getLoginController().showWindow();
-        DataManager.getInstance().connect();
+        LoginController controller =  ControllerFactory.getLoginController();
+        controller.showWindow();
+        try {
+            DataManager.getInstance().connect();
+        } catch (IOException e) {
+            new DialogBuilder(controller.getLoginWindow().getLoginButton()).setTitle("网络错误")
+                    .setMessage("连接服务器失败").setNegativeBtn("确认").create();
+        }
     }
 
     /**
