@@ -47,6 +47,8 @@ public class CenterServer {
      * @author 于添 / 季晓东
      */
     private CenterServer() {
+        Thread CounterThread = new Thread(new Counter());
+        CounterThread.start();
         // 开启数据库连接
         try{
             InputStream inputStream  = Resources.getResourceAsStream(resource);
@@ -170,8 +172,8 @@ public class CenterServer {
                         sendToSpecificUser(ssocket.getSocket(),"command not exist");
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("socket status changed or IO failed");
             }
         }
 
