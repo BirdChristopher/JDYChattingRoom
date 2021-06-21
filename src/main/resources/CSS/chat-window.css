@@ -1,0 +1,22 @@
+.jfx-list-cell {
+    -fx-background-insets: 0.0;
+    -fx-background-color: TRANSPARENT;
+    -fx-text-fill: BLACK;
+}
+
+.jfx-list-cell:hover {
+    -fx-background-color: TRANSPARENT;
+}
+
+.split-pane {
+    -fx-background-color: TRANSPARENT;
+}
+
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 0.5 0 0.5;
+    -fx-background-color: #bbbbbb;
+}
+
+.jfx-list:hover {
+    -fx-background-color: TRANSPARENT;
+}

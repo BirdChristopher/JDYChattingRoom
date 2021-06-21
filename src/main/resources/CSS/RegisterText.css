@@ -1,0 +1,6 @@
+#registerText {
+    -fx-fill: #bbbbbb;
+}
+#registerText:hover {
+    -fx-fill: #aaaaaa;
+}
