@@ -8,10 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb6686b4-171b-41ae-b9d5-81e10a15f960" name="默认变更列表" comment="">
-      <change beforePath="$PROJECT_DIR$/target/eMessage-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/eMessage-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/eMessage-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/eMessage-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.jdy.Client.AppTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.jdy.Client.AppTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +169,8 @@
       <workItem from="1624013327906" duration="13707000" />
       <workItem from="1624029945533" duration="4536000" />
       <workItem from="1624257466203" duration="8172000" />
-      <workItem from="1624273283811" duration="1280000" />
+      <workItem from="1624273283811" duration="1567000" />
+      <workItem from="1624274913940" duration="24000" />
     </task>
     <task id="LOCAL-00001" summary="添加了一些提示窗口">
       <created>1623395825430</created>
