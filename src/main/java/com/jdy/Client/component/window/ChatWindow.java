@@ -5,16 +5,12 @@ import com.jdy.Client.component.base.MessageCell;
 import com.jdy.Client.component.base.SVGContent;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.svg.SVGGlyph;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -25,8 +21,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -67,17 +61,6 @@ public class ChatWindow extends Stage {
     // 偏移量
     private double xOffset;
     private double yOffset;
-    private double x;
-    private double y;
-    private double width;
-    private double height;
-    private boolean isMax;
-    private boolean isRight;
-    private boolean isBottomRight;
-    private boolean isBottom;
-    private double RESIZE_WIDTH;
-    private double MIN_WIDTH;
-    private double MIN_HEIGHT;
 
     public ChatWindow() {
         this.root = new StackPane();
@@ -108,14 +91,6 @@ public class ChatWindow extends Stage {
 
         xOffset = 0.0;
         yOffset = 0.0;
-        x = 0.0;
-        y = 0.0;
-        width = 0.0;
-        height = 0.0;
-        isMax = false;
-        RESIZE_WIDTH = 5.0;
-        MIN_HEIGHT = 500;
-        MIN_WIDTH = 600;
         initialize();
     }
 
@@ -154,8 +129,10 @@ public class ChatWindow extends Stage {
         messageListView.setStyle("-fx-background-color: #a4ebf3;");
         messageListView.setMinHeight(200);
         messageListView.setPadding(new Insets(8));
+
         textArea.setFont(Font.font(18));
         textArea.setPadding(new Insets(8));
+
         messagePane.getItems().add(messageListView);
         messagePane.getItems().add(textArea);
         messagePane.setOrientation(Orientation.VERTICAL);

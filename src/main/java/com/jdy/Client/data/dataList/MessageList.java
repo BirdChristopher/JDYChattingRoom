@@ -3,7 +3,6 @@ package com.jdy.Client.data.dataList;
 import com.jdy.Client.data.message.Message;
 
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

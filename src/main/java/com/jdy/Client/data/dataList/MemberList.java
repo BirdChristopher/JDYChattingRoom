@@ -2,10 +2,7 @@ package com.jdy.Client.data.dataList;
 
 import com.jdy.Client.data.user.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 聊天成员列表类.

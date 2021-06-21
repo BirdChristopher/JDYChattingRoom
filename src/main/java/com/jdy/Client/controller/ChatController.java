@@ -18,7 +18,6 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 import javafx.event.Event;
-import javafx.scene.control.IndexRange;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;

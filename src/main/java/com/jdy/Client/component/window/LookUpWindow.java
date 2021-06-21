@@ -1,6 +1,5 @@
 package com.jdy.Client.component.window;
 
-import com.jdy.Client.App;
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.base.SVGContent;
 import com.jfoenix.controls.JFXButton;
@@ -14,9 +13,11 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;

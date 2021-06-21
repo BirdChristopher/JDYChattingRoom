@@ -11,7 +11,6 @@ import com.jdy.Client.data.message.Message;
 import com.jdy.Client.data.message.MessageType;
 import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
-import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 import java.io.*;
@@ -58,7 +57,7 @@ public class DataManager {
                 sent("ONLINE");
                 System.out.println("ONLINE");
             }
-        }, new Date(), 5000);
+        }, new Date(), 3000);
     }
 
     /**

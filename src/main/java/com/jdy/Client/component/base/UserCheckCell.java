@@ -5,7 +5,6 @@ import com.jdy.Client.util.ImageUtil;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 

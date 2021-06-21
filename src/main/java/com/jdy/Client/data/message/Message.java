@@ -1,9 +1,6 @@
 package com.jdy.Client.data.message;
 
-import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
-
-import java.sql.Timestamp;
 
 /**
  * 消息类.

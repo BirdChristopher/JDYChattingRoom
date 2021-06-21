@@ -3,8 +3,6 @@ package com.jdy.Client.controller;
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.window.LookUpWindow;
 import com.jdy.Client.data.dataList.FriendList;
-import com.jdy.Client.data.dataList.MemberList;
-import com.jdy.Client.data.user.CurrentUser;
 import com.jdy.Client.data.user.User;
 import com.jdy.Client.util.DataManager;
 import com.jdy.Client.util.DialogBuilder;
@@ -14,8 +12,6 @@ import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
-
-import java.util.ArrayList;
 
 /**
  * 查找好友窗口的控制类.

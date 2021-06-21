@@ -1,6 +1,5 @@
 package com.jdy.Client.component.window;
 
-import com.jdy.Client.App;
 import com.jdy.Client.component.base.ListViewCell;
 import com.jdy.Client.component.base.SVGContent;
 import com.jdy.Client.util.DataManager;
@@ -20,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
