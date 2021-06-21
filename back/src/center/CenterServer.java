@@ -67,8 +67,12 @@ public class CenterServer {
             server = new ServerSocket(port);
             while (true) {
                 Socket socket = server.accept();
-                Mythread mythread = new Mythread(socket);
+                MySocket mySocket = new MySocket(socket);
+                Mythread mythread = new Mythread(mySocket);
+                ThreadMornitor newThreadMornitor = new ThreadMornitor(mySocket,mythread);
                 mythread.start();
+                Thread mornitorThread = new Thread(newThreadMornitor);
+                mornitorThread.start();
                 synchronized (System.out){
                     System.out.println("another thread go on");
                     System.out.println(socket.getPort()+"\n=================================");
@@ -85,7 +89,7 @@ public class CenterServer {
      * @author 季晓东 / 于添
      * @version 2.0
      */
-    class Mythread extends Thread {
+    public class Mythread extends Thread {
         /**
          * @value 这个线程所服务的MySocket {@link center.MySocket}
          */
@@ -98,10 +102,18 @@ public class CenterServer {
          * 构造方法
          * @param s 该线程所对应的MySocket
          */
-        public Mythread(Socket s) {
-            ssocket=new MySocket(s);
+        public Mythread(MySocket s) {
+            ssocket=s;
         }
 
+        boolean isConnected;
+        public boolean isConnected() {
+            return isConnected;
+        }
+        public void setConnected(){
+            isConnected=false;
+        }
+        public BufferedReader br;
         /**
          * 线程运行内容
          */
@@ -110,13 +122,17 @@ public class CenterServer {
             try {
                 targetClientSocket = ssocket.getSocket();
                 //try catch
-                BufferedReader br = new BufferedReader(new InputStreamReader(targetClientSocket.getInputStream(),StandardCharsets.UTF_8));
+                //socket断开时，其InputStream也会丢失。这时不应该再去主动关闭流，这会导致阻塞。不管它就好了。
+                br = new BufferedReader(new InputStreamReader(targetClientSocket.getInputStream(),StandardCharsets.UTF_8));
                 while ((msg = br.readLine()) != null) {
-                    synchronized (System.out){
-                        System.out.println(ssocket.getSocket());
-                        System.out.println(new Date());
-                        System.out.println(msg);
-                        System.out.println("=================================");
+                    isConnected=true;
+                    if(!msg.equals("ONLINE")){
+                        synchronized (System.out){
+                            System.out.println(ssocket.getSocket());
+                            System.out.println(new Date());
+                            System.out.println(msg);
+                            System.out.println("=================================");
+                        }
                     }
                     //用户登录,登录成功后直接初始化
                     if(msg.startsWith("login#")){
@@ -169,9 +185,11 @@ public class CenterServer {
                         searchUser(msg);
                     }
                     else {
+                        if(!msg.equals("ONLINE"))
                         sendToSpecificUser(ssocket.getSocket(),"command not exist");
                     }
                 }
+
             } catch (Exception e) {
                 System.out.println("socket status changed or IO failed");
             }
@@ -193,6 +211,7 @@ public class CenterServer {
                 User user = ServerController.login(msg);
                 ssocket.setUser(user);
                 clients.add(ssocket);
+                System.out.println("add "+ssocket.getSocket().getPort()+" to clients");
                 sendToSpecificUser(ssocket.getSocket(),"login#200");
                 //返回初始化信息
                 String result=ServerController.initialize(ssocket.getUser());
@@ -238,7 +257,6 @@ public class CenterServer {
         private void joinGroup(String msg){
             try{
                 ServerController.joinGroup(ssocket.getUser(),msg);
-                sendToSpecificUser(ssocket.getSocket(),"jgroup#200");
             }catch(MyException e){
                 e.printStackTrace();
                 sendToSpecificUser(ssocket.getSocket(),"jgroup#"+e.toString());
@@ -268,7 +286,7 @@ public class CenterServer {
                 sendToSpecificUser(ssocket.getSocket(),result);
             }catch(MyException e){
                 e.printStackTrace();
-                sendToSpecificUser(ssocket.getSocket(),"register#"+e.toString());
+                sendToSpecificUser(ssocket.getSocket(),"register#"+e);
             }
         }
         /**
@@ -282,7 +300,7 @@ public class CenterServer {
                 sendToSpecificUser(ssocket.getSocket(),"add#200");
             }catch(MyException e){
                 e.printStackTrace();
-                sendToSpecificUser(ssocket.getSocket(),"add#"+e.toString());
+                sendToSpecificUser(ssocket.getSocket(),"add#"+e);
             }
         }
         /**
@@ -295,7 +313,7 @@ public class CenterServer {
                 sendToSpecificUser(ssocket.getSocket(),ServerController.privateHistory(ssocket.getUser(),msg));
             }catch (MyException e){
                 e.printStackTrace();
-                sendToSpecificUser(ssocket.getSocket(),"ph#"+e.toString());
+                sendToSpecificUser(ssocket.getSocket(),"ph#"+e);
             }
         }
         /**
