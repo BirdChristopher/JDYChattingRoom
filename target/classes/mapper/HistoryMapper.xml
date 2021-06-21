@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HistoryMapper">
+    <!--用户请求好友列表 left join-->
+    <select id="userFindFriends" parameterType="User" resultType="User">
+        select u.id,u.username,u.avatar,u.sex,u.introduction from friendsrelation as fr left join userinfo as u
+        on fr.user_id2=u.id
+        where user_id1 = #{id}
+        union
+        select u.id,u.username,u.avatar,u.sex,u.introduction from friendsrelation as fr left join userinfo as u
+        on fr.user_id1=u.id
+        where user_id2 =#{id}
+    </select>
+    <!--用户请求群聊列表-->
+    <select id="userFindGroups" parameterType="User" resultType="Group">
+        select g.name,g.avatar,g.id
+        from userbelong2group as u inner join groupinfo as g
+        on u.group_id = g.id
+        where u.user_id=#{id}
+    </select>
+    <!--拉取群聊历史记录-->
+    <select id="findGroupMessage" parameterType="Group" resultType="GroupMessage">
+        select * from groupMessageHistory
+        where group_id=#{id}
+        order by time
+    </select>
+    <!--拉取群聊成员列表-->
+    <!--映射配置表-->
+    <resultMap id="groupMemberInfo" type="User">
+        <id property="id" column="id"/>
+        <result property="avatar" column="avatar"/>
+        <association property="belongInfo" javaType="userBelong2Group">
+            <result property="nickname" column="nickname"/>
+        </association>
+    </resultMap>
+    <select id="showAllMembers" parameterType="Group" resultMap="groupMemberInfo">
+        select u.id,u.avatar,g.nickname
+        from userbelong2group as g inner join userinfo as u
+        on g.user_id = u.id
+        where g.group_id=#{id}
+    </select>
+    <!--拉取私聊历史记录-->
+    <select id="findPrivateMessage" parameterType="Friends" resultType="PrivateMessage">
+        select *
+        from private_message
+        where (user_from=#{user_1} and user_to=#{user_2}) or (user_from=#{user_2} and user_to=#{user_1})
+        order by push_time
+    </select>
+    <!--建立好友关系-->
+    <insert id="buildFriendShip" parameterType="Friends">
+        insert into friendsrelation values(#{user_1},#{user_2})
+    </insert>
+    <!--寻找好友关系-->
+    <select id="findFriendRelation" parameterType="Friends" resultType="Friends">
+        select * from friendsrelation
+        where (user_id1=#{user_1} and user_id2=#{user_2}) or (user_id1=#{user_2} and user_id2=#{user_1})
+    </select>
+    <!--增加私聊历史记录-->
+    <insert id="addPrivateMessage" useGeneratedKeys="true" keyProperty="push_time" parameterType="PrivateMessage">
+        insert into private_message(user_from,user_to,content) values(#{user_from},#{user_to},#{content})
+    </insert>
+    <!--增加群聊历史记录-->
+    <insert id="addGroupMessage" useGeneratedKeys="true" keyProperty="time" parameterType="GroupMessage">
+        insert into groupMessageHistory(group_id,content,user_id,sender_name) values(#{group_id},#{content},#{user_id},#{sender_name})
+    </insert>
+    <!--群聊加入用户-->
+    <insert id="addMember" parameterType="userBelong2Group">
+        insert into userbelong2group values(#{group_id},#{user_id},#{nickname})
+    </insert>
+    <!--退出群聊-->
+    <delete id="quitGroup" parameterType="userBelong2Group">
+        delete from userbelong2group where user_id=#{user_id} and group_id=#{group_id}
+    </delete>
+    <!--搜索群聊从属记录-->
+    <select id="showBelongInfo" parameterType="User" resultType="userBelong2Group">
+        select * from userbelong2group
+        where user_id=#{id} and group_id=#{belong_group_id}
+    </select>
+</mapper>

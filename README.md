@@ -1,34 +1,56 @@
-# JDYChattingRoom-Client
+# JDYChattingRoom
 
-Java大作业聊天室项目客户端
+服务端代码存放分支，客户端代码请查看client分支。
 
-## 说明
+#### 源代码：
 
-客户端由**java**写成，GUI使用**java1.8**内的**javafx**编写，并通过**Maven**添加组件包**jfoenix**美化界面。
+源代码在back/src下。
 
-## 配置信息
+#### 数据库：
 
-* IDE: **IntelliJ IDEA 2020.3.2 (Ultimate Edition)**
+MSSQL Database文件夹内是项目的SQL Server数据库的数据库迁移文件，欲使用服务端需要先导入数据库，请将导入的数据库名设置为chattingroom。
 
-+ JDK版本: **JDK1.8**
+#### 运行要求：
 
-+ 添加依赖: **jfoenix:8.0.8** ([链接](https://github.com/sshahine/JFoenix#))
-+ 图标资源来源: [阿里矢量图标库](https://www.iconfont.cn/)
-+ 头像资源来源: b站up[QuAn___](https://www.bilibili.com/read/cv4941008)
+1.JDK8
 
-## 功能实现
+2.SDK1.8
 
-* 登录
-  * 用户名 + 密码 登录
-* 注册
-  * 可选择提供的头像
-  * 注册后无法修改个人信息（没写这个功能）
-* 添加好友
-  * 无申请信息，默认直接添加成功
-* 添加群聊
-  * 无验证信息，默认直接添加成功
-* 创建群聊
-  * 可选择拉取好友，默认直接被拉进群
-* 私聊
-* 群聊
+3.MyBatis 3.5.5
+
+4.Windows10
+
+5.Microsoft Sql Server 数据库
+
+#### 运行方法：
+
+1.导入数据库文件
+
+2.修改数据库账号：打开back/src/mapper/mybatis-config.xml,按照configuration->environments->environment找到如下区域：
+
+![image](C:\Users\11048\Desktop\JDYChattingRoom\image.png)
+
+修改url处的value为你本地数据库的url，
+
+username的value修改为你数据库的账号
+
+password的value修改为数据库密码。
+
+3.双击Server Start.bat。
+
+#### 注意：
+
+为了让客户端能找到服务器，请查看当前网络下的IPv4地址（有线连接情况下和无线连接情况下的IP地址不同），并告知客户端。
+
+#### Javadoc:
+
+打开javadoc/index.html可查看该项目的javadoc。
+
+##### 其他内容：
+
+有一些Intellij IDEA的配置文件和编译后的class文件，懒得删了。
+
+#### Jar:
+
+本项目的jar包在out目录下。但是没什么用（可能是我不会用）
 
