@@ -33,6 +33,7 @@ public class LookUpGroupController {
         this.searchButton = window.getSearchButton();
         this.searchField = window.getSearchField();
         this.resultListView = window.getResultListView();
+        this.window.setTitle("查找群聊");
 
         searchButton.setOnAction(event -> {
             resultListView.getItems().clear();
@@ -65,6 +66,7 @@ public class LookUpGroupController {
                 if (group == null)
                     new DialogBuilder(searchButton).setTitle("提示").setMessage("群聊不存在").setNegativeBtn("确认").create();
                 else {
+                    foundGroup = group;
                     ListViewCell cell = new ListViewCell(group.getAvatar(), group.getName() + " (" + group.getGid() + ")");
                     cell.setId(group.getGid());
                     cell.setMaxWidth(200);

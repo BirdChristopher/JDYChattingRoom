@@ -33,6 +33,7 @@ public class LookUpFriendController {
         this.searchButton = window.getSearchButton();
         this.searchField = window.getSearchField();
         this.resultListView = window.getResultListView();
+        this.window.setTitle("查找好友");
 
         searchButton.setOnAction(event -> {
             resultListView.getItems().clear();

@@ -55,8 +55,6 @@ public class CreateGroupController {
             String name = nameField.getText();
             if (name.equals(""))
                 new DialogBuilder(window.getCreateButton()).setTitle("提示").setMessage("群聊名不能为空").setNegativeBtn("确认").create();
-            else if (!name.equals("\\w+"))
-                new DialogBuilder(window.getCreateButton()).setTitle("提示").setMessage("群聊名只能有数字和字母").setNegativeBtn("确认").create();
             else {
                 data.append(name).append("#");
                 data.append(avatarNum).append("#");

@@ -116,7 +116,7 @@ public class ChatWindow extends Stage {
         maxButton.setPrefSize(35, 35);
         topBar.add(title, 0, 0);
         topBar.add(minButton, 1, 0);
-        topBar.add(maxButton, 2, 0);
+        //topBar.add(maxButton, 2, 0); // 窗口适配未调整好
         topBar.add(closeButton, 3, 0);
         topPane.getChildren().add(topBar);
         topPane.setStyle("-fx-background-image: url('/image/background/chat_title.png');");

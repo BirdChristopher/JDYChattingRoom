@@ -86,6 +86,7 @@ public class ImageSelectWindow extends Stage {
         root.setStyle("-fx-background-color: #fff5b7");
         this.setScene(scene);
         this.setResizable(false);
+        this.setTitle("请选择您喜欢的头像");
 
         cancelButton.setOnAction(event -> {
             this.close();

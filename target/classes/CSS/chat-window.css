@@ -8,14 +8,6 @@
     -fx-background-color: TRANSPARENT;
 }
 
-.jfx-list-cell:pressed {
-    -fx-background-color: TRANSPARENT;
-}
-
-.jfx-list-cell .jfx-rippler {
-    -jfx-rippler: false;
-}
-
 .split-pane {
     -fx-background-color: TRANSPARENT;
 }

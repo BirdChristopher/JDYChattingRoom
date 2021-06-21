@@ -354,7 +354,7 @@ public class DataManager {
      * @param data 服务器发送来的消息
      */
     private void joinGroup(String[] data) {
-        if ("200".equals(data[2]))
+        if ("200".equals(data[1]))
             ControllerFactory.getLookUpGroupController().joinSuccess();
         else
             ControllerFactory.getLookUpGroupController().joinFail();
