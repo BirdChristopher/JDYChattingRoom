@@ -166,6 +166,7 @@ public class ServerController {
                 throw new MyException(407);
             }
             belong_entry.setUser_id(self.getId());
+            belong_entry.setGroup_id(group_id);
             belong_entry.setNickname(self.getUsername());
             HistoryService.addMember2Group(belong_entry);
             //群发提醒消息
@@ -181,6 +182,7 @@ public class ServerController {
             userList = HistoryService.showAllMembers(group);
         }
         String result = "upGroupM#"+group_id+"#"+self.getId()+"#"+self.getUsername()+"#"+self.getAvatar();
+        CenterServer.sendToSpecificUser(self.getId(), "jgroup#200");
         CenterServer.send2Group(userList,result);
     }
 

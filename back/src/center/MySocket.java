@@ -22,6 +22,7 @@ public class MySocket {
         this.socket=socket;
         this.user=null;
     }
+
     public void setUser(User user){
         this.user=user;
     }
