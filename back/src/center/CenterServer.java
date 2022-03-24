@@ -66,7 +66,7 @@ public class CenterServer {
             //建立一个socket监听8080
             server = new ServerSocket(port);
             while (true) {
-                Socket socket = server.accept();
+                Socket socket = server.accept();//建立socket连接的官方做法就是accept()
                 MySocket mySocket = new MySocket(socket);
                 Mythread mythread = new Mythread(mySocket);
                 ThreadMornitor newThreadMornitor = new ThreadMornitor(mySocket,mythread);
@@ -114,6 +114,7 @@ public class CenterServer {
             isConnected=false;
         }
         public BufferedReader br;
+
         /**
          * 线程运行内容
          */

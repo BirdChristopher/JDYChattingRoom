@@ -14,6 +14,7 @@ import com.jdy.Client.data.user.User;
 import javafx.scene.image.Image;
 
 import java.io.*;
+import java.net.DatagramSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -51,6 +52,7 @@ public class DataManager {
         receiveThread.start();
         // 定时器线程，服务器端检测在线
         Timer timer = new Timer();
+        List<Integer> a = new ArrayList<>();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

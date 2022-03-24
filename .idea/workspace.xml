@@ -7,9 +7,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb6686b4-171b-41ae-b9d5-81e10a15f960" name="默认变更列表" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+    <list default="true" id="b9fd1a4f-ccb7-46a4-906b-3924838aded0" name="默认变更列表" comment="清楚了一些没用的import">
+      <change beforePath="$PROJECT_DIR$/.idea/JDYChattingRoom.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/JDYChattingRoom.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__de_jensd_fontawesomefx_8_9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_5_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_5_7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021_6_21_19_34_[默认变更列表]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021_6_21_19_34___.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/center/CenterServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/center/CenterServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/center/ThreadMornitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/center/ThreadMornitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jdy/Client/util/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jdy/Client/util/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/center/CenterServer$Mythread.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/center/CenterServer$Mythread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/center/CenterServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/center/CenterServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/center/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/center/ServerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/center/ThreadMornitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/center/ThreadMornitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/exception/MyException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/exception/MyException.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +54,7 @@
     </file-type-list>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1tXCNIAyT6z5CN4nD3YUhNnogC2" />
   <component name="ProjectViewState">
@@ -56,13 +69,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="D:/import-data-by-mybatis" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="项目" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.CenterServer">
     <configuration name="App" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.jdy.Client.App" />
       <module name="JDYChattingRoom" />
@@ -115,6 +130,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="scratch" type="Java Scratch" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="scratch" />
       <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
@@ -131,10 +157,6 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
-        <item itemvalue="Java Scratch.scratch" />
-        <item itemvalue="Application.ClientMain" />
-        <item itemvalue="Application.Client" />
         <item itemvalue="Application.CenterServer" />
       </list>
     </recent_temporary>
@@ -142,7 +164,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
-      <changelist id="cb6686b4-171b-41ae-b9d5-81e10a15f960" name="默认变更列表" comment="" />
+      <changelist id="b9fd1a4f-ccb7-46a4-906b-3924838aded0" name="默认变更列表" comment="清楚了一些没用的import" />
       <created>1622906006451</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -171,6 +193,23 @@
       <workItem from="1624257466203" duration="8172000" />
       <workItem from="1624273283811" duration="1567000" />
       <workItem from="1624274913940" duration="24000" />
+      <workItem from="1624772464389" duration="155000" />
+      <workItem from="1624869083268" duration="677000" />
+      <workItem from="1624933380995" duration="1385000" />
+      <workItem from="1625238433408" duration="5661000" />
+      <workItem from="1626488710747" duration="3064000" />
+      <workItem from="1626579484436" duration="701000" />
+      <workItem from="1626581004839" duration="560000" />
+      <workItem from="1626597766159" duration="907000" />
+      <workItem from="1639746064584" duration="7946000" />
+      <workItem from="1645286540619" duration="4930000" />
+      <workItem from="1645623896659" duration="2402000" />
+      <workItem from="1645963727248" duration="1188000" />
+      <workItem from="1646058170955" duration="857000" />
+      <workItem from="1646227087378" duration="1836000" />
+      <workItem from="1646359900925" duration="3304000" />
+      <workItem from="1647249313113" duration="1382000" />
+      <workItem from="1647485003556" duration="661000" />
     </task>
     <task id="LOCAL-00001" summary="添加了一些提示窗口">
       <created>1623395825430</created>
@@ -370,11 +409,41 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="5f693254-9b5a-46fd-8d29-c75e6d2980fd">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/11048/Desktop/JDYChattingRoom/src" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="5f693254-9b5a-46fd-8d29-c75e6d2980fd" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
@@ -394,22 +463,6 @@
     <MESSAGE value="优化了一点用户体验" />
     <MESSAGE value="清楚了一些没用的import" />
     <option name="LAST_COMMIT_MESSAGE" value="清楚了一些没用的import" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/back/src/center/CenterServer.java</url>
-          <line>144</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/back/src/center/CenterServer.java</url>
-          <line>153</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
